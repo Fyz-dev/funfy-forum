@@ -2,7 +2,7 @@
 
 import { Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { UseDisclosureReturn } from '@nextui-org/use-disclosure';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { Link } from '@nextui-org/link';
@@ -25,7 +25,14 @@ const Authorization: FC<AuthProps> = ({
   onOpenChange,
   mode = 'Login',
 }) => {
-  const { githubSignIn, googleSignIn } = UserAuth();
+  const {
+    githubSignIn,
+    googleSignIn,
+    emailAndPasswordSignIn,
+    createUserWithEmail,
+  } = UserAuth();
+
+  const [currentTab, setCurrentTab] = useState<ModeAuth>();
 
   const handlerGithub = async () => {
     await githubSignIn();
@@ -35,13 +42,22 @@ const Authorization: FC<AuthProps> = ({
     await googleSignIn();
   };
 
+  const handlerCreateUserWithEmail = async () => {};
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
       <ModalContent>
         {onClose => (
           <form>
             <ModalBody className=" mt-10">
-              <Tabs defaultSelectedKey={mode} fullWidth aria-label="Tabs form">
+              <Tabs
+                defaultSelectedKey={mode}
+                onSelectionChange={key => {
+                  setCurrentTab(key as ModeAuth);
+                }}
+                fullWidth
+                aria-label="Tabs form"
+              >
                 <Tab key="Login" title="Login">
                   <Login />
                 </Tab>
@@ -70,7 +86,14 @@ const Authorization: FC<AuthProps> = ({
               </div>
             </ModalBody>
             <ModalFooter className="justify-center">
-              <Button type="submit" fullWidth color="primary" onPress={onClose}>
+              <Button
+                type="submit"
+                fullWidth
+                color="primary"
+                onPress={() => {
+                  handlerCreateUserWithEmail();
+                }}
+              >
                 Login
               </Button>
             </ModalFooter>

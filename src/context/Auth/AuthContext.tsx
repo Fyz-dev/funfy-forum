@@ -6,6 +6,8 @@ import {
   onAuthStateChanged,
   signInWithRedirect,
   signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import {
   createContext,
@@ -22,6 +24,8 @@ type AuthContextPops = {
   user: User;
   googleSignIn: () => Promise<void>;
   githubSignIn: () => Promise<void>;
+  emailAndPasswordSignIn: (email: string, password: string) => Promise<any>;
+  createUserWithEmail: (email: string, password: string) => Promise<any>;
   logOut: () => Promise<void>;
 };
 
@@ -29,6 +33,8 @@ export const AuthContext = createContext<AuthContextPops>({
   user: null,
   googleSignIn: async () => {},
   githubSignIn: async () => {},
+  emailAndPasswordSignIn: async () => {},
+  createUserWithEmail: async () => {},
   logOut: async () => {},
 });
 
@@ -37,22 +43,31 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User>(null);
 
-  const googleSignIn = async (): Promise<void> => {
+  const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
   };
 
-  const githubSignIn = async (): Promise<void> => {
+  const githubSignIn = async () => {
     const provider = new GithubAuthProvider();
     signInWithRedirect(auth, provider);
   };
 
-  const logOut = async (): Promise<void> => {
+  const createUserWithEmail = async (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const emailAndPasswordSignIn = async (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logOut = async () => {
     signOut(auth);
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      console.log(currentUser);
       setUser(currentUser as User);
     });
 
@@ -60,7 +75,16 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, githubSignIn, logOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        googleSignIn,
+        githubSignIn,
+        emailAndPasswordSignIn,
+        createUserWithEmail,
+        logOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
