@@ -14,32 +14,36 @@ import { UserAuth } from 'src/context/Auth';
 import Login from './Login';
 import SignUp from './SignUp';
 
-export type ModeAuth = 'Login' | 'Sign-up';
+export enum EnumModeAuth {
+  LOGIN = 'Login',
+  SIGNUP = 'Sign up',
+}
+export type ModeAuth = EnumModeAuth;
 
 type AuthProps = Pick<UseDisclosureReturn, 'isOpen' | 'onOpenChange'> & {
-  mode?: ModeAuth;
+  mode?: EnumModeAuth;
 };
 
 const Authorization: FC<AuthProps> = ({
   isOpen,
   onOpenChange,
-  mode = 'Login',
+  mode = EnumModeAuth.LOGIN,
 }) => {
   const {
-    githubSignIn,
-    googleSignIn,
-    emailAndPasswordSignIn,
+    signInGithub,
+    signInGoogle,
+    signInEmailAndPassword,
     createUserWithEmail,
   } = UserAuth();
 
-  const [currentTab, setCurrentTab] = useState<ModeAuth>();
+  const [currentTab, setCurrentTab] = useState<ModeAuth>(mode);
 
   const handlerGithub = async () => {
-    await githubSignIn();
+    await signInGithub();
   };
 
   const handlerGoogle = async () => {
-    await googleSignIn();
+    await signInGoogle();
   };
 
   const handlerCreateUserWithEmail = async () => {};
@@ -58,13 +62,26 @@ const Authorization: FC<AuthProps> = ({
                 fullWidth
                 aria-label="Tabs form"
               >
-                <Tab key="Login" title="Login">
+                <Tab key={EnumModeAuth.LOGIN} title="Login">
                   <Login />
                 </Tab>
-                <Tab key="Sign-up" title="Sign up">
+                <Tab key={EnumModeAuth.SIGNUP} title="Sign up">
                   <SignUp />
                 </Tab>
               </Tabs>
+            </ModalBody>
+            <ModalFooter className="flex-col justify-center">
+              <Button
+                type="submit"
+                fullWidth
+                color="primary"
+                className="mb-6"
+                onPress={() => {
+                  handlerCreateUserWithEmail();
+                }}
+              >
+                {currentTab}
+              </Button>
               <div className="inline-flex justify-center gap-4">
                 <div className="w-6/12 self-center">
                   <Divider />
@@ -84,18 +101,6 @@ const Authorization: FC<AuthProps> = ({
                   <Github className="h-full w-min text-foreground-900" />
                 </Link>
               </div>
-            </ModalBody>
-            <ModalFooter className="justify-center">
-              <Button
-                type="submit"
-                fullWidth
-                color="primary"
-                onPress={() => {
-                  handlerCreateUserWithEmail();
-                }}
-              >
-                Login
-              </Button>
             </ModalFooter>
           </form>
         )}

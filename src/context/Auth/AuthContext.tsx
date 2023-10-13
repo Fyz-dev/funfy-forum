@@ -18,22 +18,25 @@ import {
   useState,
 } from 'react';
 import { auth } from '../../../firebase';
-import { User } from './Auth.type';
+import User from 'src/models/User';
+import { userService } from 'src/services/firebase';
+
+type UserAuthType = User | null;
 
 type AuthContextPops = {
-  user: User;
-  googleSignIn: () => Promise<void>;
-  githubSignIn: () => Promise<void>;
-  emailAndPasswordSignIn: (email: string, password: string) => Promise<any>;
-  createUserWithEmail: (email: string, password: string) => Promise<any>;
-  logOut: () => Promise<void>;
+  user: UserAuthType;
+  signInGoogle(): Promise<void>;
+  signInGithub(): Promise<void>;
+  signInEmailAndPassword(email: string, password: string): Promise<any>;
+  createUserWithEmail(email: string, password: string): Promise<any>;
+  logOut(): Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextPops>({
   user: null,
-  googleSignIn: async () => {},
-  githubSignIn: async () => {},
-  emailAndPasswordSignIn: async () => {},
+  signInGoogle: async () => {},
+  signInGithub: async () => {},
+  signInEmailAndPassword: async () => {},
   createUserWithEmail: async () => {},
   logOut: async () => {},
 });
@@ -41,46 +44,43 @@ export const AuthContext = createContext<AuthContextPops>({
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<UserAuthType>(null);
 
-  const googleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
-  };
+  const signInGoogle = async () =>
+    signInWithRedirect(auth, new GoogleAuthProvider());
 
-  const githubSignIn = async () => {
-    const provider = new GithubAuthProvider();
-    signInWithRedirect(auth, provider);
-  };
+  const signInGithub = async () =>
+    signInWithRedirect(auth, new GithubAuthProvider());
 
-  const createUserWithEmail = async (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+  const createUserWithEmail = async (email: string, password: string) =>
+    createUserWithEmailAndPassword(auth, email, password);
 
-  const emailAndPasswordSignIn = async (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
+  const signInEmailAndPassword = async (email: string, password: string) =>
+    signInWithEmailAndPassword(auth, email, password);
 
-  const logOut = async () => {
-    signOut(auth);
-  };
+  const logOut = async () => signOut(auth);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      console.log(currentUser);
-      setUser(currentUser as User);
+      if (currentUser !== null) {
+        const { uid, displayName, email, photoURL } = currentUser;
+        const user = new User(uid, displayName, email, photoURL);
+        setUser(user);
+      } else {
+        setUser(null);
+      }
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        googleSignIn,
-        githubSignIn,
-        emailAndPasswordSignIn,
+        signInGoogle,
+        signInGithub,
+        signInEmailAndPassword,
         createUserWithEmail,
         logOut,
       }}
