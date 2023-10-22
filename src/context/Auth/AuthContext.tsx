@@ -8,6 +8,8 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getRedirectResult,
+  sendEmailVerification,
 } from 'firebase/auth';
 import {
   createContext,
@@ -18,7 +20,7 @@ import {
   useState,
 } from 'react';
 import { auth } from '../../../firebase';
-import User from 'src/models/User';
+import { User } from 'src/models';
 import { userService } from 'src/services/firebase';
 
 type UserAuthType = User | null;
@@ -29,6 +31,7 @@ type AuthContextPops = {
   signInGithub(): Promise<void>;
   signInEmailAndPassword(email: string, password: string): Promise<any>;
   createUserWithEmail(email: string, password: string): Promise<any>;
+  sendEmailVerify(): Promise<void>;
   logOut(): Promise<void>;
 };
 
@@ -38,6 +41,7 @@ export const AuthContext = createContext<AuthContextPops>({
   signInGithub: async () => {},
   signInEmailAndPassword: async () => {},
   createUserWithEmail: async () => {},
+  sendEmailVerify: async () => {},
   logOut: async () => {},
 });
 
@@ -46,8 +50,9 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<UserAuthType>(null);
 
-  const signInGoogle = async () =>
+  const signInGoogle = async () => {
     signInWithRedirect(auth, new GoogleAuthProvider());
+  };
 
   const signInGithub = async () =>
     signInWithRedirect(auth, new GithubAuthProvider());
@@ -58,17 +63,32 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   const signInEmailAndPassword = async (email: string, password: string) =>
     signInWithEmailAndPassword(auth, email, password);
 
+  const sendEmailVerify = async () => {
+    if (auth.currentUser)
+      sendEmailVerification(auth.currentUser, {
+        url: 'https://funfy-forum.vercel.app/',
+      });
+  };
+
   const logOut = async () => signOut(auth);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       if (currentUser !== null) {
         const { uid, displayName, email, photoURL } = currentUser;
-        const user = new User(uid, displayName, email, photoURL);
-        setUser(user);
+        setUser(new User(uid, displayName, email, photoURL));
       } else {
         setUser(null);
       }
+    });
+
+    getRedirectResult(auth).then(value => {
+      console.log(`DEBUG LOG getRedirectResult ${value}`);
+
+      if (value === null) return;
+
+      const { uid, displayName, email, photoURL } = value.user;
+      userService.add(new User(uid, displayName, email, photoURL));
     });
 
     return () => unsubscribe();
@@ -82,6 +102,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
         signInGithub,
         signInEmailAndPassword,
         createUserWithEmail,
+        sendEmailVerify,
         logOut,
       }}
     >

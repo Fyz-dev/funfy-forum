@@ -1,4 +1,4 @@
-export default class User {
+export class User {
   readonly uid: string;
   readonly displayName: string | null;
   readonly email: string | null;

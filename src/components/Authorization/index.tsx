@@ -18,25 +18,27 @@ export enum EnumModeAuth {
   LOGIN = 'Login',
   SIGNUP = 'Sign up',
 }
+
 export type ModeAuth = EnumModeAuth;
 
 type AuthProps = Pick<UseDisclosureReturn, 'isOpen' | 'onOpenChange'> & {
-  mode?: EnumModeAuth;
+  mode: EnumModeAuth;
+  setMode(mode: EnumModeAuth): void;
 };
 
 const Authorization: FC<AuthProps> = ({
   isOpen,
   onOpenChange,
-  mode = EnumModeAuth.LOGIN,
+  mode,
+  setMode,
 }) => {
   const {
     signInGithub,
     signInGoogle,
     signInEmailAndPassword,
     createUserWithEmail,
+    sendEmailVerify,
   } = UserAuth();
-
-  const [currentTab, setCurrentTab] = useState<ModeAuth>(mode);
 
   const handlerGithub = async () => {
     await signInGithub();
@@ -46,18 +48,25 @@ const Authorization: FC<AuthProps> = ({
     await signInGoogle();
   };
 
-  const handlerCreateUserWithEmail = async () => {};
+  const handlerUserWithEmail = async () => {
+    // if (mode === EnumModeAuth.LOGIN) {
+    //   signInEmailAndPassword();
+    //   return;
+    // }
+    // await createUserWithEmail();
+    // sendEmailVerify();
+  };
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
       <ModalContent>
         {onClose => (
-          <form>
+          <form onSubmit={handlerUserWithEmail}>
             <ModalBody className=" mt-10">
               <Tabs
                 defaultSelectedKey={mode}
                 onSelectionChange={key => {
-                  setCurrentTab(key as ModeAuth);
+                  setMode(key as ModeAuth);
                 }}
                 fullWidth
                 aria-label="Tabs form"
@@ -71,16 +80,8 @@ const Authorization: FC<AuthProps> = ({
               </Tabs>
             </ModalBody>
             <ModalFooter className="flex-col justify-center">
-              <Button
-                type="submit"
-                fullWidth
-                color="primary"
-                className="mb-6"
-                onPress={() => {
-                  handlerCreateUserWithEmail();
-                }}
-              >
-                {currentTab}
+              <Button type="submit" fullWidth color="primary" className="mb-6">
+                {mode}
               </Button>
               <div className="inline-flex justify-center gap-4">
                 <div className="w-6/12 self-center">

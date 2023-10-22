@@ -17,6 +17,7 @@ import Authorization, {
 } from 'src/components/Authorization';
 import { UserAuth } from 'src/context/Auth';
 import HeaderUser from './HeaderUser';
+import Link from 'next/link';
 
 const Header: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -24,16 +25,22 @@ const Header: FC = () => {
   const { user } = UserAuth();
 
   const handlerAuth = (openMode: ModeAuth) => {
-    onOpen();
     if (openMode !== mode) setMode(openMode);
+    onOpen();
   };
 
   return (
-    <Navbar disableAnimation isBordered>
+    <Navbar
+      disableAnimation
+      isBordered
+      classNames={{ wrapper: 'max-w-[1920px]' }}
+    >
       <NavbarContent>
         <NavbarMenuToggle className="sm:hidden" />
         <NavbarBrand>
-          <p className="font-bold text-inherit">Funfy</p>
+          <Link href="/" className="font-bold text-inherit">
+            Funfy
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
@@ -70,6 +77,7 @@ const Header: FC = () => {
             <Authorization
               isOpen={isOpen}
               mode={mode}
+              setMode={setMode}
               onOpenChange={onOpenChange}
             />
           </>
