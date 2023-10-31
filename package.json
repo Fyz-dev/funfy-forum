@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "@nextui-org/react": "^2.1.13",
     "encoding": "^0.1.13",
     "firebase": "^10.4.0",
@@ -16,7 +17,9 @@
     "next": "latest",
     "next-themes": "^0.2.1",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-hook-form": "^7.47.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "latest",

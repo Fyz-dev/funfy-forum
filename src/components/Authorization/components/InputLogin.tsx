@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { Input } from '@nextui-org/input';
 import { MdEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import Input from 'src/components/ui/Input/Input';
 
-const Login: FC = () => {
+const InputSignUp: FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -12,14 +12,17 @@ const Login: FC = () => {
   return (
     <div className="flex flex-col gap-3">
       <Input
-        isRequired
-        endContent={<MdEmail />}
+        name="email"
         variant="bordered"
         type="email"
         label="Email"
+        endContent={<MdEmail />}
       />
       <Input
-        isRequired
+        name="password"
+        variant="bordered"
+        type={isVisible ? 'text' : 'password'}
+        label="Password"
         endContent={
           <button
             className="focus:outline-none"
@@ -29,12 +32,9 @@ const Login: FC = () => {
             {isVisible ? <MdVisibility /> : <MdVisibilityOff />}
           </button>
         }
-        variant="bordered"
-        type={isVisible ? 'text' : 'password'}
-        label="Password"
       />
     </div>
   );
 };
 
-export default Login;
+export default InputSignUp;
