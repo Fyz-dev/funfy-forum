@@ -56,7 +56,24 @@ const Authorization: FC<AuthProps> = ({
   };
 
   const handlerUserWithEmail = methods.handleSubmit(async data => {
-    console.log(data);
+    if (mode === EnumModeAuth.LOGIN) {
+      signInEmailAndPassword(data.email, data.password).catch(() =>
+        methods.setError('password', {
+          type: 'manual',
+          message: 'Invalid email or password',
+        }),
+      );
+      return;
+    }
+
+    createUserWithEmail(data.email, data.password)
+      .then(() => sendEmailVerify())
+      .catch(() =>
+        methods.setError('email', {
+          type: 'manual',
+          message: 'Mail is already in use',
+        }),
+      );
   });
 
   useEffect(() => methods.reset(), [methods, isOpen]);
