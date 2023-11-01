@@ -1,13 +1,13 @@
 import { FC } from 'react';
-import { Input } from '@nextui-org/input';
 import { MdPerson } from 'react-icons/md';
-import Login from './Login';
+import Login from './InputLogin';
+import Input from 'src/components/ui/Input/Input';
 
 const SignUp: FC = () => {
   return (
     <div className="flex flex-col gap-3">
       <Input
-        isRequired
+        name="name"
         endContent={<MdPerson />}
         variant="bordered"
         type="text"
