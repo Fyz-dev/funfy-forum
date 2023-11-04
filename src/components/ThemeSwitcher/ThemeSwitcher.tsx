@@ -1,7 +1,8 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useSwitch, VisuallyHidden, SwitchProps } from '@nextui-org/react';
+import { useTheme } from 'next-themes';
 import { BsSunFill as SunIcon, BsMoonFill as MoonIcon } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -14,12 +15,11 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
     getInputProps,
     getWrapperProps,
   } = useSwitch(props);
+  const { setTheme } = useTheme();
 
-  const animationProps = {
-    initial: { x: '-200%' },
-    animate: { x: 0 },
-    exit: { x: '200%' },
-  };
+  useEffect(() => {
+    setTheme(isSelected ? 'light' : 'dark');
+  }, [isSelected]);
 
   return (
     <div>
@@ -38,15 +38,14 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
           })}
         >
           <AnimatePresence mode="popLayout">
-            {isSelected ? (
-              <motion.div key="sun" {...animationProps}>
-                <SunIcon />
-              </motion.div>
-            ) : (
-              <motion.div key="moon" {...animationProps}>
-                <MoonIcon />
-              </motion.div>
-            )}
+            <motion.div
+              key={isSelected ? 'sun' : 'moon'}
+              initial={{ x: '-200%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '200%' }}
+            >
+              {isSelected ? <SunIcon /> : <MoonIcon />}
+            </motion.div>
           </AnimatePresence>
         </div>
       </Component>
