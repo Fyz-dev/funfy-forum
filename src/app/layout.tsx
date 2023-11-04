@@ -1,7 +1,7 @@
 import 'src/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Providers from './providers';
+import ThemeProviders from './themeProviders';
 import { ReactNode } from 'react';
 import Header from 'src/components/Header';
 import { AuthContextProvider } from 'src/context/Auth';
@@ -18,8 +18,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className="dark">
       <body className={inter.className}>
         <AuthContextProvider>
-          <Header />
-          <Providers>{children}</Providers>
+          <ThemeProviders>
+            <Header />
+            {children}
+          </ThemeProviders>
         </AuthContextProvider>
       </body>
     </html>
