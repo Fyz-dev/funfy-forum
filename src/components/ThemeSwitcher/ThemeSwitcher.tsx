@@ -3,8 +3,8 @@
 import { FC, useEffect } from 'react';
 import { useSwitch, VisuallyHidden, SwitchProps } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
-import { BsSunFill as SunIcon, BsMoonFill as MoonIcon } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
+import { MoonIcon, SunIcon } from 'src/assets/icons';
 
 const ThemeSwitcher: FC<SwitchProps> = props => {
   const {

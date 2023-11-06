@@ -3,6 +3,8 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
 } from '@nextui-org/navbar';
 import { FC } from 'react';
 import Link from 'next/link';
@@ -11,7 +13,8 @@ import ThemeSwitcher from 'src/components/ThemeSwitcher';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import { MdSearch as Search } from 'react-icons/md';
+import { dataHeader } from './data';
+import { Search } from 'src/assets/icons';
 
 const Header: FC = () => {
   return (
@@ -39,7 +42,7 @@ const Header: FC = () => {
       <NavbarContent justify="center" className="hidden w-[100%] px-20 sm:flex">
         <div className="inline-flex gap-5">
           <Link href="/" className="text-primary">
-            Home
+            <span>Home</span>
           </Link>
           <Link href="/">All</Link>
           <Link href="/">Popular</Link>
@@ -48,7 +51,7 @@ const Header: FC = () => {
           startContent={<Search />}
           variant="flat"
           placeholder="Find topic, or post"
-        ></Input>
+        />
         <Button color="primary">Create Post</Button>
       </NavbarContent>
 
@@ -56,6 +59,21 @@ const Header: FC = () => {
         <ThemeSwitcher />
         <UserLayout />
       </NavbarContent>
+
+      <NavbarMenu>
+        <NavbarMenuItem>
+          <Input
+            startContent={<Search />}
+            variant="flat"
+            placeholder="Find topic, or post"
+          />
+        </NavbarMenuItem>
+        {dataHeader.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link href="/">{item}</Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </Navbar>
   );
 };

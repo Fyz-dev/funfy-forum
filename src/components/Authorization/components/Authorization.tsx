@@ -8,8 +8,8 @@ import { Tab, Tabs } from '@nextui-org/tabs';
 import { Link } from '@nextui-org/link';
 import { Divider } from '@nextui-org/divider';
 
-import Google from 'src/assets/icons/Google';
-import Github from 'src/assets/icons/Github';
+import { Google, Github } from 'src/assets/icons';
+
 import { UserAuth } from 'src/context/Auth';
 import InputLogin from './InputLogin';
 import InputSignUp from './InputSignUp';

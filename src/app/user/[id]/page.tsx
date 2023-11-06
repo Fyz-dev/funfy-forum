@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
-import { UserAuth } from 'src/context/Auth';
 import { User } from 'src/models';
 import { userService } from 'src/services/firebase';
 

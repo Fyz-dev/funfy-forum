@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { MdEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { Email, VisibilityOn, VisibilityOff } from 'src/assets/icons';
 import Input from 'src/components/ui/Input/Input';
 
 const InputSignUp: FC = () => {
@@ -16,7 +16,7 @@ const InputSignUp: FC = () => {
         variant="bordered"
         type="email"
         label="Email"
-        endContent={<MdEmail />}
+        endContent={<Email />}
       />
       <Input
         name="password"
@@ -29,7 +29,7 @@ const InputSignUp: FC = () => {
             type="button"
             onClick={toggleVisibility}
           >
-            {isVisible ? <MdVisibility /> : <MdVisibilityOff />}
+            {isVisible ? <VisibilityOn /> : <VisibilityOff />}
           </button>
         }
       />
