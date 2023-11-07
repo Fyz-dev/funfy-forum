@@ -18,11 +18,7 @@ import { Search } from 'src/assets/icons';
 
 const Header: FC = () => {
   return (
-    <Navbar
-      disableAnimation
-      isBordered
-      classNames={{ wrapper: 'max-w-[1920px]' }}
-    >
+    <Navbar isBordered classNames={{ wrapper: 'max-w-[1920px]' }}>
       <NavbarContent justify="start">
         <NavbarMenuToggle className="sm:hidden" />
         <NavbarBrand>

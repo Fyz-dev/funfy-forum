@@ -64,7 +64,7 @@ const posts = [
 export default function Home() {
   return (
     <div className="flex justify-center">
-      <main className="flex max-w-[800px] flex-col items-center gap-5 overflow-y-auto p-5">
+      <main className="flex max-w-[800px] flex-col items-start gap-5 overflow-y-auto p-5">
         {posts.map((item, index) => {
           return (
             <Post

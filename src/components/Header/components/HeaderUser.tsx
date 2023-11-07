@@ -21,11 +21,9 @@ const HeaderUser: FC = () => {
 
   return (
     <Dropdown
-      showArrow
       radius="sm"
       classNames={{
-        base: 'p-0 border-small border-divider bg-background',
-        arrow: 'bg-default-200',
+        content: 'p-0 border-small border-divider bg-background',
       }}
     >
       <DropdownTrigger>
