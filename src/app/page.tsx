@@ -1,5 +1,6 @@
 import Post from 'src/components/Post/Post';
 import { posts } from './data';
+import { Timestamp } from 'firebase/firestore';
 
 export default function Home() {
   return (
@@ -14,6 +15,8 @@ export default function Home() {
               userName={item.user}
               title={item.title}
               content={item.content}
+              createdAt={Timestamp.now()}
+              vote={0}
             />
           );
         })}

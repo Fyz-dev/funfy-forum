@@ -8,7 +8,8 @@ import { SwitchButton } from 'src/components/User';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
 
 import { posts } from 'src/app/data';
-import UserCardPart from 'src/components/User/UserCardPart';
+import UserCardPart from 'src/components/User/UserCardHeader';
+import { Timestamp } from 'firebase/firestore';
 
 const getUser = async (id: string): Promise<User> => {
   try {
@@ -20,31 +21,29 @@ const getUser = async (id: string): Promise<User> => {
 
 const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
   const user = await getUser(params.id);
+
   return (
     <div className="m-0 flex justify-center gap-5 sm:m-5">
       <div className="flex flex-col gap-5">
-        <section>
-          <Card className="w-full rounded-none bg-transparent shadow-none sm:rounded-large sm:bg-content1 sm:shadow-medium">
-            <div className="block lg:hidden">
-              <UserCardPart
-                classNames={{
-                  header: 'rounded-none',
-                  body: '-mt-5 sm:mt-0 bg-background sm:bg-transparent rounded-t-3xl sm:rounded-large',
-                }}
-                displayName={user.displayName}
-                photoURL={user.photoURL}
-              />
-            </div>
-            <CardFooter className="flex-row">
-              <SwitchButton />
-              <DropDownFilter className="ml-auto" />
-            </CardFooter>
-          </Card>
-        </section>
+        <UserCardPart
+          classNames={{
+            wrapper: 'block lg:hidden',
+          }}
+          displayName={user.displayName}
+          photoURL={user.photoURL}
+          email=""
+        >
+          <CardFooter className="flex-row">
+            <SwitchButton />
+            <DropDownFilter className="ml-auto" />
+          </CardFooter>
+        </UserCardPart>
         <main className="mx-3 mb-5 flex max-w-[800px] flex-col items-start gap-5 sm:m-0">
           {posts.map((item, index) => {
             return (
               <Post
+                vote={0}
+                createdAt={Timestamp.now()}
                 key={index}
                 topic={item.topic}
                 topicPhotoURL={item.topicPhotoURL}
@@ -56,15 +55,14 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
           })}
         </main>
       </div>
-      <section className="hidden h-min w-80 min-w-[20rem] lg:block">
-        <Card>
-          <UserCardPart
-            classNames={{ body: 'pb-5 px-5' }}
-            displayName={user.displayName}
-            photoURL={user.photoURL}
-          />
-        </Card>
-      </section>
+      <UserCardPart
+        classNames={{
+          wrapperSection: 'hidden h-min w-80 min-w-[20rem] lg:block',
+        }}
+        displayName={user.displayName}
+        photoURL={user.photoURL}
+        email=""
+      />
     </div>
   );
 };
