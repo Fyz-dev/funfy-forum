@@ -33,7 +33,7 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
             class: [
               'h-8 w-8 overflow-hidden',
               'flex items-center justify-center',
-              'rounded-lg hover:bg-default-50',
+              'rounded-lg transition-all hover:bg-default-50',
             ],
           })}
         >

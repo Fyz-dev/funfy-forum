@@ -6,6 +6,7 @@ import { Textarea } from '@nextui-org/input';
 import Link from 'next/link';
 import Comment from 'src/components/Comment';
 import { Message, ArrowDown } from 'src/assets/icons';
+import DropDownFilter from 'src/components/ui/DropDownFilter';
 
 const infoComment = {
   user: 'Fyz4567890123',
@@ -18,18 +19,18 @@ const infoComment = {
 
 const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
   return (
-    <div className="mt-12 flex justify-center gap-5 xl:m-5">
+    <div className="mt-20 flex justify-center gap-5 xl:m-5">
       <main className="flex w-[1024px]">
-        <Card className="w-full overflow-visible rounded-none rounded-t-3xl p-1 md:p-3 xl:rounded-large">
-          <div className=" flex flex-col items-center self-center xl:hidden">
-            <Avatar
-              radius="full"
-              src="https://b.thumbs.redditmedia.com/8RJ1zsSxLbTrSrRAhziwMynfkWVcuFNMXPsLqtGct1o.png"
-              className=" -mt-10 h-14 w-14 "
-            />
-            <h3 className="text-2xl">Node.js</h3>
-          </div>
+        <Card className="-mt-5 w-full overflow-visible rounded-none rounded-t-3xl p-1 md:mt-0 xl:rounded-large">
           <CardHeader className="flex flex-col gap-3 pb-2">
+            <div className="flex flex-col items-center gap-2 self-center xl:hidden">
+              <Avatar
+                radius="full"
+                src="https://b.thumbs.redditmedia.com/8RJ1zsSxLbTrSrRAhziwMynfkWVcuFNMXPsLqtGct1o.png"
+                className="-mt-11 h-16 w-16"
+              />
+              <h3 className="text-xl">Node.js</h3>
+            </div>
             {/* Info author */}
             <div className="mr-auto inline-flex items-center gap-2">
               <Avatar
@@ -79,10 +80,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
           <CardFooter className="flex flex-col items-start gap-1">
             <div className="mr-auto flex items-center gap-1">
               <span className="text-small text-default-500">Sort by: </span>
-              <Button size="sm" radius="full" className="gap-1 bg-transparent">
-                <span>Best</span>
-                <ArrowDown />
-              </Button>
+              <DropDownFilter size="sm" />
             </div>
             <Textarea placeholder="Add a comment"></Textarea>
             <div>

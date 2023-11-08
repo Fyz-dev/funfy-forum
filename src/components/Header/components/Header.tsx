@@ -36,13 +36,6 @@ const Header: FC = () => {
       </NavbarContent>
 
       <NavbarContent justify="center" className="hidden w-[100%] px-20 sm:flex">
-        <div className="inline-flex gap-5">
-          <Link href="/" className="text-primary">
-            <span>Home</span>
-          </Link>
-          <Link href="/">All</Link>
-          <Link href="/">Popular</Link>
-        </div>
         <Input
           startContent={<Search />}
           variant="flat"
