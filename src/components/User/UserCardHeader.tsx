@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
-import { User } from 'src/models';
+import { User } from 'src/interface';
 import {
   MobileHeaderCard,
   MobileHeaderProps,

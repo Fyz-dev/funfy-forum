@@ -19,10 +19,10 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { User } from 'src/models';
+import { IUser } from 'src/interface';
 import { auth, userService } from 'src/services/firebase';
 
-type UserAuthType = User | null;
+type UserAuthType = IUser | null;
 
 type AuthContextPops = {
   user: UserAuthType;
@@ -73,21 +73,28 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      if (currentUser !== null) {
-        const { uid, displayName, email, photoURL } = currentUser;
-        setUser(new User(uid, displayName, email, photoURL));
-      } else {
+      if (currentUser === null) {
         setUser(null);
+        return;
       }
+
+      const { uid, displayName: name, email, photoURL } = currentUser;
+      if (email)
+        setUser({
+          uid,
+          name,
+          email,
+          photoURL,
+          isBlocked: false,
+        });
     });
 
     getRedirectResult(auth).then(value => {
-      console.log(`DEBUG LOG getRedirectResult ${value}`);
-
       if (value === null) return;
 
-      const { uid, displayName, email, photoURL } = value.user;
-      userService.add(new User(uid, displayName, email, photoURL));
+      const { uid, displayName: name, email, photoURL } = value.user;
+      if (email)
+        userService.add({ uid, name, email, photoURL, isBlocked: false });
     });
 
     return () => unsubscribe();

@@ -29,7 +29,7 @@ const HeaderUser: FC = () => {
       <DropdownTrigger>
         <Button color="primary" variant="light" className="p-0 text-foreground">
           <User
-            name={user?.displayName}
+            name={user?.name}
             avatarProps={{
               src: user?.photoURL ?? '',
               size: 'sm',
@@ -63,7 +63,7 @@ const HeaderUser: FC = () => {
             className="opacity-100"
           >
             <User
-              name={user?.displayName}
+              name={user?.name}
               avatarProps={{
                 src: user?.photoURL ?? '',
                 size: 'sm',

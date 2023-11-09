@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { FC } from 'react';
 import { Card, CardFooter } from '@nextui-org/card';
 import { Post } from 'src/components/Post';
-import { User } from 'src/models';
+import { User } from 'src/interface';
 import { userService } from 'src/services/firebase';
 import { SwitchButton } from 'src/components/User';
 import DropDownFilter from 'src/components/ui/DropDownFilter';

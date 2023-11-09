@@ -6,7 +6,7 @@ import { Avatar } from '@nextui-org/avatar';
 import { Message, Share } from 'src/assets/icons';
 import InfoTime from '../ui/InfoTime';
 import { RippleContainer } from '../ui/RippleContainer';
-import { IPost } from 'src/models/';
+import { IPost } from 'src/interface';
 
 const Post: FC<IPost> = ({
   topic,

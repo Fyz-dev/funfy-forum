@@ -6,37 +6,42 @@ import {
   getDoc,
   setDoc,
 } from 'firebase/firestore';
-import { User } from 'src/models';
+import { IUser } from 'src/interface';
 import { db } from '../config/firebase';
 
 const collectionName = 'users';
 
 const userConvertor = {
-  toFirestore(user: User): DocumentData {
-    return {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-    };
+  toFirestore(user: IUser): DocumentData {
+    const { uid, ...userSpread } = user;
+    return userSpread;
   },
   fromFirestore(
     snapshot: QueryDocumentSnapshot,
     options: SnapshotOptions,
-  ): User {
+  ): IUser {
     const data = snapshot.data(options);
-    return new User(snapshot.id, data.displayName, data.email, data.photoURL);
+    const { name, email, photoURL, isBlocked } = data;
+
+    return {
+      uid: snapshot.id,
+      name,
+      email,
+      photoURL,
+      isBlocked,
+    };
   },
 };
 
 class UserService {
-  async add(user: User): Promise<void> {
+  async add(user: IUser): Promise<void> {
     setDoc(
       doc(db, collectionName, user.uid).withConverter(userConvertor),
       user,
     );
   }
 
-  async getById(uid: string): Promise<User> {
+  async getById(uid: string): Promise<IUser> {
     const docSnap = await getDoc(
       doc(db, collectionName, uid).withConverter(userConvertor),
     );
