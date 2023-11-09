@@ -6,7 +6,7 @@ type InfoTimeProps = {
   dotClassName?: string;
 };
 
-const InfoTime: FC<InfoTimeProps> = ({ content, dotClassName }) => {
+const InfoTime: FC<InfoTimeProps> = ({ content, dotClassName = '' }) => {
   return (
     <div className="inline-flex items-center text-small text-default-400">
       <Dot className={dotClassName} />

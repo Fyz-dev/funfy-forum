@@ -7,7 +7,7 @@ export type ButtonVoteProps = {
   className?: string;
 };
 
-const ButtonVote: FC<ButtonVoteProps> = ({ voteCount, className }) => {
+const ButtonVote: FC<ButtonVoteProps> = ({ voteCount, className = '' }) => {
   const styleIcon = { style: { height: '1.5rem', width: '1.5rem' } };
 
   return (

@@ -10,7 +10,7 @@ type CommentProps = {
   avatarUser: string;
   content: string;
   children?: ReactElement | ReactElement[];
-} & ButtonVoteProps;
+} & Pick<ButtonVoteProps, 'voteCount'>;
 
 const Comment: FC<CommentProps> = ({
   userName,

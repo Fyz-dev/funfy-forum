@@ -7,7 +7,7 @@ interface DropDownFilterProps {
   size?: ButtonProps['size'];
 }
 
-const DropDownFilter: FC<DropDownFilterProps> = ({ className, size }) => {
+const DropDownFilter: FC<DropDownFilterProps> = ({ size, className = '' }) => {
   return (
     <Button
       size={size}

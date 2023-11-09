@@ -8,7 +8,7 @@ interface SwitchButtonProps {
   base?: string;
 }
 
-const SwitchButton: FC<SwitchButtonProps> = ({ tabList, base }) => {
+const SwitchButton: FC<SwitchButtonProps> = ({ tabList = '', base = '' }) => {
   return (
     <Tabs
       classNames={{ tabList: `${tabList}`, base: `${base}` }}

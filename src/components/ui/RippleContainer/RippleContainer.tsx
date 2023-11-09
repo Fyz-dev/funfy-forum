@@ -11,9 +11,9 @@ interface RippleContainerProps {
 }
 
 const RippleContainer: FC<RippleContainerProps> = ({
-  className,
   children,
   link,
+  className = '',
 }) => {
   const { onClick: ripple, onClear, ripples } = useRipple();
 
