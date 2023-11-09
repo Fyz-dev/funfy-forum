@@ -56,7 +56,12 @@ const HeaderUser: FC = () => {
         }}
       >
         <DropdownSection aria-label="Profile & Actions" showDivider>
-          <DropdownItem isReadOnly key="user" className="opacity-100">
+          <DropdownItem
+            isReadOnly
+            key="user"
+            textValue="user"
+            className="opacity-100"
+          >
             <User
               name={user?.displayName}
               avatarProps={{
@@ -65,15 +70,17 @@ const HeaderUser: FC = () => {
               }}
             />
           </DropdownItem>
-          <DropdownItem key="profile">
+          <DropdownItem key="profile" textValue="profile">
             <Link href={`/user/${user?.uid}`}>
               <div>Profile</div>
             </Link>
           </DropdownItem>
-          <DropdownItem key="settings">Settings</DropdownItem>
+          <DropdownItem key="settings" textValue="settings">
+            Settings
+          </DropdownItem>
         </DropdownSection>
         <DropdownSection aria-label="Help & Feedback">
-          <DropdownItem key="logout" onClick={logOut}>
+          <DropdownItem key="logout" textValue="logout" onClick={logOut}>
             <span className="text-danger">Log Out</span>
           </DropdownItem>
         </DropdownSection>

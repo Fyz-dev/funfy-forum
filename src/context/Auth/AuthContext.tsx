@@ -19,9 +19,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { auth } from '../../../firebase';
 import { User } from 'src/models';
-import { userService } from 'src/services/firebase';
+import { auth, userService } from 'src/services/firebase';
 
 type UserAuthType = User | null;
 

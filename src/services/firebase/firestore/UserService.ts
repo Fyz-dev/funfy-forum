@@ -7,7 +7,7 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { User } from 'src/models';
-import { db } from '../../../../firebase';
+import { db } from '../config/firebase';
 
 const collectionName = 'users';
 
