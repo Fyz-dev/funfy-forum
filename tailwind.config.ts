@@ -21,6 +21,12 @@ const config: Config = {
         dark: {
           layout: {},
           colors: {
+            // background: {
+            //   DEFAULT: '#111111',
+            // },
+            // content1: {
+            //   DEFAULT: '#1d1d1d',
+            // },
             primary: {
               DEFAULT: '#d91cc6',
               foreground: '#FFFFFF',

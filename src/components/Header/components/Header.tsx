@@ -2,6 +2,7 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
+  NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
@@ -14,11 +15,11 @@ import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { dataHeader } from './data';
-import { Search } from 'src/assets/icons';
+import { Create, Search } from 'src/assets/icons';
 
 const Header: FC = () => {
   return (
-    <Navbar isBordered classNames={{ wrapper: 'max-w-[1920px]' }}>
+    <Navbar isBordered classNames={{ wrapper: 'w-full max-w-none' }}>
       <NavbarContent justify="start">
         <NavbarMenuToggle className="sm:hidden" />
         <NavbarBrand>
@@ -35,16 +36,29 @@ const Header: FC = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent justify="center" className="hidden w-[100%] px-20 sm:flex">
-        <Input
-          startContent={<Search />}
-          variant="flat"
-          placeholder="Find topic, or post"
-        />
-        <Button color="primary">Create Post</Button>
+      <NavbarContent
+        justify="center"
+        className="hidden w-full p-40 md:flex md:p-20 "
+      >
+        <NavbarItem className="flex w-full flex-row items-center gap-2">
+          <Input
+            startContent={<Search />}
+            variant="flat"
+            placeholder="Find topic, or post"
+            size="sm"
+            radius="full"
+            fullWidth
+          />
+          <Button color="primary">Create Post</Button>
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-2">
+        <NavbarItem className="flex md:hidden">
+          <Button disableRipple isIconOnly variant="light" size="sm">
+            <Create className="h-4 w-4" />
+          </Button>
+        </NavbarItem>
         <ThemeSwitcher />
         <UserLayout />
       </NavbarContent>

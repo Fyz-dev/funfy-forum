@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/button';
 import { Textarea } from '@nextui-org/input';
 import Link from 'next/link';
 import Comment from 'src/components/Comment';
-import { Message, ArrowDown } from 'src/assets/icons';
+import { Message } from 'src/assets/icons';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 

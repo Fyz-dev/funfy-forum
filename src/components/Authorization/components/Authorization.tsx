@@ -7,15 +7,13 @@ import { UseDisclosureReturn } from '@nextui-org/use-disclosure';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { Link } from '@nextui-org/link';
 import { Divider } from '@nextui-org/divider';
-
-import { Google, Github } from 'src/assets/icons';
-
-import { UserAuth } from 'src/context/Auth';
-import InputLogin from './InputLogin';
-import InputSignUp from './InputSignUp';
 import { FormProvider, useForm } from 'react-hook-form';
 import { AuthSchemaType, AuthSchema } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Google, Github } from 'src/assets/icons';
+import { UserAuth } from 'src/context/Auth';
+import InputLogin from './InputLogin';
+import InputSignUp from './InputSignUp';
 
 export enum EnumModeAuth {
   LOGIN = 'Login',
@@ -92,7 +90,7 @@ const Authorization: FC<AuthProps> = ({
               e.preventDefault();
             }}
           >
-            <ModalBody className=" mt-10">
+            <ModalBody className="mt-10">
               <Tabs
                 defaultSelectedKey={mode}
                 onSelectionChange={key => {

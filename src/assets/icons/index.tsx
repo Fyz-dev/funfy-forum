@@ -18,4 +18,5 @@ export {
   MdSearch as Search,
   MdPerson as Person,
   MdOutlineArrowDropDown as ArrowDown,
+  MdCreate as Create,
 } from 'react-icons/md';
