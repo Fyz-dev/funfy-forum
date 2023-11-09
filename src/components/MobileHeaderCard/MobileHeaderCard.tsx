@@ -16,7 +16,7 @@ export interface MobileHeaderProps {
     header?: string;
     body?: string;
   };
-  mediaQuery?: 'sm' | 'lg';
+  mediaQuery: 'sm' | 'lg';
 }
 
 // На тот случай если нету photoURL
@@ -35,6 +35,17 @@ const WithAvatar: FC<Pick<MobileHeaderProps, 'photoURL'>> = ({ photoURL }) => {
   );
 };
 
+const mediaQueryClasses = {
+  sm: {
+    card: 'sm:rounded-large sm:bg-content1 sm:shadow-medium',
+    cardBody: 'sm:mt-0 sm:rounded-none sm:bg-content1',
+  },
+  lg: {
+    card: 'lg:rounded-large lg:bg-content1 lg:shadow-medium',
+    cardBody: 'lg:mt-0 lg:rounded-none lg:bg-content1',
+  },
+};
+
 const MobileHeaderCard: FC<MobileHeaderProps> = ({
   title,
   photoURL,
@@ -42,10 +53,10 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
   childrenCardHeader,
   childrenCardBody,
   children,
-  mediaQuery = 'sm',
+  mediaQuery,
 }) => {
-  const cardMediaQuery = `${mediaQuery}:rounded-large ${mediaQuery}:bg-content1 ${mediaQuery}:shadow-medium`;
-  const cardBodyMediaQuery = `${mediaQuery}:mt-0 ${mediaQuery}:rounded-large ${mediaQuery}:bg-transparent`;
+  const cardMediaQuery = mediaQueryClasses[mediaQuery].card;
+  const cardBodyMediaQuery = mediaQueryClasses[mediaQuery].cardBody;
 
   const card = getClassName(classNames?.card);
   const wrapperSection = getClassName(classNames?.wrapperSection);

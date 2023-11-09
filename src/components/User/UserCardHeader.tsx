@@ -24,12 +24,8 @@ const UserCardHeader: FC<UserCardPartProps> = ({
       <MobileHeaderCard
         title={displayName}
         photoURL={photoURL}
-        classNames={{
-          wrapper: classNames?.wrapper,
-          wrapperSection: classNames?.wrapperSection,
-          header: classNames?.header,
-          body: classNames?.body,
-        }}
+        classNames={classNames}
+        mediaQuery="sm"
         childrenCardHeader={
           <Button size="sm" className="text-small" radius="full" variant="flat">
             Edit
