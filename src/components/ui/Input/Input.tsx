@@ -1,15 +1,14 @@
-import { FC, ReactNode, useEffect } from 'react';
-import { Input as NextuiInput } from '@nextui-org/input';
+import { FC, useEffect } from 'react';
+import {
+  Input as NextuiInput,
+  InputProps as NextuiInputProps,
+} from '@nextui-org/input';
 import { useFormContext } from 'react-hook-form';
 import findInputError from './utils/findInputError';
 
 type InputProps = {
   name: string | undefined;
-  isRequired?: boolean;
-  label?: ReactNode;
-  variant: 'flat' | 'bordered' | 'faded' | 'underlined';
-  [x: string]: any;
-};
+} & NextuiInputProps;
 
 const Input: FC<InputProps> = ({
   name,
