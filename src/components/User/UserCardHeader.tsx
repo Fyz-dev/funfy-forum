@@ -1,19 +1,19 @@
 import { FC, ReactNode } from 'react';
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
-import { User } from 'src/interface';
+import { IUser } from 'src/interface';
 import {
   MobileHeaderCard,
   MobileHeaderProps,
 } from 'src/components/MobileHeaderCard';
 
-type UserCardPartProps = Omit<User, 'uid'> &
+type UserCardPartProps = Omit<IUser, 'uid'> &
   Pick<MobileHeaderProps, 'classNames'> & {
     children?: ReactNode;
   };
 
 const UserCardHeader: FC<UserCardPartProps> = ({
-  displayName,
+  name,
   email,
   photoURL,
   children,
@@ -22,7 +22,7 @@ const UserCardHeader: FC<UserCardPartProps> = ({
   return (
     <>
       <MobileHeaderCard
-        title={displayName}
+        title={name}
         photoURL={photoURL}
         classNames={classNames}
         mediaQuery="sm"

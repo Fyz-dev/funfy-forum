@@ -1,4 +1,4 @@
-import { IUser, IVote } from '.';
+import { IUser } from '.';
 import { ITimestamps } from './ITimestamps';
 import { ITopic } from './ITopic';
 

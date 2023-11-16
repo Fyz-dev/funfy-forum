@@ -27,7 +27,11 @@ const HeaderUser: FC = () => {
       }}
     >
       <DropdownTrigger>
-        <Button color="primary" variant="light" className="p-0 text-foreground">
+        <Button
+          color="primary"
+          variant="light"
+          className="hidden p-0 text-foreground sm:block"
+        >
           <User
             name={user?.name}
             avatarProps={{
