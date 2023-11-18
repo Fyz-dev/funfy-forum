@@ -30,7 +30,7 @@ const HeaderUser: FC = () => {
         <Button
           color="primary"
           variant="light"
-          className="hidden p-0 text-foreground sm:block"
+          className="hidden p-0 text-foreground sm:flex"
         >
           <User
             name={user?.name}
