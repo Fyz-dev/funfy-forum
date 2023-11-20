@@ -49,7 +49,10 @@ const Header: FC = () => {
             radius="full"
             fullWidth
           />
-          <Button color="primary">Create Post</Button>
+
+          <Button href="/post/create/" color="primary" as={Link}>
+            Create Post
+          </Button>
         </NavbarItem>
       </NavbarContent>
 

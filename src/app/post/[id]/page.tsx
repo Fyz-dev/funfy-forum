@@ -31,8 +31,8 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
             wrapperSection: 'block lg:hidden',
           }}
         />
-        <main className="max-w-[1024px]">
-          <Card className="w-full rounded-none p-1 shadow-none lg:rounded-large">
+        <main className="max-w-page">
+          <Card className="w-full rounded-none p-1 shadow-none lg:rounded-large lg:shadow-medium">
             <CardHeader className="flex flex-col gap-3 pb-2">
               {/* Info author */}
               <div className="mr-auto inline-flex items-center gap-2">
@@ -58,7 +58,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
               </h1>
             </CardHeader>
             {/* Main content post */}
-            <CardBody className="gap-4 p-3 pb-0 text-default-500">
+            <CardBody className="gap-4 pb-0 text-default-500">
               <p>
                 We have a Node v14 Express based application (hosted in AWS)
                 which makes a REST based call to another service hosted in AWS.

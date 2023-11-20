@@ -9,6 +9,14 @@ const config: Config = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class',
+  theme: {
+    extend: {
+      maxWidth: {
+        page: '1024px',
+        smpage: '800px',
+      },
+    },
+  },
   plugins: [
     nextui({
       prefix: 'nextui', // prefix for themes variables

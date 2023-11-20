@@ -64,6 +64,8 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
   const header = getClassName(classNames?.header);
   const body = getClassName(classNames?.body);
 
+  console.log(title);
+
   return (
     <section slot="wrapperSection" className={wrapperSection}>
       <Card
@@ -82,7 +84,7 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
             className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
           >
             <WithAvatar photoURL={photoURL} />
-            <h6 className="text-xl">{title}</h6>
+            <h6 className="text-large">{title}</h6>
             {childrenCardBody}
           </CardBody>
         </div>
