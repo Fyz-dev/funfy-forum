@@ -64,8 +64,6 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
   const header = getClassName(classNames?.header);
   const body = getClassName(classNames?.body);
 
-  console.log(title);
-
   return (
     <section slot="wrapperSection" className={wrapperSection}>
       <Card

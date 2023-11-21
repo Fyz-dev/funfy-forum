@@ -1,0 +1,11 @@
+.editor {
+  --baseBg: transparent;
+  --baseBgActive: transparent;
+  --baseTextContrast: hsl(
+    var(--nextui-foreground) /
+      var(--nextui-foreground-opacity, var(--tw-text-opacity))
+  );
+}
+.cm-editor {
+  background-color: red;
+}

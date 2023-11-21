@@ -8,6 +8,7 @@ import Comment from 'src/components/Comment';
 import { Message } from 'src/assets/icons';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
+import TopicCard from 'src/components/TopicCard/TopicCard';
 
 const infoComment = {
   user: 'Fyz4567890123',
@@ -127,32 +128,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
 
       {/* Информация о топике*/}
       <section className="hidden items-center lg:flex">
-        <Card className="w-80 self-start">
-          <CardHeader>
-            <div className="mr-auto inline-flex items-center gap-2">
-              <Avatar
-                radius="full"
-                size="sm"
-                src="https://b.thumbs.redditmedia.com/8RJ1zsSxLbTrSrRAhziwMynfkWVcuFNMXPsLqtGct1o.png"
-              />
-              <h1>Node.js</h1>
-            </div>
-            <Button radius="full" className="self-end" color="primary">
-              Join
-            </Button>
-          </CardHeader>
-          <CardBody className="overflow-hidden p-3 py-0 text-small text-default-400">
-            <p className="text-left">
-              A community for discussing anything related to the React UI
-              framework and its ecosystem. Join the Reactiflux Discord
-              (reactiflux.com) for additional React discussion and help.
-            </p>
-          </CardBody>
-          <CardFooter className="flex flex-col items-start text-small text-default-400">
-            <span className="text-foreground">367K</span>
-            <span>Members</span>
-          </CardFooter>
-        </Card>
+        <TopicCard />
       </section>
     </div>
   );
