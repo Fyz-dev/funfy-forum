@@ -85,11 +85,7 @@ const Authorization: FC<AuthProps> = ({
     >
       <ModalContent>
         <FormProvider {...methods}>
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-            }}
-          >
+          <form onSubmit={handlerUserWithEmail} noValidate>
             <ModalBody className="mt-10">
               <Tabs
                 defaultSelectedKey={mode}
@@ -109,13 +105,7 @@ const Authorization: FC<AuthProps> = ({
               </Tabs>
             </ModalBody>
             <ModalFooter className="flex-col justify-center">
-              <Button
-                type="submit"
-                fullWidth
-                color="primary"
-                className="mb-6"
-                onClick={handlerUserWithEmail}
-              >
+              <Button type="submit" fullWidth color="primary" className="mb-6">
                 {mode}
               </Button>
               <div className="inline-flex justify-center gap-4">
