@@ -1,0 +1,83 @@
+.mdx-editor {
+  --baseBg: transparent;
+  --baseBgActive: transparent;
+
+  --baseTextContrast: hsl(
+    var(--nextui-foreground) /
+      var(--nextui-foreground-opacity, var(--tw-text-opacity))
+  );
+
+  --baseText: hsl(
+    var(--nextui-foreground) /
+      var(--nextui-foreground-opacity, var(--tw-text-opacity))
+  );
+
+  --basePageBg: hsl(
+    var(--nextui-default-100) / var(--nextui-default-100-opacity, 360)
+  );
+
+  /* Выделение */
+  --focus-cursor: hsl(
+    var(--nextui-default) /
+      var(--nextui-default-opacity, var(--tw-text-opacity))
+  );
+  --focus-cursor-selectionMatch: hsl(
+    var(--nextui-default-500) /
+      var(--nextui-default-500-opacity, var(--tw-text-opacity))
+  );
+}
+
+/* Блок кода */
+.sp-pristine {
+  background-color: var(--tw-prose-pre-bg);
+  border: none;
+}
+
+.mdxeditor .sp-wrapper {
+  border: none;
+}
+
+.cm-editor,
+.ͼo .cm-activeLineGutter,
+.ͼ2 .cm-activeLineGutter,
+.ͼo .cm-activeLine,
+.ͼ2 .cm-activeLine,
+.cm-activeLineGutter {
+  background-color: transparent;
+  color: hsl(
+    var(--nextui-foreground) /
+      var(--nextui-foreground-opacity, var(--tw-text-opacity))
+  );
+}
+
+.ͼo .cm-gutters {
+  color: hsl(
+    var(--nextui-foreground) /
+      var(--nextui-foreground-opacity, var(--tw-text-opacity))
+  );
+}
+
+/* Выделение */
+.ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+  background-color: var(--focus-cursor);
+}
+
+.ͼo.cm-focused .cm-selectionBackground,
+.ͼo .cm-selectionBackground,
+.ͼo .cm-content ::selection {
+  background-color: var(--focus-cursor);
+}
+
+.ͼo.cm-focused .cm-selectionBackground,
+.ͼo .cm-selectionBackground,
+.ͼo .cm-content ::selection {
+  background-color: var(--focus-cursor);
+}
+
+.ͼo .cm-selectionMatch {
+  background-color: var(--focus-cursor-selectionMatch);
+}
+
+.ͼ2 .cm-selectionBackground {
+  background-color: var(--focus-cursor);
+}

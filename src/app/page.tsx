@@ -5,7 +5,7 @@ import { Timestamp } from 'firebase/firestore';
 export default function Home() {
   return (
     <div className="m-3 flex justify-center sm:m-5">
-      <main className="max-w-smpage flex flex-col items-start gap-3 sm:gap-5">
+      <main className="flex max-w-smpage flex-col items-start gap-3 sm:gap-5">
         {posts.map((item, index) => {
           return (
             <Post

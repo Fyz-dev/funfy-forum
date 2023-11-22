@@ -1,5 +1,3 @@
-'use client';
-
 import { FC } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
@@ -9,11 +7,12 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import { Autocomplete } from '@nextui-org/autocomplete';
 import { Search } from 'src/assets/icons';
 import { MDXEditor } from 'src/components/MDXEditor';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const CreatePage: FC = () => {
   return (
     <div className="m-5 flex justify-center gap-5">
-      <main className=" flex w-full max-w-page justify-center">
+      <main className="flex w-full max-w-page justify-center">
         <Card className="w-full p-1">
           <CardHeader>
             <h1 className="mr-auto">Create a post</h1>
@@ -21,6 +20,15 @@ const CreatePage: FC = () => {
           <CardBody className="flex gap-3">
             <Input variant="bordered" placeholder="Add a title..."></Input>
             <MDXEditor markdown="Hello" placeholder="Add a desription..." />
+            <div className="prose dark:prose-invert">
+              <MDXRemote
+                source={`\`\`\`js
+export default function App() {
+  return (<div>Hello world</div>)
+}
+\`\`\``}
+              ></MDXRemote>
+            </div>
             <Checkbox name="isNSFW" color="danger">
               Is NSFW
             </Checkbox>

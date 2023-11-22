@@ -12,23 +12,44 @@ import {
   BlockTypeSelect,
   DiffSourceToggleWrapper,
   diffSourcePlugin,
+  codeBlockPlugin,
+  InsertCodeBlock,
+  codeMirrorPlugin,
+  CodeMirrorEditor,
 } from '@mdxeditor/editor';
 import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo';
 import { BoldItalicUnderlineToggles } from '@mdxeditor/editor/plugins/toolbar/components/BoldItalicUnderlineToggles';
 import '@mdxeditor/editor/style.css';
-import styles from './MDXEditor.module.css';
+import './MDXEditor.css';
 
 const InitializedMDXEditor = ({ ...props }: MDXEditorProps) => {
   return (
-    <div className="overflow-hidden rounded-medium border-2 border-default-200 focus-within:border-foreground">
+    <div className="overflow-hidden rounded-medium border-2 border-default-200 transition-all focus-within:border-foreground">
       <MDXEditorOriginal
         autoFocus
-        className={styles.editor}
-        contentEditableClassName="!text-foreground-500 !focus:border-default-500"
+        className="mdx-editor"
+        contentEditableClassName="!text-foreground !focus:border-default-500 prose dark:prose-invert"
         plugins={[
-          headingsPlugin(),
+          headingsPlugin({
+            allowedHeadingLevels: [1, 2, 3, 4],
+          }),
           listsPlugin(),
           quotePlugin(),
+          codeBlockPlugin({
+            defaultCodeBlockLanguage: 'text',
+            codeBlockEditorDescriptors: [
+              {
+                priority: 100,
+                match: () => true,
+                Editor: CodeMirrorEditor,
+              },
+            ],
+          }),
+          codeMirrorPlugin({
+            codeBlockLanguages: {
+              text: 'text',
+            },
+          }),
           thematicBreakPlugin(),
           markdownShortcutPlugin(),
           diffSourcePlugin(),
@@ -38,6 +59,7 @@ const InitializedMDXEditor = ({ ...props }: MDXEditorProps) => {
                 <DiffSourceToggleWrapper>
                   <UndoRedo />
                   <BoldItalicUnderlineToggles />
+                  <InsertCodeBlock />
                   <BlockTypeSelect />
                 </DiffSourceToggleWrapper>
               </>
