@@ -7,19 +7,19 @@ import Link from 'next/link';
 interface RippleContainerProps {
   className?: string;
   children: ReactNode;
-  link?: string;
+  href?: string;
 }
 
 const RippleContainer: FC<RippleContainerProps> = ({
   children,
-  link,
+  href,
   className = '',
 }) => {
   const { onClick: ripple, onClear, ripples } = useRipple();
 
   return (
     <Link
-      href={link ? link : '#'}
+      href={href ? href : '#'}
       // Закругление берем с Card компонента
       className={`relative overflow-hidden rounded-large ${className}`}
       onClick={(e: MouseEvent<HTMLAnchorElement>) => {
