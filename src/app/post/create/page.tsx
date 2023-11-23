@@ -7,7 +7,6 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import { Autocomplete } from '@nextui-org/autocomplete';
 import { Search } from 'src/assets/icons';
 import { MDXEditor } from 'src/components/MDXEditor';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const markdownContent: string = `
 # Welcome
@@ -93,9 +92,6 @@ const CreatePage: FC = () => {
               markdown={markdownContent}
               placeholder="Add a desription..."
             />
-            <div className="prose max-w-none dark:prose-invert">
-              <MDXRemote source={markdownContent} />
-            </div>
             <Checkbox name="isNSFW" color="danger">
               Is NSFW
             </Checkbox>

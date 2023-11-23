@@ -5,7 +5,7 @@
       var(--nextui-foreground-500-opacity, var(--tw-text-opacity))
   );
 
-  --foregound-contrast: hsl(
+  --foreground-contrast: hsl(
     var(--nextui-foreground) /
       var(--nextui-foreground-opacity, var(--tw-text-opacity))
   );
@@ -18,7 +18,7 @@
   --baseBg: transparent;
 
   --baseBgActive: transparent;
-  --baseTextContrast: var(--foregound-contrast);
+  --baseTextContrast: var(--foreground-contrast);
   --baseText: var(--foreground);
   --baseBase: var(--separator);
   --baseBorder: var(--separator);
@@ -78,11 +78,10 @@
 .ͼ2 .cm-activeLine,
 .cm-activeLineGutter {
   background-color: transparent;
-  color: var(--foregound-contrast);
 }
 
 .ͼo .cm-gutters {
-  color: var(--foregound-contrast);
+  color: var(--foreground-contrast);
 }
 /* ------------------------------------------------- */
 
