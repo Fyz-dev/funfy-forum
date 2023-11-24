@@ -10,5 +10,6 @@ export interface IPost {
   imageURL: string;
   content: string;
   isNSFW: boolean;
+  commentCount: number;
   timestamp: ITimestamps;
 }

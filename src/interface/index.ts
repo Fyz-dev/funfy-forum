@@ -5,3 +5,4 @@ export * from './IVote';
 export * from './IComment';
 export * from './IComments';
 export * from './ITimestamps';
+export * from './IPosts';

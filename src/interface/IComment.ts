@@ -5,7 +5,8 @@ import { ITimestamps } from './ITimestamps';
 export interface IComment {
   id: string;
   user: IUser;
-  postID: string;
+  postID?: string;
+  content: string;
   childComment: IComments;
   timestamp: ITimestamps;
 }
