@@ -22,11 +22,11 @@ export const posts: IPosts = [
     id: 'post2',
     user: users[0],
     topic: topics[1],
-    title:
-      'Praesent ornare sed urna sed bibendum. Phasellus aliquam venenatis lectus, vel sollicitudin massa ornare vel. Nulla vitae risus tortor. Mauris nec tortor pretium, ultrices ex vitae, imperdiet orci. In faucibus egestas condimentum. Sed id lobortis erat, nec ornare metus. Nulla sed est vel lacus fringilla maximus et a leo. Duis sed sem aliquam purus vehicula tempus. Integer quis tincidunt ex. Nunc sed turpis semper, venenatis eros ultricies, tristique eros. Sed eu neque a magna hendrerit imperdiet. Vestibulum et neque lacus. Morbi finibus mauris sed ante mollis, at sollicitudin est blandit. Etiam gravida maximus ante, eget varius tellus imperdiet vel. Phasellus eu enim at nulla imperdiet scelerisque sed vel mauris. Nulla auctor tortor feugiat dignissim finibus. Quisque vitae felis dui. Nulla eu orci non magna vestibulum bibendum molestie quis dui. In quis commodo magna. In in aliquet neque, a rutrum mauris. Nulla tincidunt, sem eu pellentesque posuere, est purus vestibulum urna, nec mattis purus sapien in odio. Aenean tincidunt ex a urna varius dictum. Vestibulum quis augue risus. Aenean hendrerit eleifend leo nec vestibulum. Vestibulum eleifend augue id lacus auctor, a posuere risus convallis. Praesent libero massa, vulputate in mattis a, dignissim ultricies lorem.',
+    title: 'Praesent ornare sed urna sed bibendum. ',
     imageURL:
       'https://upload.wikimedia.org/wikipedia/commons/b/b6/Mount_Everest_as_seen_from_Drukair2_PLW_edit_Cropped.jpg',
-    content: 'Content for Post Two',
+    content:
+      'Content for Post Two Phasellus aliquam venenatis lectus, vel sollicitudin massa ornare vel. Nulla vitae risus tortor. Mauris nec tortor pretium, ultrices ex vitae, imperdiet orci. In faucibus egestas condimentum. Sed id lobortis erat, nec ornare metus. Nulla sed est vel lacus fringilla maximus et a leo. Duis sed sem aliquam purus vehicula tempus. Integer quis tincidunt ex. Nunc sed turpis semper, venenatis eros ultricies, tristique eros. Sed eu neque a magna hendrerit imperdiet. Vestibulum et neque lacus. Morbi finibus mauris sed ante mollis, at sollicitudin est blandit. Etiam gravida maximus ante, eget varius tellus imperdiet vel. Phasellus eu enim at nulla imperdiet scelerisque sed vel mauris. Nulla auctor tortor feugiat dignissim finibus. Quisque vitae felis dui. Nulla eu orci non magna vestibulum bibendum molestie quis dui. In quis commodo magna. In in aliquet neque, a rutrum mauris. Nulla tincidunt, sem eu pellentesque posuere, est purus vestibulum urna, nec mattis purus sapien in odio. Aenean tincidunt ex a urna varius dictum. Vestibulum quis augue risus. Aenean hendrerit eleifend leo nec vestibulum. Vestibulum eleifend augue id lacus auctor, a posuere risus convallis. Praesent libero massa, vulputate in mattis a, dignissim ultricies lorem.',
     isNSFW: false,
     commentCount: 5,
     timestamp: {

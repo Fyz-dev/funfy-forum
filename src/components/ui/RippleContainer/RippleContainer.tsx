@@ -21,7 +21,7 @@ const RippleContainer: FC<RippleContainerProps> = ({
     <Link
       href={href ? href : '#'}
       // Закругление берем с Card компонента
-      className={`relative overflow-hidden rounded-large ${className}`}
+      className={`relative w-full overflow-hidden rounded-large ${className}`}
       onClick={(e: MouseEvent<HTMLAnchorElement>) => {
         ripple(e);
       }}
