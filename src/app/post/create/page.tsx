@@ -7,6 +7,7 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import { Autocomplete } from '@nextui-org/autocomplete';
 import { Search } from 'src/assets/icons';
 import { MDXEditor } from 'src/components/MDXEditor';
+import { TagSwitch } from 'src/components/ui/TagSwitch';
 
 const markdownContent: string = `
 # Welcome
@@ -84,6 +85,7 @@ const CreatePage: FC = () => {
         <Card className="w-full p-1">
           <CardHeader>
             <h1 className="mr-auto">Create a post</h1>
+            <TagSwitch text="NSFW" />
           </CardHeader>
           <CardBody className="flex gap-3">
             <Input variant="bordered" placeholder="Add a title..."></Input>
@@ -92,9 +94,6 @@ const CreatePage: FC = () => {
               markdown={markdownContent}
               placeholder="Add a desription..."
             />
-            <Checkbox name="isNSFW" color="danger">
-              Is NSFW
-            </Checkbox>
           </CardBody>
           <CardFooter>
             <div className="ml-auto flex gap-2">

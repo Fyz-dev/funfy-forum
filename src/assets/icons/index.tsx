@@ -3,7 +3,12 @@ export { default as Github } from './Github';
 export { default as Facebook } from './Facebook';
 
 // Иконки из react-icons
-export { FaMessage as Message, FaShare as Share } from 'react-icons/fa6';
+export {
+  FaMessage as Message,
+  FaShare as Share,
+  FaCheck as Check,
+  FaPlus as Plus,
+} from 'react-icons/fa6';
 export {
   BsSunFill as SunIcon,
   BsMoonFill as MoonIcon,
