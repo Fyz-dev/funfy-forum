@@ -20,7 +20,7 @@ import {
   useState,
 } from 'react';
 import { IUser } from 'src/interface';
-import { auth, userService } from 'src/services/firebase';
+import { auth, userService } from 'src/api/services/firebase';
 
 type UserAuthType = IUser | null;
 
