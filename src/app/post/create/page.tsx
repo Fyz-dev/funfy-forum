@@ -80,14 +80,15 @@ you can navigate the cells with \`enter\`, \`shift+enter\`, \`tab\` and \`shift+
 
 const CreatePage: FC = () => {
   return (
-    <div className="m-5 flex justify-center gap-5 overflow-auto">
-      <main className="flex w-full max-w-page justify-center overflow-auto">
-        <Card className="w-full overflow-auto p-1">
+    <div className="m-5 flex justify-center gap-5">
+      {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
+      <main className="-m-10 box-content flex w-full max-w-page justify-center overflow-auto p-10">
+        <Card className="relative w-full p-1">
           <CardHeader>
             <h1 className="mr-auto">Create a post</h1>
             <TagSwitch text="NSFW" />
           </CardHeader>
-          <CardBody className="flex gap-3 overflow-auto">
+          <CardBody className="flex gap-3 ">
             <Input variant="bordered" placeholder="Add a title..."></Input>
             <MDXEditor
               diffMarkdown={markdownContent}
@@ -107,7 +108,7 @@ const CreatePage: FC = () => {
           </CardFooter>
         </Card>
       </main>
-      <section className="flex w-80 flex-col gap-5">
+      <section className="flex w-80 shrink-0 flex-col gap-5">
         <Autocomplete
           startContent={<Search />}
           inputProps={{

@@ -13,7 +13,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
 
   return (
     <Card className="w-full">
-      <RippleContainer href="post/1">
+      <RippleContainer href={`post/${post.id}`}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-3 pb-1">
           <div className="mr-auto flex h-5 items-center justify-start gap-3">
             <Avatar radius="full" size="sm" src={post.topic.photoURL ?? ''} />

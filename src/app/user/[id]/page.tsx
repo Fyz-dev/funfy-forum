@@ -1,14 +1,11 @@
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
-import { Card, CardFooter } from '@nextui-org/card';
-import { Post } from 'src/components/Post';
-import { userService } from 'src/services/firebase';
+import { CardFooter } from '@nextui-org/card';
+import { userService } from 'src/api/services/firebase';
 import { SwitchButton } from 'src/components/User';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
 
-import { posts } from 'src/app/data';
 import UserCardPart from 'src/components/User/UserCardHeader';
-import { Timestamp } from 'firebase/firestore';
 import { IUser } from 'src/interface';
 
 const getUser = async (id: string): Promise<IUser> => {
@@ -39,7 +36,7 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
           </CardFooter>
         </UserCardPart>
         <main className="mx-3 mb-5 flex max-w-smpage flex-col items-start gap-5 sm:m-0">
-          {posts.map((item, index) => {
+          {/* {posts.map((item, index) => {
             return (
               <Post
                 vote={0}
@@ -52,7 +49,7 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
                 content={item.content}
               />
             );
-          })}
+          })} */}
         </main>
       </div>
       <UserCardPart
