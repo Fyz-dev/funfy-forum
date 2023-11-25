@@ -80,14 +80,14 @@ you can navigate the cells with \`enter\`, \`shift+enter\`, \`tab\` and \`shift+
 
 const CreatePage: FC = () => {
   return (
-    <div className="m-5 flex justify-center gap-5">
-      <main className="flex w-full max-w-page justify-center">
-        <Card className="w-full p-1">
+    <div className="m-5 flex justify-center gap-5 overflow-auto">
+      <main className="flex w-full max-w-page justify-center overflow-auto">
+        <Card className="w-full overflow-auto p-1">
           <CardHeader>
             <h1 className="mr-auto">Create a post</h1>
             <TagSwitch text="NSFW" />
           </CardHeader>
-          <CardBody className="flex gap-3">
+          <CardBody className="flex gap-3 overflow-auto">
             <Input variant="bordered" placeholder="Add a title..."></Input>
             <MDXEditor
               diffMarkdown={markdownContent}

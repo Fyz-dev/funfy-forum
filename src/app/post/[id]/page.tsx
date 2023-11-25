@@ -9,6 +9,7 @@ import { Message } from 'src/assets/icons';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
+import { MDXEditor } from 'src/components/MDXEditor';
 
 const infoComment = {
   user: 'Fyz4567890123',
@@ -21,8 +22,8 @@ const infoComment = {
 
 const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
   return (
-    <div className="m-0 flex justify-center gap-5 lg:m-5">
-      <div className="flex flex-col">
+    <div className="m-0 flex justify-center gap-5 overflow-auto lg:m-5">
+      <div className="flex flex-col overflow-auto">
         <MobileHeaderCard
           title="Node.js"
           mediaQuery="lg"
@@ -33,7 +34,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
           }}
         />
         <main className="max-w-page">
-          <Card className="w-full rounded-none p-1 shadow-none lg:rounded-large lg:shadow-medium">
+          <Card className="w-full overflow-auto rounded-none p-1 shadow-none lg:rounded-large lg:shadow-medium">
             <CardHeader className="flex flex-col gap-3 pb-2">
               {/* Info author */}
               <div className="mr-auto inline-flex items-center gap-2">
@@ -59,7 +60,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
               </h1>
             </CardHeader>
             {/* Main content post */}
-            <CardBody className="gap-4 pb-0 text-default-500">
+            <CardBody className="gap-4 overflow-auto pb-0 text-default-500">
               <p>
                 We have a Node v14 Express based application (hosted in AWS)
                 which makes a REST based call to another service hosted in AWS.
@@ -86,7 +87,9 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params }) => {
                 <span className="text-small text-default-500">Sort by: </span>
                 <DropDownFilter size="sm" />
               </div>
-              <Textarea placeholder="Add a comment"></Textarea>
+              <div className="mb-4 flex w-full flex-col overflow-hidden">
+                <MDXEditor markdown="" placeholder="Add a comment..." />
+              </div>
               <div>
                 <Comment
                   userName={infoComment.user}
