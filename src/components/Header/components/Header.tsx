@@ -58,7 +58,14 @@ const Header: FC = () => {
 
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem className="flex md:hidden">
-          <Button disableRipple isIconOnly variant="light" size="sm">
+          <Button
+            as={Link}
+            href="/post/create/"
+            disableRipple
+            isIconOnly
+            variant="light"
+            size="sm"
+          >
             <Create className="h-4 w-4" />
           </Button>
         </NavbarItem>
