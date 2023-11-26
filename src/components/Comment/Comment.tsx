@@ -3,8 +3,9 @@ import { FC, ReactElement } from 'react';
 import { Button } from '@nextui-org/button';
 import InfoTime from '../ui/InfoTime';
 import { Message } from 'src/assets/icons';
-import ButtonVote, { ButtonVoteProps } from './components/ButtonVote';
+import ButtonVote from './components/ButtonVote';
 import { IComment } from 'src/interface';
+import Link from 'next/link';
 
 type CommentProps = {
   comment: IComment;
@@ -16,9 +17,16 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
     <div className="flex flex-col ">
       <div className="inline-flex items-center gap-1">
         <div className="inline-flex items-center gap-3">
-          <Avatar radius="full" size="md" src={comment.user.photoURL || ''} />
+          <Link href={`/user/${comment.user.uid}`}>
+            <Avatar radius="full" size="md" src={comment.user.photoURL || ''} />
+          </Link>
           <div className="inline-flex flex-col items-start gap-0 text-small sm:flex-row sm:items-center sm:gap-1 sm:text-medium">
-            <span>{comment.user.name}</span>
+            <Link
+              className="transition-colors hover:text-primary"
+              href={`/user/${comment.user.uid}`}
+            >
+              {comment.user.name}
+            </Link>
             <InfoTime dotClassName="hidden sm:block" content="10 hr. ago" />
           </div>
         </div>

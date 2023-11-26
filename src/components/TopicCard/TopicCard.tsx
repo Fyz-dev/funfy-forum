@@ -3,6 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
 import { Avatar } from '@nextui-org/avatar';
 import { ITopic } from 'src/interface';
+import Link from 'next/link';
 
 interface ITopicCard {
   topic: ITopic;
@@ -12,7 +13,10 @@ const TopicCard: FC<ITopicCard> = ({ topic }) => {
   return (
     <Card className="w-80 self-start">
       <CardHeader>
-        <div className="mr-auto inline-flex items-center gap-2 overflow-hidden">
+        <Link
+          href={`/topic/${topic.id}`}
+          className="mr-auto inline-flex items-center gap-2 overflow-hidden transition-colors hover:text-primary"
+        >
           <Avatar
             radius="full"
             size="sm"
@@ -23,7 +27,7 @@ const TopicCard: FC<ITopicCard> = ({ topic }) => {
           <h1 className="overflow-hidden text-ellipsis whitespace-nowrap">
             {topic.title}
           </h1>
-        </div>
+        </Link>
         {/* <Button radius="full" className="self-end" color="primary">
           Join
         </Button> */}

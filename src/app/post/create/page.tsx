@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import { Checkbox } from '@nextui-org/checkbox';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import { Autocomplete } from '@nextui-org/autocomplete';
 import { Search } from 'src/assets/icons';
@@ -119,7 +118,7 @@ const CreatePage: FC = () => {
         >
           {}
         </Autocomplete>
-        <TopicCard />
+        {/* <TopicCard topic={} /> */}
       </section>
     </div>
   );

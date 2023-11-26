@@ -45,6 +45,8 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
               {/* Info author */}
               <div className="mr-auto inline-flex items-center gap-2">
                 <Avatar
+                  href={`/user/${post.user.uid}`}
+                  as={Link}
                   radius="full"
                   size="md"
                   src={post.user.photoURL || ''}
@@ -85,6 +87,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                 <MDXEditor markdown="" placeholder="Add a comment..." />
               </div>
               {/* Comments */}
+              <a href="#comments" />
               <div>
                 <Comments comments={comments} />
               </div>

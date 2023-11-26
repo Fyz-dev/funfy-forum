@@ -24,7 +24,7 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
 
   return (
     <div className="m-0 flex justify-center gap-5 sm:m-5">
-      <div className="flex flex-col gap-5">
+      <div className="flex w-full max-w-smpage flex-col gap-5">
         <UserCardPart
           classNames={{
             wrapper: 'block lg:hidden',
@@ -36,7 +36,7 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
             <DropDownFilter className="ml-auto" />
           </CardFooter>
         </UserCardPart>
-        <main className="x-3 mb-5 flex max-w-smpage flex-col items-start gap-5 sm:m-0">
+        <main className="x-3 mb-5 flex w-full flex-col items-start gap-5 sm:m-0">
           {posts
             ? posts.map(item => {
                 return <Post key={item.id} post={item} />;

@@ -34,13 +34,13 @@ export const users: IUser[] = [
   },
   {
     uid: 'user3',
-    name: 'Anna Johnson',
+    name: 'Raffaello',
     userDetails: {
       description:
-        'Passionate about photography and travel. Enjoys capturing moments from around the world. Connect with me on Instagram and LinkedIn!',
-      socialNetwork: ['Instagram', 'LinkedIn'],
+        'Passionate about photography and travel. Enjoys capturing moments from around the world.',
+      socialNetwork: ['Discord', 'Telegram'],
     },
-    email: 'anna.johnson@example.com',
+    email: 'raffaello@example.com',
     photoURL:
       'https://timeweb.com/ru/community/article/43/4372a42395939b59d7e234e6042983f8.jpg',
     isBlocked: false,
