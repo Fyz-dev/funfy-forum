@@ -53,7 +53,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                   <h2>
                     Posted by{' '}
                     <Link
-                      href={`user/${post.user.uid}`}
+                      href={`/user/${post.user.uid}`}
                       className="text-primary"
                     >
                       {post.user.name}
