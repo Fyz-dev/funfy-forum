@@ -1,6 +1,6 @@
 import { IPost, IPosts } from 'src/interface';
 import { IPostService } from '../services/InterfaceServices';
-import PostService from '../services/mock/PostService';
+import { PostService } from '../services/mock';
 
 interface IPostController extends IPostService {}
 

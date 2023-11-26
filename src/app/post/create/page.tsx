@@ -2,11 +2,9 @@ import { FC } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import TopicCard from 'src/components/TopicCard/TopicCard';
-import { Autocomplete } from '@nextui-org/autocomplete';
-import { Search } from 'src/assets/icons';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { TagSwitch } from 'src/components/ui/TagSwitch';
+import { SearchTopic } from 'src/components/SearchTopic';
 
 const markdownContent: string = `
 # Welcome
@@ -108,16 +106,7 @@ const CreatePage: FC = () => {
         </Card>
       </main>
       <section className="flex w-80 shrink-0 flex-col gap-5">
-        <Autocomplete
-          startContent={<Search />}
-          inputProps={{
-            classNames: { inputWrapper: 'bg-content1 shadow-medium' },
-          }}
-          label="Choose a community"
-          placeholder="Search community"
-        >
-          {}
-        </Autocomplete>
+        <SearchTopic />
         {/* <TopicCard topic={} /> */}
       </section>
     </div>

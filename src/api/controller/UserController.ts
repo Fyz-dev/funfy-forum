@@ -1,6 +1,6 @@
 import { IUser } from 'src/interface';
 import { IUserService } from '../services/InterfaceServices';
-import UserService from '../services/mock/UserService';
+import { UserService } from '../services/mock';
 
 interface IUserController extends IUserService {}
 

@@ -1,4 +1,4 @@
-import { IComments, IPost, IPosts, IUser } from 'src/interface';
+import { IComments, IPost, IPosts, ITopic, IUser } from 'src/interface';
 
 export interface IPostService {
   getAll(): Promise<IPosts>;
@@ -12,4 +12,8 @@ export interface ICommentService {
 
 export interface IUserService {
   getById(id: string): Promise<IUser>;
+}
+
+export interface ITopicService {
+  getByTitle(name: string): Promise<ITopic[]>;
 }
