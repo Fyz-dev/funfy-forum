@@ -71,6 +71,7 @@ const InitializedMDXEditor = ({
                   <UndoRedo />
                   <Separator />
                   <BoldItalicUnderlineToggles />
+                  <Separator />
                   <ListsToggle />
                   <Separator />
                   <BlockTypeSelect />
