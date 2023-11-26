@@ -13,7 +13,8 @@ const SearchTopic: FC = () => {
     async load({ filterText }) {
       if (!filterText) return { items: [] };
 
-      let topics = await topicController.getByTitle(filterText);
+      const topics = await topicController.getByTitle(filterText);
+
       return {
         items: topics,
       };
