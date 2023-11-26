@@ -26,7 +26,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   return (
     <div className="m-0 flex justify-center gap-5 lg:m-5">
       {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
-      <div className="-m-10 box-content flex w-full max-w-page flex-col overflow-auto p-10">
+      <div className="box-content flex w-full max-w-page flex-col overflow-auto lg:-m-10 lg:p-10">
         <MobileHeaderCard
           title={post.topic.title}
           mediaQuery="lg"
