@@ -2,7 +2,7 @@ import postController from 'src/api/controller/PostController';
 import { Post } from 'src/components/Post';
 
 export default async function Home() {
-  const posts = await postController.getAllPosts();
+  const posts = await postController.getAll();
 
   return (
     <div className="m-3 flex justify-center sm:m-5">

@@ -11,12 +11,16 @@ class PostController implements IPostController {
     this.postService = postService;
   }
 
-  async getAllPosts(): Promise<IPosts> {
-    return this.postService.getAllPosts();
+  async getAll(): Promise<IPosts> {
+    return this.postService.getAll();
   }
 
-  getPostById(id: string): Promise<IPost> {
-    return this.postService.getPostById(id);
+  getById(id: string): Promise<IPost> {
+    return this.postService.getById(id);
+  }
+
+  getByUser(id: string): Promise<IPosts | undefined> {
+    return this.postService.getByUser(id);
   }
 }
 

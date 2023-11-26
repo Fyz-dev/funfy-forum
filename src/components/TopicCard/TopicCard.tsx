@@ -2,33 +2,38 @@ import { FC } from 'react';
 import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
 import { Avatar } from '@nextui-org/avatar';
+import { ITopic } from 'src/interface';
 
-const TopicCard: FC = () => {
+interface ITopicCard {
+  topic: ITopic;
+}
+
+const TopicCard: FC<ITopicCard> = ({ topic }) => {
   return (
     <Card className="w-80 self-start">
       <CardHeader>
-        <div className="mr-auto inline-flex items-center gap-2">
+        <div className="mr-auto inline-flex items-center gap-2 overflow-hidden">
           <Avatar
             radius="full"
             size="sm"
-            src="https://b.thumbs.redditmedia.com/8RJ1zsSxLbTrSrRAhziwMynfkWVcuFNMXPsLqtGct1o.png"
+            src={topic.photoURL || ''}
+            className="min-w-max"
+            classNames={{ img: 'max-w-[2rem]' }}
           />
-          <h1>Node.js</h1>
+          <h1 className="overflow-hidden text-ellipsis whitespace-nowrap">
+            {topic.title}
+          </h1>
         </div>
-        <Button radius="full" className="self-end" color="primary">
+        {/* <Button radius="full" className="self-end" color="primary">
           Join
-        </Button>
+        </Button> */}
       </CardHeader>
       <CardBody className="overflow-hidden p-3 py-0 text-small text-default-400">
-        <p className="text-left">
-          A community for discussing anything related to the React UI framework
-          and its ecosystem. Join the Reactiflux Discord (reactiflux.com) for
-          additional React discussion and help.
-        </p>
+        <p className="text-left">{topic.description}</p>
       </CardBody>
       <CardFooter className="flex flex-col items-start text-small text-default-400">
-        <span className="text-foreground">367K</span>
-        <span>Members</span>
+        {/* <span className="text-foreground">367K</span>
+        <span>Members</span> */}
       </CardFooter>
     </Card>
   );

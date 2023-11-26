@@ -2,10 +2,10 @@ import { IUser } from 'src/interface/';
 
 export const users: IUser[] = [
   {
-    uid: 'user1',
+    uid: '95Mj61BfGVeY87mYXidwm1baC8p2',
     name: 'Vlad',
     userDetails: {
-      description: 'Description for User One',
+      description: 'The creator of this site, and a programming enthusiast',
       socialNetwork: [
         'Twitter',
         'Instagram',
@@ -23,7 +23,8 @@ export const users: IUser[] = [
     uid: 'user2',
     name: 'Nikita S',
     userDetails: {
-      description: 'Description for User Two',
+      description:
+        'This is the best friend and part-time brother of the creator of this site',
       socialNetwork: ['Facebook', 'LinkedIn', 'Telegram'],
     },
     email: 'user2@example.com',

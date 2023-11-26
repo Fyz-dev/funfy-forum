@@ -7,23 +7,21 @@ import {
   MobileHeaderProps,
 } from 'src/components/MobileHeaderCard';
 
-type UserCardPartProps = Omit<IUser, 'uid'> &
-  Pick<MobileHeaderProps, 'classNames'> & {
-    children?: ReactNode;
-  };
+type UserCardPartProps = Pick<MobileHeaderProps, 'classNames'> & {
+  user: IUser;
+  children?: ReactNode;
+};
 
 const UserCardHeader: FC<UserCardPartProps> = ({
-  name,
-  email,
-  photoURL,
+  user,
   children,
   classNames,
 }) => {
   return (
     <>
       <MobileHeaderCard
-        title={name}
-        photoURL={photoURL}
+        title={user.name}
+        photoURL={user.photoURL}
         classNames={classNames}
         mediaQuery="sm"
         childrenCardHeader={
@@ -33,14 +31,14 @@ const UserCardHeader: FC<UserCardPartProps> = ({
         }
         childrenCardBody={
           <>
-            <div className="flex flex-row gap-1">
-              <Chip variant="flat">Github</Chip>
-              <Chip variant="flat">Reddit</Chip>
-              <Chip variant="flat">Telegram</Chip>
+            <div className="flex flex-row flex-wrap justify-center gap-1 gap-y-2">
+              {user.userDetails.socialNetwork.map((social, key) => (
+                <Chip key={key} variant="flat">
+                  {social}
+                </Chip>
+              ))}
             </div>
-            <p className="self-start">
-              The creator of this site, and a programming enthusiast
-            </p>
+            <p className="self-start">{user.userDetails.description}</p>
           </>
         }
       >

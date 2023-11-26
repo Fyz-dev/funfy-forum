@@ -82,7 +82,7 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
             className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
           >
             <WithAvatar photoURL={photoURL} />
-            <h6 className="text-large">{title}</h6>
+            <h6 className="text-center text-large">{title}</h6>
             {childrenCardBody}
           </CardBody>
         </div>

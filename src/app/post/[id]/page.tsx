@@ -11,10 +11,12 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import { MDXEditor } from 'src/components/MDXEditor';
 import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
+import Comments from 'src/components/Comments/Comments';
+import commentController from 'src/api/controller/CommentController';
 
 const getPost = async (id: string) => {
   try {
-    return await postController.getPostById(id);
+    return await postController.getById(id);
   } catch (error) {
     notFound();
   }
@@ -22,6 +24,7 @@ const getPost = async (id: string) => {
 
 const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
   const post = await getPost(id);
+  const comments = await commentController.getByPost(post.id);
 
   return (
     <div className="m-0 flex justify-center gap-5 lg:m-5">
@@ -44,7 +47,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                 <Avatar
                   radius="full"
                   size="md"
-                  src="https://instasize.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fmunkee%2Fimage%2Fupload%2Fv1684429920%2Finstasize-website%2Flearn%2Favatar-robot-discord.webp&w=828&q=75"
+                  src={post.user.photoURL || ''}
                 />
                 <div className="text-small text-default-500">
                   <h2>
@@ -82,7 +85,9 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                 <MDXEditor markdown="" placeholder="Add a comment..." />
               </div>
               {/* Comments */}
-              <div></div>
+              <div>
+                <Comments comments={comments} />
+              </div>
             </CardFooter>
           </Card>
         </main>
@@ -90,7 +95,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
 
       {/* Информация о топике*/}
       <section className="hidden items-center lg:flex">
-        <TopicCard />
+        <TopicCard topic={post.topic} />
       </section>
     </div>
   );
