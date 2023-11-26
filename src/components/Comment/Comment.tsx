@@ -4,39 +4,38 @@ import { Button } from '@nextui-org/button';
 import InfoTime from '../ui/InfoTime';
 import { Message } from 'src/assets/icons';
 import ButtonVote, { ButtonVoteProps } from './components/ButtonVote';
+import { IComment } from 'src/interface';
 
 type CommentProps = {
-  userName: string;
-  avatarUser: string;
-  content: string;
+  comment: IComment;
   children?: ReactElement | ReactElement[];
-} & Pick<ButtonVoteProps, 'voteCount'>;
+};
 
-const Comment: FC<CommentProps> = ({
-  userName,
-  avatarUser,
-  voteCount,
-  content,
-  children,
-}) => {
+const Comment: FC<CommentProps> = ({ comment, children }) => {
   return (
     <div className="flex flex-col ">
       <div className="inline-flex items-center gap-1">
         <div className="inline-flex items-center gap-3">
-          <Avatar radius="full" size="md" src={avatarUser} />
+          <Avatar radius="full" size="md" src={comment.user.photoURL || ''} />
           <div className="inline-flex flex-col items-start gap-0 text-small sm:flex-row sm:items-center sm:gap-1 sm:text-medium">
-            <span>{userName}</span>
+            <span>{comment.user.name}</span>
             <InfoTime dotClassName="hidden sm:block" content="10 hr. ago" />
           </div>
         </div>
-        <ButtonVote className="ml-auto hidden md:flex" voteCount={voteCount} />
+        <ButtonVote
+          className="ml-auto hidden md:flex"
+          voteCount={comment.voteCount}
+        />
       </div>
       <div className="ml-5 flex flex-col gap-1 border-l-[1px] border-default-400">
         <div className="ml-8 text-small">
-          <p>{content}</p>
+          <p>{comment.content}</p>
         </div>
         <div className="ml-8 inline-flex">
-          <ButtonVote className="flex md:hidden" voteCount={voteCount} />
+          <ButtonVote
+            className="flex md:hidden"
+            voteCount={comment.voteCount}
+          />
           <Button
             radius="full"
             className="bg-transparent p-0 text-default-600 hover:bg-default-100"
