@@ -31,8 +31,8 @@ const SearchTopic: FC = () => {
       inputProps={{
         classNames: { inputWrapper: 'bg-content1 shadow-medium' },
       }}
-      label="Choose a community"
-      placeholder="Search community"
+      label="Choose a topic"
+      placeholder="Search topic"
       onInputChange={setFilterText}
       onSelectionChange={() => console.log('tets')}
     >

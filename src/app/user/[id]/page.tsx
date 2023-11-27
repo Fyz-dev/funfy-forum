@@ -36,7 +36,7 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
             <DropDownFilter className="ml-auto" />
           </CardFooter>
         </UserCardPart>
-        <main className="x-3 mb-5 flex w-full flex-col items-start gap-5 sm:m-0">
+        <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
           {posts
             ? posts.map(item => {
                 return <Post key={item.id} post={item} />;
