@@ -5,6 +5,7 @@ export { default as Facebook } from './Facebook';
 // Иконки из react-icons
 export {
   FaMessage as Message,
+  FaComments as Comments,
   FaShare as Share,
   FaCheck as Check,
   FaPlus as Plus,

@@ -17,11 +17,14 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-3 pb-1">
           <div className="mr-auto flex h-5 items-center justify-start gap-3">
             <Avatar radius="full" size="sm" src={post.topic.photoURL ?? ''} />
-            <div className="inline-flex items-center">
-              <h2 className="flex text-small font-semibold leading-none text-default-600">
+            <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
+              <h2 className="mr-auto flex text-small font-semibold leading-none text-default-600">
                 {post.topic.title}
               </h2>
-              <InfoTime content={`Posted by ${post.user.name} 15 hr. ago`} />
+              <InfoTime
+                dotClassName="sm:block hidden"
+                content={`Posted by ${post.user.name} 15 hr. ago`}
+              />
             </div>
           </div>
           <h1 className="mr-auto text-left">{post.title}</h1>

@@ -8,7 +8,11 @@ import { ITopic } from 'src/interface';
 import useAsyncList from 'src/hooks/useAsyncList';
 import TopicCard from '../TopicCard/TopicCard';
 
-const SearchTopic: FC = () => {
+interface ISearchTopic {
+  className?: string;
+}
+
+const SearchTopic: FC<ISearchTopic> = ({ className = '' }) => {
   const [topic, setTopic] = useState<ITopic | undefined>(undefined);
 
   const { data, filterText, isLoading, setFilterText } = useAsyncList<ITopic>({
@@ -22,7 +26,7 @@ const SearchTopic: FC = () => {
   });
 
   return (
-    <div className="flex flex-col gap-5">
+    <div slot="wrapper" className={`flex flex-col gap-5 ${className}`}>
       <Autocomplete
         className="max-w-xs"
         inputValue={filterText}
