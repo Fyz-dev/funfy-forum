@@ -1,23 +1,20 @@
 'use client';
 
 import { FC } from 'react';
-
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
-import { useAsyncList } from '@react-stately/data';
 import { Search } from 'src/assets/icons';
 import topicController from 'src/api/controller/TopicController';
 import { ITopic } from 'src/interface';
+import useAsyncList from 'src/hooks/useAsyncList';
 
 const SearchTopic: FC = () => {
-  const { filterText, isLoading, items, setFilterText } = useAsyncList<ITopic>({
-    async load({ filterText }) {
-      if (!filterText) return { items: [] };
+  const { data, filterText, isLoading, setFilterText } = useAsyncList<ITopic>({
+    async load(filterText) {
+      if (!filterText) return topicController.getByTitle('');
 
       const topics = await topicController.getByTitle(filterText);
 
-      return {
-        items: topics,
-      };
+      return topics;
     },
   });
 
@@ -26,7 +23,7 @@ const SearchTopic: FC = () => {
       className="max-w-xs"
       inputValue={filterText}
       isLoading={isLoading}
-      items={items}
+      items={data}
       startContent={<Search />}
       inputProps={{
         classNames: { inputWrapper: 'bg-content1 shadow-medium' },

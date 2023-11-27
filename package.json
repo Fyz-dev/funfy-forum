@@ -12,7 +12,6 @@
     "@hookform/resolvers": "^3.3.2",
     "@mdxeditor/editor": "^1.10.1",
     "@nextui-org/react": "^2.2.5",
-    "@react-stately/data": "^3.11.0",
     "@tailwindcss/typography": "^0.5.10",
     "encoding": "^0.1.13",
     "firebase": "^10.4.0",

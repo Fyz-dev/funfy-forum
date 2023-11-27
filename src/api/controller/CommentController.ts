@@ -11,7 +11,7 @@ class CommentController implements ICommentController {
     this.commentService = commentService;
   }
 
-  getByPost(id: string): Promise<IComments> {
+  async getByPost(id: string): Promise<IComments> {
     return this.commentService.getByPost(id);
   }
 }

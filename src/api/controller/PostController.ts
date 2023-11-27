@@ -15,11 +15,11 @@ class PostController implements IPostController {
     return this.postService.getAll();
   }
 
-  getById(id: string): Promise<IPost> {
+  async getById(id: string): Promise<IPost> {
     return this.postService.getById(id);
   }
 
-  getByUser(id: string): Promise<IPosts | undefined> {
+  async getByUser(id: string): Promise<IPosts | undefined> {
     return this.postService.getByUser(id);
   }
 }

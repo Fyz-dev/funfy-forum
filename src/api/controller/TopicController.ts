@@ -11,7 +11,7 @@ class TopicController implements ITopicController {
     this.topicService = topicService;
   }
 
-  getByTitle(name: string): Promise<ITopic[]> {
+  async getByTitle(name: string): Promise<ITopic[]> {
     return this.topicService.getByTitle(name);
   }
 }

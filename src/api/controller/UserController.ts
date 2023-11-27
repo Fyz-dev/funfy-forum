@@ -11,7 +11,7 @@ class UserController implements IUserController {
     this.userService = userService;
   }
 
-  getById(id: string): Promise<IUser> {
+  async getById(id: string): Promise<IUser> {
     return this.userService.getById(id);
   }
 }
