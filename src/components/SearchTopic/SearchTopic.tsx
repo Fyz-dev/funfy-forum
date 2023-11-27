@@ -1,13 +1,16 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { Search } from 'src/assets/icons';
 import topicController from 'src/api/controller/TopicController';
 import { ITopic } from 'src/interface';
 import useAsyncList from 'src/hooks/useAsyncList';
+import TopicCard from '../TopicCard/TopicCard';
 
 const SearchTopic: FC = () => {
+  const [topic, setTopic] = useState<ITopic | undefined>(undefined);
+
   const { data, filterText, isLoading, setFilterText } = useAsyncList<ITopic>({
     async load(filterText) {
       if (!filterText) return topicController.getByTitle('');
@@ -19,26 +22,32 @@ const SearchTopic: FC = () => {
   });
 
   return (
-    <Autocomplete
-      className="max-w-xs"
-      inputValue={filterText}
-      isLoading={isLoading}
-      items={data}
-      startContent={<Search />}
-      inputProps={{
-        classNames: { inputWrapper: 'bg-content1 shadow-medium' },
-      }}
-      label="Choose a topic"
-      placeholder="Search topic"
-      onInputChange={setFilterText}
-      onSelectionChange={() => console.log('tets')}
-    >
-      {item => (
-        <AutocompleteItem key={item.id} className="capitalize">
-          {item.title}
-        </AutocompleteItem>
-      )}
-    </Autocomplete>
+    <div className="flex flex-col gap-5">
+      <Autocomplete
+        className="max-w-xs"
+        inputValue={filterText}
+        isLoading={isLoading}
+        items={data}
+        startContent={<Search />}
+        inputProps={{
+          classNames: { inputWrapper: 'bg-content1 shadow-medium' },
+        }}
+        label="Choose a topic"
+        placeholder="Search topic"
+        onInputChange={setFilterText}
+        selectedKey={topic?.id}
+        onSelectionChange={key =>
+          setTopic(data.find(topic => key === topic.id))
+        }
+      >
+        {item => (
+          <AutocompleteItem key={item.id} className="capitalize">
+            {item.title}
+          </AutocompleteItem>
+        )}
+      </Autocomplete>
+      {topic ? <TopicCard topic={topic} /> : ''}
+    </div>
   );
 };
 

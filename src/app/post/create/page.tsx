@@ -107,7 +107,6 @@ const CreatePage: FC = () => {
       </main>
       <section className="flex w-80 shrink-0 flex-col gap-5">
         <SearchTopic />
-        {/* <TopicCard topic={} /> */}
       </section>
     </div>
   );
