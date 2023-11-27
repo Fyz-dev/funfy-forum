@@ -7,7 +7,7 @@ export interface IComment {
   user: IUser;
   postID?: string;
   content: string;
-  voteCount: int;
+  voteCount: number;
   childComment: IComments;
   timestamp: ITimestamps;
 }
