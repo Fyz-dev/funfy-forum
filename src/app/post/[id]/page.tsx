@@ -32,6 +32,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
       <div className="box-content flex w-full max-w-page flex-col overflow-auto lg:-m-10 lg:p-10">
         <MobileHeaderCard
           title={post.topic.title}
+          hrefTitle={`/topic/${post.topic.id}`}
           mediaQuery="lg"
           photoURL={post.topic.photoURL}
           classNames={{

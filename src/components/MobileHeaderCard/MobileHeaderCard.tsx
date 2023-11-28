@@ -2,10 +2,12 @@ import { FC, ReactNode } from 'react';
 import { Card, CardHeader, CardBody } from '@nextui-org/card';
 import { Avatar } from '@nextui-org/avatar';
 import { getClassName } from 'src/utils';
+import Link from 'next/link';
 
 export interface MobileHeaderProps {
   title: string | null;
   photoURL?: string | null;
+  hrefTitle?: string;
   childrenCardHeader?: ReactNode;
   childrenCardBody?: ReactNode;
   children?: ReactNode;
@@ -49,6 +51,7 @@ const mediaQueryClasses = {
 const MobileHeaderCard: FC<MobileHeaderProps> = ({
   title,
   photoURL,
+  hrefTitle,
   classNames,
   childrenCardHeader,
   childrenCardBody,
@@ -79,10 +82,15 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
           </CardHeader>
           <CardBody
             slot="body"
-            className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
+            className={`-mt-5 flex items-center overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
           >
-            <WithAvatar photoURL={photoURL} />
-            <h6 className="text-center text-large">{title}</h6>
+            <Link
+              href={hrefTitle ?? '#'}
+              className="flex flex-col items-center gap-2"
+            >
+              <WithAvatar photoURL={photoURL} />
+              <h6 className="text-center text-large">{title}</h6>
+            </Link>
             {childrenCardBody}
           </CardBody>
         </div>
