@@ -7,12 +7,12 @@ import { Message, Comments as CommentsIcon } from 'src/assets/icons';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
-import { MDXEditor } from 'src/components/MDXEditor';
 import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
 import Comments from 'src/components/Comments/Comments';
 import commentController from 'src/api/controller/CommentController';
 import { Divider } from '@nextui-org/divider';
+import CreateComment from './(components)/CreateComment';
 
 const getPost = async (id: string) => {
   try {
@@ -90,7 +90,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                     {post.user.name}
                   </Link>
                 </span>
-                <MDXEditor markdown="" placeholder="Add a comment..." />
+                <CreateComment />
               </div>
               {comments.length !== 0 ? (
                 <>

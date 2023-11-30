@@ -4,7 +4,7 @@ import {
   InputProps as NextuiInputProps,
 } from '@nextui-org/input';
 import { useFormContext } from 'react-hook-form';
-import findInputError from './utils/findInputError';
+import { findInputError } from 'src/utils';
 
 type InputProps = {
   name: string | undefined;
@@ -23,7 +23,7 @@ const Input: FC<InputProps> = ({
     formState: { errors },
   } = useFormContext();
 
-  const error = findInputError(errors, name);
+  const { message, isInvalid } = findInputError(errors, name);
 
   useEffect(() => {
     return () => {
@@ -36,7 +36,8 @@ const Input: FC<InputProps> = ({
       isRequired={isRequired}
       variant={variant}
       label={label}
-      errorMessage={error?.error?.message || ''}
+      isInvalid={isInvalid}
+      errorMessage={message}
       {...register(name || '', { required: isRequired })}
       {...rest}
     />

@@ -112,7 +112,7 @@
 /* ------------------------------------------------- */
 
 input[name='url'],
-input[name='title'] {
+input[id='link-title'] {
   border: var(--nextui-border-width-medium) solid
     hsl(
       var(--nextui-default-200) /
