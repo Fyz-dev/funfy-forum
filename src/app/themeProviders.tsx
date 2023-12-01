@@ -8,11 +8,9 @@ export default function ThemeProviders({
 }: {
   children: React.ReactNode;
 }) {
-  const { theme } = useTheme();
-
   return (
     <NextUIProvider>
-      <ThemeProvider attribute="class" defaultTheme={theme}>
+      <ThemeProvider attribute="class" defaultTheme="dark">
         {children}
       </ThemeProvider>
     </NextUIProvider>

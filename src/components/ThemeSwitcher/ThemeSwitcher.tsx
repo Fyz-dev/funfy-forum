@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SwitchProps, useSwitch } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -8,13 +8,19 @@ import { MoonIcon, SunIcon } from 'src/assets/icons';
 import { BaseSwitch } from 'src/components/ThemeSwitcher/BaseSwitch';
 
 const ThemeSwitcher: FC<SwitchProps> = props => {
-  const { isSelected, ...restProps } = useSwitch(props);
-
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const { isSelected, ...restProps } = useSwitch({
+    ...props,
+    defaultSelected: theme === 'light',
+  });
 
   useEffect(() => {
+    setMounted(true);
     setTheme(isSelected ? 'light' : 'dark');
   }, [isSelected, setTheme]);
+
+  if (!mounted) return null;
 
   return (
     <BaseSwitch
