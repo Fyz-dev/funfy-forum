@@ -11,13 +11,13 @@ import {
 import { Button } from '@nextui-org/button';
 import { User } from '@nextui-org/user';
 
-import { UserAuth } from 'src/context/Auth';
+import { useAuth } from 'src/context/Auth';
 import Link from 'next/link';
 
 const disabledKeys = ['user'];
 
 const HeaderUser: FC = () => {
-  const { user, logOut } = UserAuth();
+  const { user, logOut } = useAuth();
 
   return (
     <Dropdown

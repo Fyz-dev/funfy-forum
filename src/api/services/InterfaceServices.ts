@@ -1,6 +1,8 @@
 import { IComments, IPost, IPosts, ITopic, IUser } from 'src/interface';
+import { PostCreateDTO } from '../dto';
 
 export interface IPostService {
+  create(post: PostCreateDTO): Promise<void>;
   getAll(): Promise<IPosts>;
   getById(id: string): Promise<IPost>;
   getByUser(id: string): Promise<IPosts | undefined>;

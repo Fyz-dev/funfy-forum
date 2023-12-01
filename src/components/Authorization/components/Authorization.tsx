@@ -11,7 +11,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { AuthSchemaType, AuthSchema } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Google, Github } from 'src/assets/icons';
-import { UserAuth } from 'src/context/Auth';
+import { useAuth } from 'src/context/Auth';
 import InputLogin from './InputLogin';
 import InputSignUp from './InputSignUp';
 
@@ -39,7 +39,7 @@ const Authorization: FC<AuthProps> = ({
     signInEmailAndPassword,
     createUserWithEmail,
     sendEmailVerify,
-  } = UserAuth();
+  } = useAuth();
 
   const methods = useForm<AuthSchemaType>({
     resolver: zodResolver(AuthSchema),

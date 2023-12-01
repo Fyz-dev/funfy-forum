@@ -11,14 +11,27 @@ import { Tooltip } from '@nextui-org/tooltip';
 import { FormProvider, useForm } from 'react-hook-form';
 import { PostSchema, PostSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import postController from 'src/api/controller/PostController';
+import { useAuth } from 'src/context/Auth';
+import { Timestamp } from 'firebase/firestore';
 
 const CreatePage: FC = () => {
   const methods = useForm<PostSchemaType>({
     resolver: zodResolver(PostSchema),
   });
+  const { user } = useAuth();
 
   const createPost = methods.handleSubmit(async data => {
-    console.log(data);
+    if (!user) return;
+
+    postController.create({
+      userID: user.uid,
+      ...data,
+      timestamp: {
+        createdAt: Timestamp.now(),
+        updatedAt: null,
+      },
+    });
   });
 
   return (

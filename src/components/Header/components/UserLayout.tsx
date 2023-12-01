@@ -8,13 +8,13 @@ import Authorization, {
   EnumModeAuth,
   ModeAuth,
 } from 'src/components/Authorization';
-import { UserAuth } from 'src/context/Auth';
+import { useAuth } from 'src/context/Auth';
 import HeaderUser from './HeaderUser';
 
 const UserLayout: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [mode, setMode] = useState<ModeAuth>(EnumModeAuth.LOGIN);
-  const { user } = UserAuth();
+  const { user } = useAuth();
 
   const handlerAuth = (openMode: ModeAuth) => {
     if (openMode !== mode) setMode(openMode);
