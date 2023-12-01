@@ -14,8 +14,8 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
   return (
     <Card className="w-full">
       <RippleContainer href={`/post/${post.id}`}>
-        <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-3 pb-1">
-          <div className="mr-auto flex h-5 items-center justify-start gap-3">
+        <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
+          <div className="mr-auto flex h-8 items-center justify-start gap-3">
             <Avatar radius="full" size="sm" src={post.topic.photoURL ?? ''} />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
               <h2 className="mr-auto flex text-small font-semibold leading-none text-default-600">
