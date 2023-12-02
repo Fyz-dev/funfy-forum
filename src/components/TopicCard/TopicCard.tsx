@@ -4,14 +4,20 @@ import { Button } from '@nextui-org/button';
 import { Avatar } from '@nextui-org/avatar';
 import { ITopic } from 'src/interface';
 import Link from 'next/link';
+import { getClassName } from 'src/utils';
 
 interface ITopicCard {
   topic: ITopic;
+  classNames?: {
+    card?: string;
+  };
 }
 
-const TopicCard: FC<ITopicCard> = ({ topic }) => {
+const TopicCard: FC<ITopicCard> = ({ topic, classNames }) => {
+  const card = getClassName(classNames?.card);
+
   return (
-    <Card className="w-80 self-start">
+    <Card className={`w-80 self-start ${card}`}>
       <CardHeader>
         <Link
           href={`/topic/${topic.id}`}

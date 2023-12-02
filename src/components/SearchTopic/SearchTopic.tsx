@@ -1,21 +1,23 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { Search } from 'src/assets/icons';
 import topicController from 'src/api/controller/TopicController';
 import { ITopic } from 'src/interface';
 import useAsyncList from 'src/hooks/useAsyncList';
-import TopicCard from '../TopicCard/TopicCard';
 import { Controller, useFormContext } from 'react-hook-form';
-import { findInputError } from 'src/utils';
+import { findInputError, getClassName } from 'src/utils';
 
 interface ISearchTopic {
-  className?: string;
+  classNames?: {
+    wrapper?: string;
+    input?: string;
+  };
+  setTopic: Dispatch<SetStateAction<ITopic | undefined>>;
 }
 
-const SearchTopic: FC<ISearchTopic> = ({ className = '' }) => {
-  const [topic, setTopic] = useState<ITopic | undefined>(undefined);
+const SearchTopic: FC<ISearchTopic> = ({ setTopic, classNames }) => {
   const {
     control,
     formState: { errors },
@@ -33,23 +35,25 @@ const SearchTopic: FC<ISearchTopic> = ({ className = '' }) => {
     },
   });
 
+  const wrapper = getClassName(classNames?.wrapper);
+  const input = getClassName(classNames?.input);
+
   return (
-    <div slot="wrapper" className={`flex flex-col gap-5 ${className}`}>
+    <div slot="wrapper" className={`flex w-full ${wrapper}`}>
       <Controller
         name="topicID"
         control={control}
         render={({ field: { onChange, ...rest } }) => (
           <Autocomplete
-            className="max-w-xs"
+            className=" lg:max-w-xs"
+            variant="bordered"
             inputValue={filterText}
             isLoading={isLoading}
             items={data}
             startContent={<Search />}
             inputProps={{
               classNames: {
-                inputWrapper: `shadow-medium ${
-                  isInvalid ? 'bg-danger-100' : 'bg-content1'
-                }`,
+                inputWrapper: `shadow-medium bg-content1 ${input}`,
               },
             }}
             label="Choose a topic"
@@ -71,7 +75,6 @@ const SearchTopic: FC<ISearchTopic> = ({ className = '' }) => {
           </Autocomplete>
         )}
       />
-      {topic ? <TopicCard topic={topic} /> : ''}
     </div>
   );
 };
