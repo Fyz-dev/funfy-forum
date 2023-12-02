@@ -9,16 +9,18 @@ import { getClassName } from 'src/utils';
 interface ITopicCard {
   topic: ITopic;
   classNames?: {
+    cardHeader?: string;
     card?: string;
   };
 }
 
 const TopicCard: FC<ITopicCard> = ({ topic, classNames }) => {
   const card = getClassName(classNames?.card);
+  const cardHeader = getClassName(classNames?.cardHeader);
 
   return (
     <Card className={`w-80 self-start ${card}`}>
-      <CardHeader>
+      <CardHeader className={cardHeader}>
         <Link
           href={`/topic/${topic.id}`}
           className="mr-auto inline-flex items-center gap-2 overflow-hidden transition-colors hover:text-primary"

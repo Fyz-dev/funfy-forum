@@ -45,7 +45,6 @@ const SearchTopic: FC<ISearchTopic> = ({ setTopic, classNames }) => {
         control={control}
         render={({ field: { onChange, ...rest } }) => (
           <Autocomplete
-            className=" lg:max-w-xs"
             variant="bordered"
             inputValue={filterText}
             isLoading={isLoading}

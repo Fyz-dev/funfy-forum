@@ -23,7 +23,7 @@ const ButtonPublic = () => {
   return (
     <>
       <Button
-        className="h-14 w-28 max-[350px]:w-full lg:h-unit-10 lg:w-unit-20"
+        className="h-14 w-28 text-medium max-[350px]:w-full lg:h-unit-10 lg:w-unit-20 lg:text-small"
         type="submit"
         radius="full"
         color="primary"
@@ -65,8 +65,8 @@ const CreatePage: FC = () => {
           noValidate
           className="m-0 flex justify-center max-sm:h-screen sm:m-5"
         >
-          <div className="flex w-full max-w-[1364px] flex-col justify-start gap-0 sm:gap-2 lg:gap-5">
-            <Card className="min-h-[56px] w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium sm:shadow-medium">
+          <Card className="flex w-full max-w-[1364px] flex-col justify-start gap-0 overflow-visible max-sm:rounded-none max-sm:bg-transparent lg:gap-5 lg:bg-transparent lg:shadow-none">
+            <Card className="min-h-[56px] w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
               <CardHeader>
                 <h1 className="mr-auto">Create a post</h1>
                 <Tooltip content="Mark as Not Safe For Work">
@@ -74,10 +74,10 @@ const CreatePage: FC = () => {
                 </Tooltip>
               </CardHeader>
             </Card>
-            <div className="flex w-full flex-col justify-center max-lg:pb-28 sm:gap-5 lg:flex-row">
+            <div className="flex w-full flex-col justify-center max-sm:pb-28 lg:flex-row lg:gap-5">
               {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
               <main className="box-content flex w-full max-w-page justify-center lg:-m-10 lg:overflow-auto lg:p-10">
-                <Card className="relative w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium sm:shadow-medium">
+                <Card className="relative w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
                   <CardBody className="flex gap-3 ">
                     <Input
                       id="title"
@@ -109,34 +109,34 @@ const CreatePage: FC = () => {
                   </CardFooter>
                 </Card>
               </main>
-              <section className="flex w-full shrink-0 flex-col gap-5 lg:w-80">
-                <div className="fixed bottom-0 left-0 z-50 w-full sm:p-5 lg:relative lg:flex lg:p-0">
-                  <Card className="flex w-full flex-row items-start gap-2 overflow-visible p-4 max-sm:rounded-b-none max-sm:rounded-t-3xl max-[350px]:flex-col lg:bg-transparent lg:p-0 lg:shadow-none ">
-                    <SearchTopic
+              <section className="flex w-full shrink-0 flex-col gap-0 lg:w-96">
+                <Card className="shadow-medium">
+                  <div className="fixed bottom-0 left-0 z-10 w-full sm:p-5 lg:relative lg:flex lg:p-0">
+                    <Card className="flex w-full flex-row items-start gap-2 overflow-visible p-3 max-sm:rounded-b-none max-sm:rounded-t-3xl max-sm:py-8 max-[350px]:flex-col lg:shadow-none">
+                      <SearchTopic
+                        classNames={{
+                          input: 'max-lg:rounded-full w-full shadow-none',
+                        }}
+                        setTopic={setTopic}
+                      />
+                      <div className="flex justify-center gap-2 max-[350px]:w-full lg:hidden">
+                        <ButtonPublic />
+                      </div>
+                    </Card>
+                  </div>
+                  {topic && (
+                    <TopicCard
                       classNames={{
-                        input:
-                          'max-lg:rounded-full max-lg:shadow-none px-unit-5 lg:px-unit-4',
+                        cardHeader: 'pt-0',
+                        card: 'w-full max-lg:hidden shadow-none',
                       }}
-                      setTopic={setTopic}
+                      topic={topic}
                     />
-                    <div className="flex justify-center gap-2 max-[350px]:w-full lg:hidden">
-                      <ButtonPublic />
-                    </div>
-                  </Card>
-                </div>
-                {topic ? (
-                  <TopicCard
-                    classNames={{
-                      card: 'w-full max-lg:hidden',
-                    }}
-                    topic={topic}
-                  />
-                ) : (
-                  ''
-                )}
+                  )}
+                </Card>
               </section>
             </div>
-          </div>
+          </Card>
         </form>
       </FormProvider>
     </div>
