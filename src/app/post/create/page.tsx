@@ -17,7 +17,6 @@ import { Timestamp } from 'firebase/firestore';
 import Link from 'next/link';
 import { ITopic } from 'src/interface';
 import TopicCard from 'src/components/TopicCard/TopicCard';
-import { card } from '@nextui-org/react';
 
 const ButtonPublic = () => {
   return (
@@ -63,7 +62,7 @@ const CreatePage: FC = () => {
           name="createPost"
           onSubmit={createPost}
           noValidate
-          className="m-0 flex justify-center max-sm:h-screen sm:m-5"
+          className="m-0 flex justify-center max-lg:pb-28 max-sm:h-screen sm:m-5"
         >
           <Card className="flex w-full max-w-[1364px] flex-col justify-start gap-0 overflow-visible max-sm:rounded-none max-sm:bg-transparent lg:gap-5 lg:bg-transparent lg:shadow-none">
             <Card className="min-h-[56px] w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
@@ -74,7 +73,7 @@ const CreatePage: FC = () => {
                 </Tooltip>
               </CardHeader>
             </Card>
-            <div className="flex w-full flex-col justify-center max-sm:pb-28 lg:flex-row lg:gap-5">
+            <div className="flex w-full flex-col justify-center lg:flex-row lg:gap-5">
               {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
               <main className="box-content flex w-full max-w-page justify-center lg:-m-10 lg:overflow-auto lg:p-10">
                 <Card className="relative w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
