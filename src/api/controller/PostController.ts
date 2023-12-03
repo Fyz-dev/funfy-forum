@@ -27,6 +27,10 @@ class PostController implements IPostController {
   async getByUser(id: string): Promise<IPosts | undefined> {
     return this.postService.getByUser(id);
   }
+
+  async getByTopic(id: string): Promise<IPosts | undefined> {
+    return this.postService.getByTopic(id);
+  }
 }
 
 const postController = new PostController(new PostService());

@@ -6,6 +6,7 @@ export interface IPostService {
   getAll(): Promise<IPosts>;
   getById(id: string): Promise<IPost>;
   getByUser(id: string): Promise<IPosts | undefined>;
+  getByTopic(id: string): Promise<IPosts | undefined>;
 }
 
 export interface ICommentService {
@@ -17,5 +18,6 @@ export interface IUserService {
 }
 
 export interface ITopicService {
+  getById(id: string): Promise<ITopic>;
   getByTitle(name: string): Promise<ITopic[]>;
 }

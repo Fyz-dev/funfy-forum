@@ -32,21 +32,21 @@ const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
           user={user}
         >
           <CardFooter className="flex-row">
-            <SwitchButton />
+            <SwitchButton tabs={['Posts', 'Comments']} />
             <DropDownFilter className="ml-auto" />
           </CardFooter>
         </UserCardPart>
         <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
-          {posts
-            ? posts.map(item => {
-                return <Post key={item.id} post={item} />;
-              })
-            : ''}
+          {posts &&
+            posts.map(item => {
+              return <Post key={item.id} post={item} />;
+            })}
         </main>
       </div>
       <UserCardPart
         classNames={{
-          wrapperSection: 'hidden h-min w-80 min-w-[20rem] lg:block',
+          wrapperSection:
+            'hidden sticky top-20 h-min w-80 min-w-[20rem] lg:block',
         }}
         user={user}
       />

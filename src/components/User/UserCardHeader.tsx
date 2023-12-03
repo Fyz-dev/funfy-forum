@@ -21,6 +21,7 @@ const UserCardHeader: FC<UserCardPartProps> = ({
     <>
       <MobileHeaderCard
         title={user.name}
+        description={user.userDetails.description}
         photoURL={user.photoURL}
         classNames={classNames}
         mediaQuery="sm"
@@ -30,15 +31,12 @@ const UserCardHeader: FC<UserCardPartProps> = ({
           </Button>
         }
         childrenCardBody={
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-row flex-wrap justify-center gap-1 gap-y-2">
-              {user.userDetails.socialNetwork.map((social, key) => (
-                <Chip key={key} variant="flat">
-                  {social}
-                </Chip>
-              ))}
-            </div>
-            <p className="self-start">{user.userDetails.description}</p>
+          <div className="flex flex-row flex-wrap justify-center gap-1 gap-y-2">
+            {user.userDetails.socialNetwork.map((social, key) => (
+              <Chip key={key} variant="flat">
+                {social}
+              </Chip>
+            ))}
           </div>
         }
       >

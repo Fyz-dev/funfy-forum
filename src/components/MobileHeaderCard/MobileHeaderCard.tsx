@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 export interface MobileHeaderProps {
   title: string | null;
+  description?: string;
   photoURL?: string | null;
   hrefTitle?: string;
   childrenCardHeader?: ReactNode;
@@ -50,6 +51,7 @@ const mediaQueryClasses = {
 
 const MobileHeaderCard: FC<MobileHeaderProps> = ({
   title,
+  description,
   photoURL,
   hrefTitle,
   classNames,
@@ -82,16 +84,19 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
           </CardHeader>
           <CardBody
             slot="body"
-            className={`-mt-5 flex items-center overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
+            className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
           >
             <Link
               href={hrefTitle ?? '#'}
-              className="flex flex-col items-center gap-2"
+              className="flex flex-col items-center gap-1"
             >
               <WithAvatar photoURL={photoURL} />
               <h6 className="text-center text-large">{title}</h6>
             </Link>
-            {childrenCardBody}
+            <div className="flex flex-col gap-2">
+              {childrenCardBody}
+              <p className="self-start">{description}</p>
+            </div>
           </CardBody>
         </div>
         {children}

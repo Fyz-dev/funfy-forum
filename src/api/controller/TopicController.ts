@@ -14,6 +14,10 @@ class TopicController implements ITopicController {
   async getByTitle(name: string): Promise<ITopic[]> {
     return this.topicService.getByTitle(name);
   }
+
+  async getById(id: string): Promise<ITopic> {
+    return this.topicService.getById(id);
+  }
 }
 
 const topicController = new TopicController(new TopicService());

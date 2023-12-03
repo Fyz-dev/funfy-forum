@@ -23,4 +23,8 @@ export default class PostService implements IPostService {
   async getByUser(id: string): Promise<IPosts | undefined> {
     return Promise.resolve(posts.filter(post => id === post.user.uid));
   }
+
+  async getByTopic(id: string): Promise<IPosts | undefined> {
+    return Promise.resolve(posts.filter(post => id === post.topic.id));
+  }
 }
