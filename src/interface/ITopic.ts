@@ -3,5 +3,5 @@ export interface ITopic {
   userID: string;
   photoURL: string | null;
   name: string;
-  description: string;
+  description: string | undefined;
 }

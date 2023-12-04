@@ -10,6 +10,7 @@ import { useAuth } from 'src/context/Auth';
 import { Textarea } from 'src/components/ui/Textarea';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
+import topicController from 'src/api/controller/TopicController';
 
 const CreatePage: FC = () => {
   const methods = useForm<TopicSchemaType>({
@@ -20,7 +21,7 @@ const CreatePage: FC = () => {
   const createTopic = methods.handleSubmit(async data => {
     if (!user) return;
 
-    console.log(data);
+    topicController.create({ userID: user.uid, photoURL: '', ...data });
   });
 
   return (
