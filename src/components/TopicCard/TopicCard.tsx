@@ -33,7 +33,7 @@ const TopicCard: FC<ITopicCard> = ({ topic, classNames }) => {
             classNames={{ img: 'max-w-[2rem]' }}
           />
           <h1 className="overflow-hidden text-ellipsis whitespace-nowrap">
-            {topic.title}
+            {topic.name}
           </h1>
         </Link>
         {/* <Button radius="full" className="self-end" color="primary">

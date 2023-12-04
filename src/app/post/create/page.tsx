@@ -77,7 +77,7 @@ const CreatePage: FC = () => {
               {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
               <main className="box-content flex w-full max-w-page justify-center lg:-m-10 lg:overflow-auto lg:p-10">
                 <Card className="relative w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
-                  <CardBody className="flex gap-3 ">
+                  <CardBody className="flex gap-3">
                     <Input
                       id="title"
                       name="title"

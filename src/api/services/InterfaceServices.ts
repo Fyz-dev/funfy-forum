@@ -1,5 +1,5 @@
 import { IComments, IPost, IPosts, ITopic, IUser } from 'src/interface';
-import { PostCreateDTO } from '../dto';
+import { PostCreateDTO, TopicCreateDTO } from '../dto';
 
 export interface IPostService {
   create(post: PostCreateDTO): Promise<void>;
@@ -18,6 +18,7 @@ export interface IUserService {
 }
 
 export interface ITopicService {
+  create(topic: TopicCreateDTO): Promise<void>;
   getById(id: string): Promise<ITopic>;
   getByTitle(name: string): Promise<ITopic[]>;
 }

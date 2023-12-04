@@ -25,5 +25,11 @@ export const PostSchema = z.object({
   isNSFW: z.boolean(),
 });
 
+export const TopicSchema = z.object({
+  name: z.string().min(1, 'Required').max(21),
+  description: z.string().max(300).optional(),
+});
+
 export type AuthSchemaType = z.infer<typeof AuthSchema>;
 export type PostSchemaType = z.infer<typeof PostSchema>;
+export type TopicSchemaType = z.infer<typeof TopicSchema>;

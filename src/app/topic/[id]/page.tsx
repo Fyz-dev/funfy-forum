@@ -22,7 +22,7 @@ const TopicCardHeader: FC<
 > = ({ topic, children, classNames }) => {
   return (
     <MobileHeaderCard
-      title={topic.title}
+      title={topic.name}
       description={topic.description}
       photoURL={topic.photoURL}
       classNames={classNames}

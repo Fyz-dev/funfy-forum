@@ -2,6 +2,6 @@ export interface ITopic {
   id: string;
   userID: string;
   photoURL: string | null;
-  title: string;
+  name: string;
   description: string;
 }

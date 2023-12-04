@@ -19,7 +19,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
             <Avatar radius="full" size="sm" src={post.topic.photoURL ?? ''} />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
               <h2 className="mr-auto flex text-small font-semibold leading-none text-default-600">
-                {post.topic.title}
+                {post.topic.name}
               </h2>
               <InfoTime
                 dotClassName="sm:block hidden"

@@ -68,7 +68,7 @@ const SearchTopic: FC<ISearchTopic> = ({ setTopic, classNames }) => {
           >
             {item => (
               <AutocompleteItem key={item.id} className="capitalize">
-                {item.title}
+                {item.name}
               </AutocompleteItem>
             )}
           </Autocomplete>

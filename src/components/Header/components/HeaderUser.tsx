@@ -79,6 +79,11 @@ const HeaderUser: FC = () => {
               <div>Profile</div>
             </Link>
           </DropdownItem>
+          <DropdownItem key="topicCreate" textValue="topicCreate">
+            <Link href="/topic/create">
+              <div>Create topic</div>
+            </Link>
+          </DropdownItem>
           <DropdownItem key="settings" textValue="settings">
             Settings
           </DropdownItem>
