@@ -11,6 +11,7 @@ export interface IPostService {
 
 export interface ICommentService {
   getByPost(id: string): Promise<IComments>;
+  getByUser(id: string): Promise<IComments>;
 }
 
 export interface IUserService {

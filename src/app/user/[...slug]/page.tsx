@@ -18,9 +18,11 @@ const getUser = async (id: string): Promise<IUser> => {
   }
 };
 
-const UserPage: FC<{ params: { id: string } }> = async ({ params }) => {
-  const user = await getUser(params.id);
-  const posts = await postController.getByUser(params.id);
+const UserPage: FC<{ params: { slug: [string, string] } }> = async ({
+  params,
+}) => {
+  const user = await getUser(params.slug[0]);
+  const posts = await postController.getByUser(params.slug[0]);
 
   return (
     <div className="m-0 flex justify-center gap-5 sm:m-5">
