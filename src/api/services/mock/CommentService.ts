@@ -8,6 +8,22 @@ export default class CommentService implements ICommentService {
   }
 
   async getByUser(id: string): Promise<IComments> {
-    return Promise.resolve(comments.filter(comment => comment.user.uid === id));
+    return this.findCommentsByUser(comments, id);
+  }
+
+  private findCommentsByUser(
+    commentsArray: IComments,
+    userId: string,
+  ): IComments {
+    const result: IComments = [];
+
+    commentsArray.forEach(comment => {
+      if (comment.user.uid === userId) result.push(comment);
+
+      if (comment.childComment.length > 0)
+        result.push(...this.findCommentsByUser(comment.childComment, userId));
+    });
+
+    return result;
   }
 }
