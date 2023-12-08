@@ -1,1 +1,1 @@
-export { default as SwitchButton } from './SwitchButton';
+export { default as UserCardHeader } from './UserCardHeader';

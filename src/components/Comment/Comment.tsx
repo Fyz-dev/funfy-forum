@@ -1,5 +1,5 @@
 import { Avatar } from '@nextui-org/avatar';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useState } from 'react';
 import { Button } from '@nextui-org/button';
 import InfoTime from '../ui/InfoTime';
 import { Message } from 'src/assets/icons';
@@ -14,7 +14,7 @@ type CommentProps = {
 
 const Comment: FC<CommentProps> = ({ comment, children }) => {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <div className="inline-flex items-center gap-1">
         <div className="inline-flex items-center gap-3">
           <Link href={`/user/${comment.user.uid}`}>
@@ -54,7 +54,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
         </div>
 
         {/* Здесь будут дочерние коментарии */}
-        {children ? <div className="ml-2"> {children}</div> : null}
+        {children && <div className="ml-2">{children}</div>}
       </div>
       {/* Вариант через i */}
       {/* <div className="inline-flex">

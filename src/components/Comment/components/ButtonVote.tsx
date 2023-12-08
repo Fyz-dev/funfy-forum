@@ -44,7 +44,7 @@ const ButtonVote: FC<ButtonVoteProps> = ({ voteCount, className = '' }) => {
   const styleIcon = { style: { height: '1.5rem', width: '1.5rem' } };
 
   return (
-    <div className={`items-center ${className}`}>
+    <div className={`flex items-center ${className}`}>
       <Button typeVote={VoteEnum.UP} setVote={setVote} vote={vote}>
         <UpVote {...styleIcon} />
       </Button>

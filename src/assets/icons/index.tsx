@@ -6,6 +6,7 @@ export { default as Facebook } from './Facebook';
 export {
   FaMessage as Message,
   FaComments as Comments,
+  FaComment as Comment,
   FaShare as Share,
   FaCheck as Check,
   FaPlus as Plus,

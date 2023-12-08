@@ -1,9 +1,7 @@
 import { notFound } from 'next/navigation';
 import { FC, ReactNode } from 'react';
 import { CardFooter } from '@nextui-org/card';
-import { SwitchButton } from 'src/components/User';
-import DropDownFilter from 'src/components/ui/DropDownFilter';
-import UserCardPart from 'src/components/User/UserCardHeader';
+// import { SwitchButton } from 'src/components/User';
 import postController from 'src/api/controller/PostController';
 import { Post } from 'src/components/Post';
 import { ITopic } from 'src/interface';
@@ -60,7 +58,7 @@ const TopicPage: FC<{ params: { id: string } }> = async ({ params }) => {
           }}
         >
           <CardFooter className="flex-row">
-            <SwitchButton tabs={['New', 'Old']} />
+            {/* <SwitchButton tabs={['New', 'Old']} /> */}
           </CardFooter>
         </TopicCardHeader>
         <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">

@@ -1,14 +1,11 @@
+import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { FC } from 'react';
 import { CardFooter } from '@nextui-org/card';
-import { SwitchButton } from 'src/components/User';
 import DropDownFilter from 'src/components/ui/DropDownFilter';
-
-import UserCardPart from 'src/components/User/UserCardHeader';
+import { UserCardHeader } from 'src/components/User';
 import { IUser } from 'src/interface';
-import userController from 'src/api/controller/UserController';
-import postController from 'src/api/controller/PostController';
-import { Post } from 'src/components/Post';
+import { userController } from 'src/api/controller';
+import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 
 const getUser = async (id: string): Promise<IUser> => {
   try {
@@ -18,34 +15,38 @@ const getUser = async (id: string): Promise<IUser> => {
   }
 };
 
-const UserPage: FC<{ params: { slug: [string, string] } }> = async ({
+export default async function Layout({
+  children,
   params,
-}) => {
-  const user = await getUser(params.slug[0]);
-  const posts = await postController.getByUser(params.slug[0]);
+}: {
+  children: ReactNode;
+  params: { id: string };
+}) {
+  const user = await getUser(params.id);
 
   return (
     <div className="m-0 flex justify-center gap-5 sm:m-5">
       <div className="flex w-full max-w-smpage flex-col gap-5">
-        <UserCardPart
+        <UserCardHeader
           classNames={{
             wrapper: 'block lg:hidden',
           }}
           user={user}
         >
           <CardFooter className="flex-row">
-            <SwitchButton tabs={['Posts', 'Comments']} />
+            <RedirectTabs
+              baseUrl={`/user/${params.id}`}
+              tabs={[
+                { name: 'Posts', href: 'posts' },
+                { name: 'Comments', href: 'comments' },
+              ]}
+            />
             <DropDownFilter className="ml-auto" />
           </CardFooter>
-        </UserCardPart>
-        <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
-          {posts &&
-            posts.map(item => {
-              return <Post key={item.id} post={item} />;
-            })}
-        </main>
+        </UserCardHeader>
+        {children}
       </div>
-      <UserCardPart
+      <UserCardHeader
         classNames={{
           wrapperSection:
             'hidden sticky top-20 h-min w-80 min-w-[20rem] lg:block',
@@ -54,6 +55,4 @@ const UserPage: FC<{ params: { slug: [string, string] } }> = async ({
       />
     </div>
   );
-};
-
-export default UserPage;
+}
