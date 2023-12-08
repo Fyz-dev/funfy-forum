@@ -1,4 +1,11 @@
-import { IComments, IPost, IPosts, ITopic, IUser } from 'src/interface';
+import {
+  ICommentWithPost,
+  IComments,
+  IPost,
+  IPosts,
+  ITopic,
+  IUser,
+} from 'src/interface';
 import { PostCreateDTO, TopicCreateDTO } from '../dto';
 
 export interface IPostService {
@@ -11,7 +18,7 @@ export interface IPostService {
 
 export interface ICommentService {
   getByPost(id: string): Promise<IComments>;
-  getByUser(id: string): Promise<IComments>;
+  getByUser(id: string): Promise<ICommentWithPost[]>;
 }
 
 export interface IUserService {

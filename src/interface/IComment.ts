@@ -1,13 +1,20 @@
-import { IUser } from '.';
+import { IPost, IUser } from '.';
 import { IComments } from './IComments';
 import { ITimestamps } from './ITimestamps';
 
-export interface IComment {
+interface IBase {
   id: string;
   user: IUser;
-  postID?: string;
   content: string;
   voteCount: number;
   childComment: IComments;
   timestamp: ITimestamps;
+}
+
+export interface IComment extends IBase {
+  postID?: string;
+}
+
+export interface ICommentWithPost extends IBase {
+  post: IPost;
 }

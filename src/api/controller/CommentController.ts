@@ -1,4 +1,4 @@
-import { IComments } from 'src/interface';
+import { ICommentWithPost, IComments } from 'src/interface';
 import { ICommentService } from '../services/InterfaceServices';
 import CommentService from '../services/mock/CommentService';
 
@@ -15,7 +15,7 @@ class CommentController implements ICommentController {
     return this.commentService.getByPost(id);
   }
 
-  async getByUser(id: string): Promise<IComments> {
+  async getByUser(id: string): Promise<ICommentWithPost[]> {
     return this.commentService.getByUser(id);
   }
 }

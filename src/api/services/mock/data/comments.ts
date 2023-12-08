@@ -234,7 +234,6 @@ export const comments: IComments = [
       {
         id: 'comment20',
         user: users[2],
-        postID: 'post15',
         voteCount: 3,
         content:
           'The serverless paradigm opens up new possibilities for scalable and cost-effective application development.',
