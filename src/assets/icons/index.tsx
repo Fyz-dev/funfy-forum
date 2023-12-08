@@ -10,6 +10,10 @@ export {
   FaShare as Share,
   FaCheck as Check,
   FaPlus as Plus,
+  FaClock as SortOld,
+  FaCertificate as SortNew,
+  // FaArrowUpWideShort as SortFirst,
+  // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';
 export {
   BsSunFill as SunIcon,

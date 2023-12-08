@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { CardFooter } from '@nextui-org/card';
-import DropDownFilter from 'src/components/ui/DropDownFilter';
+import DropDownSort, { DropDownConfig } from 'src/components/ui/DropDownSort';
 import { UserCardHeader } from 'src/components/User';
 import { IUser } from 'src/interface';
 import { userController } from 'src/api/controller';
@@ -33,7 +33,7 @@ export default async function Layout({
           }}
           user={user}
         >
-          <CardFooter className="flex-row">
+          <CardFooter className="flex-row justify-between">
             <RedirectTabs
               baseUrl={`/user/${params.id}`}
               tabs={[
@@ -41,7 +41,7 @@ export default async function Layout({
                 { name: 'Comments', href: 'comments' },
               ]}
             />
-            <DropDownFilter className="ml-auto" />
+            <DropDownSort {...DropDownConfig} className="ml-auto" />
           </CardFooter>
         </UserCardHeader>
         {children}

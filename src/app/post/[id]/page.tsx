@@ -4,7 +4,7 @@ import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
 import { Message, Comments as CommentsIcon } from 'src/assets/icons';
-import DropDownFilter from 'src/components/ui/DropDownFilter';
+import DropDownSort, { DropDownConfig } from 'src/components/ui/DropDownSort';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import postController from 'src/api/controller/PostController';
@@ -31,7 +31,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
       {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
       <div className="box-content flex w-full max-w-page flex-col lg:-m-10 lg:overflow-auto lg:p-10">
         <MobileHeaderCard
-          title={post.topic.title}
+          title={post.topic.name}
           hrefTitle={`/topic/${post.topic.id}`}
           mediaQuery="lg"
           photoURL={post.topic.photoURL}
@@ -98,7 +98,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                     <span className="text-small text-default-500">
                       Sort by:{' '}
                     </span>
-                    <DropDownFilter size="sm" />
+                    <DropDownSort {...DropDownConfig} />
                   </div>
                   <Divider />
                 </>
