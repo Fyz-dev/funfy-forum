@@ -4,8 +4,9 @@ import CommentCard from 'src/components/Comment/CommentCard';
 
 const UserPage: FC<{
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string[] | undefined };
 }> = async ({ params, searchParams }) => {
+  console.log(searchParams['sort']);
   const comments = await commentController.getByUser(params.id);
   const user = await userController.getById(params.id);
 

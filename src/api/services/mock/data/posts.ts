@@ -1,4 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
 import { IPosts } from 'src/interface';
 import { users } from './users';
 import { topics } from './topics';
@@ -14,8 +13,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 2,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-10-02T12:51:37'),
+      updatedAt: new Date('2023-10-02T12:51:37'),
     },
   },
   {
@@ -30,8 +29,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 5,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-11-02T12:51:37'),
+      updatedAt: new Date('2023-11-02T12:51:37'),
     },
   },
   {
@@ -45,8 +44,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 8,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-02T12:51:37'),
+      updatedAt: new Date('2023-12-02T12:51:37'),
     },
   },
   {
@@ -60,8 +59,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 12,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-09T12:51:37'),
+      updatedAt: new Date('2023-12-09T12:51:37'),
     },
   },
   {
@@ -75,8 +74,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 6,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-08T12:51:37'),
+      updatedAt: new Date('2023-12-08T12:51:37'),
     },
   },
   {
@@ -90,8 +89,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 10,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-08T12:51:37'),
+      updatedAt: new Date('2023-12-08T12:51:37'),
     },
   },
   {
@@ -105,8 +104,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 15,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-08T12:51:37'),
+      updatedAt: new Date('2023-12-08T12:51:37'),
     },
   },
   {
@@ -120,8 +119,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 7,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-08T12:51:37'),
+      updatedAt: new Date('2023-12-08T12:51:37'),
     },
   },
   {
@@ -135,8 +134,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 20,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-08T12:51:37'),
+      updatedAt: new Date('2023-12-08T12:51:37'),
     },
   },
   {
@@ -150,8 +149,8 @@ export const posts: IPosts = [
     isNSFW: false,
     commentCount: 3,
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-12-08T12:51:37'),
+      updatedAt: new Date('2023-12-08T12:51:37'),
     },
   },
 ];

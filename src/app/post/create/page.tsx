@@ -49,7 +49,7 @@ const CreatePage: FC = () => {
       userID: user.uid,
       ...data,
       timestamp: {
-        createdAt: Timestamp.now(),
+        createdAt: new Date(),
         updatedAt: null,
       },
     });

@@ -1,6 +1,5 @@
 import { IComments } from 'src/interface';
 import { users } from './users';
-import { Timestamp } from 'firebase/firestore';
 
 export const comments: IComments = [
   {
@@ -19,14 +18,14 @@ export const comments: IComments = [
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras placerat pellentesque fringilla. Cras lobortis felis viverra, sodales metus vel, rutrum odio. Cras ante lacus, facilisis et ipsum pulvinar, imperdiet viverra urna. Curabitur turpis libero, interdum eget nulla nec, consequat placerat eros. Morbi tincidunt augue urna, a eleifend nunc tincidunt at. Vivamus orci justo, varius et luctus sit amet, faucibus quis tellus. Maecenas ut egestas tellus. Cras congue auctor tempor. Aenean rutrum, nisi nec congue accumsan, justo massa egestas elit, at faucibus tortor augue vitae odio. Nulla hendrerit scelerisque quam nec maximus. Mauris sit amet pulvinar sapien. Sed blandit, velit eget luctus posuere, risus arcu accumsan augue, et sagittis urna diam vitae tortor. Morbi pharetra velit vitae neque luctus, sed hendrerit tellus tincidunt. Vestibulum vitae ornare leo.',
         childComment: [],
         timestamp: {
-          createdAt: new Timestamp(1234567890, 0),
-          updatedAt: new Timestamp(1234567890, 0),
+          createdAt: new Date('2023-10-02T12:51:37'),
+          updatedAt: new Date('2023-10-02T12:51:37'),
         },
       },
     ],
     timestamp: {
-      createdAt: new Timestamp(1234567890, 0),
-      updatedAt: new Timestamp(1234567890, 0),
+      createdAt: new Date('2023-09-02T12:51:37'),
+      updatedAt: new Date('2023-09-02T12:51:37'),
     },
   },
   {
@@ -66,32 +65,32 @@ export const comments: IComments = [
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Ut volutpat vehicula mi, vel efficitur libero hendrerit eu.',
                     childComment: [],
                     timestamp: {
-                      createdAt: new Timestamp(1234568080, 0),
-                      updatedAt: new Timestamp(1234568080, 0),
+                      createdAt: new Date('2023-08-09T12:51:37'),
+                      updatedAt: new Date('2023-08-09T12:51:37'),
                     },
                   },
                 ],
                 timestamp: {
-                  createdAt: new Timestamp(1234568070, 0),
-                  updatedAt: new Timestamp(1234568070, 0),
+                  createdAt: new Date('2023-10-01T12:51:37'),
+                  updatedAt: new Date('2023-10-01T12:51:37'),
                 },
               },
             ],
             timestamp: {
-              createdAt: new Timestamp(1234568060, 0),
-              updatedAt: new Timestamp(1234568060, 0),
+              createdAt: new Date('2023-10-08T12:51:37'),
+              updatedAt: new Date('2023-10-08T12:51:37'),
             },
           },
         ],
         timestamp: {
-          createdAt: new Timestamp(1234567900, 0),
-          updatedAt: new Timestamp(1234567900, 0),
+          createdAt: new Date('2023-10-08T11:51:37'),
+          updatedAt: new Date('2023-10-08T11:51:37'),
         },
       },
     ],
     timestamp: {
-      createdAt: new Timestamp(1234567900, 0),
-      updatedAt: new Timestamp(1234567900, 0),
+      createdAt: new Date('2023-10-08T11:51:37'),
+      updatedAt: new Date('2023-10-08T11:51:37'),
     },
   },
   {
@@ -103,8 +102,8 @@ export const comments: IComments = [
     voteCount: 0,
     childComment: [],
     timestamp: {
-      createdAt: new Timestamp(1234567910, 0),
-      updatedAt: new Timestamp(1234567910, 0),
+      createdAt: new Date('2023-10-02T11:51:37'),
+      updatedAt: new Date('2023-10-02T11:51:37'),
     },
   },
   {
@@ -123,14 +122,14 @@ export const comments: IComments = [
           'Sed nec nunc et justo vulputate scelerisque ac ac massa. Nam eu mi elit.',
         childComment: [],
         timestamp: {
-          createdAt: new Timestamp(1234567920, 0),
-          updatedAt: new Timestamp(1234567920, 0),
+          createdAt: new Date('2023-10-02T12:51:37'),
+          updatedAt: new Date('2023-10-02T12:51:37'),
         },
       },
     ],
     timestamp: {
-      createdAt: new Timestamp(1234567920, 0),
-      updatedAt: new Timestamp(1234567920, 0),
+      createdAt: new Date('2023-09-02T12:51:37'),
+      updatedAt: new Date('2023-09-02T12:51:37'),
     },
   },
   {
@@ -142,8 +141,8 @@ export const comments: IComments = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, libero at viverra hendrerit, elit nunc fermentum nulla, ut volutpat felis elit non urna.',
     childComment: [],
     timestamp: {
-      createdAt: new Timestamp(1234567940, 0),
-      updatedAt: new Timestamp(1234567940, 0),
+      createdAt: new Date('2023-11-03T12:51:37'),
+      updatedAt: new Date('2023-11-03T12:51:37'),
     },
   },
   {
@@ -162,14 +161,14 @@ export const comments: IComments = [
           "I love the design of your website! It's so clean and user-friendly.",
         childComment: [],
         timestamp: {
-          createdAt: new Timestamp(1234567930, 0),
-          updatedAt: new Timestamp(1234567930, 0),
+          createdAt: new Date('2023-11-03T12:51:37'),
+          updatedAt: new Date('2023-11-03T12:51:37'),
         },
       },
     ],
     timestamp: {
-      createdAt: new Timestamp(1234567950, 0),
-      updatedAt: new Timestamp(1234567950, 0),
+      createdAt: new Date('2023-11-02T12:51:37'),
+      updatedAt: new Date('2023-11-02T12:51:37'),
     },
   },
   {
@@ -181,8 +180,8 @@ export const comments: IComments = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut dolor nec elit tristique ultrices vel et leo.',
     childComment: [],
     timestamp: {
-      createdAt: new Timestamp(1234567960, 0),
-      updatedAt: new Timestamp(1234567960, 0),
+      createdAt: new Date('2023-11-02T12:51:37'),
+      updatedAt: new Date('2023-11-02T12:51:37'),
     },
   },
   {
@@ -194,8 +193,8 @@ export const comments: IComments = [
       'I agree! Testing is an essential part of the development process. It ensures the reliability of your code.',
     childComment: [],
     timestamp: {
-      createdAt: new Timestamp(1234567970, 0),
-      updatedAt: new Timestamp(1234567970, 0),
+      createdAt: new Date('2023-11-02T12:51:37'),
+      updatedAt: new Date('2023-11-02T12:51:37'),
     },
   },
   {
@@ -207,8 +206,8 @@ export const comments: IComments = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod enim eu ex iaculis, ac hendrerit quam accumsan.',
     childComment: [],
     timestamp: {
-      createdAt: new Timestamp(1234567980, 0),
-      updatedAt: new Timestamp(1234567980, 0),
+      createdAt: new Date('2023-11-02T12:51:37'),
+      updatedAt: new Date('2023-11-02T12:51:37'),
     },
   },
   {
@@ -227,8 +226,8 @@ export const comments: IComments = [
           'Proin luctus orci sit amet metus dignissim, id fringilla urna fermentum. Aenean euismod orci a ipsum ultrices, vitae scelerisque elit varius.',
         childComment: [],
         timestamp: {
-          createdAt: new Timestamp(1234568040, 0),
-          updatedAt: new Timestamp(1234568040, 0),
+          createdAt: new Date('2023-11-02T12:51:37'),
+          updatedAt: new Date('2023-11-02T12:51:37'),
         },
       },
       {
@@ -239,14 +238,14 @@ export const comments: IComments = [
           'The serverless paradigm opens up new possibilities for scalable and cost-effective application development.',
         childComment: [],
         timestamp: {
-          createdAt: new Timestamp(1234568030, 0),
-          updatedAt: new Timestamp(1234568030, 0),
+          createdAt: new Date('2023-11-02T12:51:37'),
+          updatedAt: new Date('2023-11-02T12:51:37'),
         },
       },
     ],
     timestamp: {
-      createdAt: new Timestamp(1234567990, 0),
-      updatedAt: new Timestamp(1234567990, 0),
+      createdAt: new Date('2023-11-02T12:51:37'),
+      updatedAt: new Date('2023-11-02T12:51:37'),
     },
   },
 ];
