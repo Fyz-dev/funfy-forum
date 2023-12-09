@@ -98,7 +98,13 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                     <span className="text-small text-default-500">
                       Sort by:{' '}
                     </span>
-                    <DropDownSort {...DropDownConfig} />
+                    <DropDownSort
+                      {...DropDownConfig}
+                      classNames={{
+                        trigger:
+                          'shadow-none transition-all w-[7rem] py-0 min-h-8 h-unit-8 rounded-full',
+                      }}
+                    />
                   </div>
                   <Divider />
                 </>
