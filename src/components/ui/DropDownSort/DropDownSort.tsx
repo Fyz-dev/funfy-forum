@@ -1,26 +1,27 @@
 'use client';
 
-import { Select, SelectItem } from '@nextui-org/react';
+import { Select, SelectItem, SelectProps } from '@nextui-org/select';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { FC, ReactNode, useState } from 'react';
 
-type TabsConfig = {
+type DropDownConfig = {
   key: string;
   value: string;
   icon: ReactNode;
 };
 
-interface DropDownFilterProps {
+type DropDownFilterProps = {
   defaultKey: string;
-  filterList: TabsConfig[];
+  filterList: DropDownConfig[];
   className?: string;
-}
+} & Pick<SelectProps, 'classNames'>;
 
 const DropDownSort: FC<DropDownFilterProps> = ({
   defaultKey,
   filterList,
   className = '',
+  ...rest
 }) => {
   const searchParams = useSearchParams();
   const sort = searchParams.get('sort');
@@ -52,12 +53,12 @@ const DropDownSort: FC<DropDownFilterProps> = ({
       }}
       classNames={{
         mainWrapper: 'max-w-[8rem]',
-        popoverContent: 'bg-background',
         trigger:
-          'shadow-none transition-all w-[8rem] py-0 min-h-10 h-unit-10 rounded-full',
+          'shadow-none transition-all w-[7rem] py-0 min-h-10 h-unit-10 rounded-full',
         value: 'pl-1',
         innerWrapper: 'w-auto min-w-none',
       }}
+      {...rest}
     >
       {item => {
         return (
