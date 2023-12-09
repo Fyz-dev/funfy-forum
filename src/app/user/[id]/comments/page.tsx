@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { commentController, userController } from 'src/api';
 import CommentCard from 'src/components/Comment/CommentCard';
+import { SearchParams } from 'src/types';
 
 const UserPage: FC<{
   params: { id: string };
-  searchParams: { [key: string]: string[] | undefined };
+  searchParams: SearchParams;
 }> = async ({ params, searchParams }) => {
-  console.log(searchParams['sort']);
   const comments = await commentController.getByUser(params.id);
   const user = await userController.getById(params.id);
 

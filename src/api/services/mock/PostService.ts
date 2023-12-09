@@ -2,6 +2,7 @@ import { IPost, IPosts } from 'src/interface';
 import { posts } from './data';
 import { IPostService } from '../InterfaceServices';
 import { PostCreateDTO } from 'src/api/dto';
+import { Sort } from 'src/types';
 
 export default class PostService implements IPostService {
   async create(post: PostCreateDTO): Promise<void> {
@@ -20,11 +21,45 @@ export default class PostService implements IPostService {
     throw new Error('Not find post');
   }
 
-  async getByUser(id: string): Promise<IPosts | undefined> {
-    return Promise.resolve(posts.filter(post => id === post.user.uid));
+  async getByUser(id: string, sort: Sort): Promise<IPosts | undefined> {
+    const postsSort =
+      sort === 'new'
+        ? posts
+            .filter(post => id === post.user.uid)
+            .sort(
+              (a, b) =>
+                b.timestamp.createdAt.getTime() -
+                a.timestamp.createdAt.getTime(),
+            )
+        : posts
+            .filter(post => id === post.user.uid)
+            .sort(
+              (a, b) =>
+                a.timestamp.createdAt.getTime() -
+                b.timestamp.createdAt.getTime(),
+            );
+
+    return Promise.resolve(postsSort);
   }
 
-  async getByTopic(id: string): Promise<IPosts | undefined> {
-    return Promise.resolve(posts.filter(post => id === post.topic.id));
+  async getByTopic(id: string, sort: Sort): Promise<IPosts | undefined> {
+    const postsSort =
+      sort === 'new'
+        ? posts
+            .filter(post => id === post.topic.id)
+            .sort(
+              (a, b) =>
+                b.timestamp.createdAt.getTime() -
+                a.timestamp.createdAt.getTime(),
+            )
+        : posts
+            .filter(post => id === post.topic.id)
+            .sort(
+              (a, b) =>
+                a.timestamp.createdAt.getTime() -
+                b.timestamp.createdAt.getTime(),
+            );
+
+    return Promise.resolve(postsSort);
   }
 }

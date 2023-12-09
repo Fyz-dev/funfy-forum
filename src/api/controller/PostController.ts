@@ -2,6 +2,7 @@ import { IPost, IPosts } from 'src/interface';
 import { IPostService } from '../services/InterfaceServices';
 import { PostService } from '../services/mock';
 import { PostCreateDTO } from '../dto';
+import { Sort } from 'src/types';
 
 interface IPostController extends IPostService {}
 
@@ -24,12 +25,12 @@ class PostController implements IPostController {
     return this.postService.getById(id);
   }
 
-  async getByUser(id: string): Promise<IPosts | undefined> {
-    return this.postService.getByUser(id);
+  async getByUser(id: string, sort: Sort): Promise<IPosts | undefined> {
+    return this.postService.getByUser(id, sort);
   }
 
-  async getByTopic(id: string): Promise<IPosts | undefined> {
-    return this.postService.getByTopic(id);
+  async getByTopic(id: string, sort: Sort): Promise<IPosts | undefined> {
+    return this.postService.getByTopic(id, sort);
   }
 }
 
