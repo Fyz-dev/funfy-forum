@@ -16,7 +16,7 @@ export const PostSortConfig = {
   ],
 };
 
-export const CommentsSortConfig = {
+export const CommentsUserSortConfig = {
   defaultKey: 'new',
   filterList: [
     {

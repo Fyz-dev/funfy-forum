@@ -1,10 +1,21 @@
-import { SearchParams, Sort } from 'src/types';
+import { TSearchParams, TSortCommentsUser, TSortPost } from 'src/types';
 
-export const getSortParam = (searchParams: SearchParams): Sort => {
+const sortPost: TSortPost[] = ['new', 'old'] as const;
+const sortCommentsUser: TSortCommentsUser[] = ['new', 'old', 'best'] as const;
+
+const getSortParam = (searchParams: TSearchParams): string | undefined => {
   const sortParamArray = searchParams['sort'];
-  const searchParam = Array.isArray(sortParamArray)
-    ? sortParamArray[0]
-    : sortParamArray;
+  return Array.isArray(sortParamArray) ? sortParamArray[0] : sortParamArray;
+};
 
-  return searchParam === 'old' ? 'old' : 'new';
+export const getSortPostParam = (searchParams: TSearchParams): TSortPost => {
+  const searchParam = getSortParam(searchParams) as TSortPost;
+  return sortPost.includes(searchParam) ? searchParam : 'new';
+};
+
+export const getSortCommentsUserParam = (
+  searchParams: TSearchParams,
+): TSortCommentsUser => {
+  const searchParam = getSortParam(searchParams) as TSortCommentsUser;
+  return sortCommentsUser.includes(searchParam) ? searchParam : 'new';
 };

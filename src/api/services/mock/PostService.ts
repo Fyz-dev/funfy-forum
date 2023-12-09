@@ -2,7 +2,7 @@ import { IPost, IPosts } from 'src/interface';
 import { posts } from './data';
 import { IPostService } from '../InterfaceServices';
 import { PostCreateDTO } from 'src/api/dto';
-import { Sort } from 'src/types';
+import { TSortPost } from 'src/types';
 
 export default class PostService implements IPostService {
   async create(post: PostCreateDTO): Promise<void> {
@@ -21,7 +21,7 @@ export default class PostService implements IPostService {
     throw new Error('Not find post');
   }
 
-  async getByUser(id: string, sort: Sort): Promise<IPosts | undefined> {
+  async getByUser(id: string, sort: TSortPost): Promise<IPosts | undefined> {
     const postsSort =
       sort === 'new'
         ? posts
@@ -42,7 +42,7 @@ export default class PostService implements IPostService {
     return Promise.resolve(postsSort);
   }
 
-  async getByTopic(id: string, sort: Sort): Promise<IPosts | undefined> {
+  async getByTopic(id: string, sort: TSortPost): Promise<IPosts | undefined> {
     const postsSort =
       sort === 'new'
         ? posts

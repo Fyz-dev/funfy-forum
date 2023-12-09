@@ -1,17 +1,16 @@
 import { FC } from 'react';
 import postController from 'src/api/controller/PostController';
 import { Post } from 'src/components/Post';
-import { SearchParams } from 'src/types';
-import { getSortParam } from 'src/utils';
+import { TSearchParams } from 'src/types';
+import { getSortPostParam } from 'src/utils';
 
 const UserPage: FC<{
   params: { id: string };
-  searchParams: SearchParams;
+  searchParams: TSearchParams;
 }> = async ({ params, searchParams }) => {
-  console.log(getSortParam(searchParams));
   const posts = await postController.getByUser(
     params.id,
-    getSortParam(searchParams),
+    getSortPostParam(searchParams),
   );
 
   return (

@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 import DropDownSort, {
-  CommentsSortConfig,
+  CommentsUserSortConfig,
   PostSortConfig,
 } from 'src/components/ui/DropDownSort';
 
@@ -18,7 +18,7 @@ const SwitchSort: FC = () => {
         <DropDownSort {...PostSortConfig} className="ml-auto" />
       )}
       {key === 'comments' && (
-        <DropDownSort {...CommentsSortConfig} className="ml-auto" />
+        <DropDownSort {...CommentsUserSortConfig} className="ml-auto" />
       )}
     </>
   );

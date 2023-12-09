@@ -7,14 +7,14 @@ import {
   IUser,
 } from 'src/interface';
 import { PostCreateDTO, TopicCreateDTO } from '../dto';
-import { Sort } from 'src/types';
+import { TSortPost } from 'src/types';
 
 export interface IPostService {
   create(post: PostCreateDTO): Promise<void>;
   getAll(): Promise<IPosts>;
   getById(id: string): Promise<IPost>;
-  getByUser(id: string, sort: Sort): Promise<IPosts | undefined>;
-  getByTopic(id: string, sort: Sort): Promise<IPosts | undefined>;
+  getByUser(id: string, sort: TSortPost): Promise<IPosts | undefined>;
+  getByTopic(id: string, sort: TSortPost): Promise<IPosts | undefined>;
 }
 
 export interface ICommentService {

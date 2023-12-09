@@ -1,1 +1,1 @@
-export type SearchParams = { [key: string]: string[] | undefined };
+export type TSearchParams = { [key: string]: string[] | undefined };
