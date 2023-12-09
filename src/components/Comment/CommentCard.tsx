@@ -13,7 +13,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
   user,
 }) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full hover:scale-[1.02]">
       <RippleContainer href={`/post/${comment.post.id}/comments/${comment.id}`}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
           <div className="mr-auto flex flex-col justify-start gap-1">
