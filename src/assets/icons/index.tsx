@@ -12,6 +12,7 @@ export {
   FaPlus as Plus,
   FaClock as SortOld,
   FaCertificate as SortNew,
+  FaRocket as SortBest,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';

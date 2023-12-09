@@ -62,7 +62,7 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                       {post.user.name}
                     </Link>
                   </h2>
-                  <span>{post.timestamp.createdAt.toDate().toUTCString()}</span>
+                  <span>{post.timestamp.createdAt.toUTCString()}</span>
                 </div>
               </div>
               {/* Title */}

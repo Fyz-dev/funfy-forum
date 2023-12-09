@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { CardFooter } from '@nextui-org/card';
-import DropDownSort, { DropDownConfig } from 'src/components/ui/DropDownSort';
 import { UserCardHeader } from 'src/components/User';
 import { IUser } from 'src/interface';
 import { userController } from 'src/api/controller';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
+import SwitchSort from './(components)/SwitchSort';
 
 const getUser = async (id: string): Promise<IUser> => {
   try {
@@ -41,7 +41,7 @@ export default async function Layout({
                 { name: 'Comments', href: 'comments' },
               ]}
             />
-            <DropDownSort {...DropDownConfig} className="ml-auto" />
+            <SwitchSort />
           </CardFooter>
         </UserCardHeader>
         {children}

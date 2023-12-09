@@ -8,6 +8,7 @@ const UserPage: FC<{
   params: { id: string };
   searchParams: SearchParams;
 }> = async ({ params, searchParams }) => {
+  console.log(getSortParam(searchParams));
   const posts = await postController.getByUser(
     params.id,
     getSortParam(searchParams),

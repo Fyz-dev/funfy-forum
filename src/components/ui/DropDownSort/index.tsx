@@ -1,2 +1,2 @@
 export { default } from './DropDownSort';
-export { DropDownConfig } from './config';
+export * from './config';

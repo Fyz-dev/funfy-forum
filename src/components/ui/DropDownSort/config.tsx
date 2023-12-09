@@ -1,6 +1,6 @@
-import { SortNew, SortOld } from 'src/assets/icons';
+import { SortNew, SortOld, SortBest } from 'src/assets/icons';
 
-export const DropDownConfig = {
+export const PostSortConfig = {
   defaultKey: 'new',
   filterList: [
     {
@@ -12,6 +12,27 @@ export const DropDownConfig = {
       key: 'old',
       value: 'Old',
       icon: <SortOld />,
+    },
+  ],
+};
+
+export const CommentsSortConfig = {
+  defaultKey: 'new',
+  filterList: [
+    {
+      key: 'new',
+      value: 'New',
+      icon: <SortNew />,
+    },
+    {
+      key: 'old',
+      value: 'Old',
+      icon: <SortOld />,
+    },
+    {
+      key: 'best',
+      value: 'Best',
+      icon: <SortBest />,
     },
   ],
 };
