@@ -1,2 +1,3 @@
 export type TSortPost = 'new' | 'old';
-export type TSortCommentsUser = TSortPost | 'best';
+export type TSortComments = TSortPost | 'best' | 'controversial';
+export type TSortCommentsUser = Exclude<TSortComments, 'controversial'>;

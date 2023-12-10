@@ -4,7 +4,9 @@ import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
 import { Message, Comments as CommentsIcon } from 'src/assets/icons';
-import DropDownSort, { DropDownConfig } from 'src/components/ui/DropDownSort';
+import DropDownSort, {
+  CommentsSortConfig,
+} from 'src/components/ui/DropDownSort';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import postController from 'src/api/controller/PostController';
@@ -13,6 +15,8 @@ import Comments from 'src/components/Comments/Comments';
 import commentController from 'src/api/controller/CommentController';
 import { Divider } from '@nextui-org/divider';
 import CreateComment from './(components)/CreateComment';
+import { TSearchParams } from 'src/types';
+import { getSortCommentsParam } from 'src/utils';
 
 const getPost = async (id: string) => {
   try {
@@ -22,9 +26,15 @@ const getPost = async (id: string) => {
   }
 };
 
-const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
+const PostPage: FC<{
+  params: { id: string };
+  searchParams: TSearchParams;
+}> = async ({ params: { id }, searchParams }) => {
   const post = await getPost(id);
-  const comments = await commentController.getByPost(post.id);
+  const comments = await commentController.getByPost(
+    post.id,
+    getSortCommentsParam(searchParams),
+  );
 
   return (
     <div className="m-0 flex h-screen justify-center gap-5 lg:m-5 lg:h-auto">
@@ -99,10 +109,10 @@ const PostPage: FC<{ params: { id: string } }> = async ({ params: { id } }) => {
                       Sort by:{' '}
                     </span>
                     <DropDownSort
-                      {...DropDownConfig}
+                      {...CommentsSortConfig}
                       classNames={{
                         trigger:
-                          'shadow-none transition-all w-[7rem] py-0 min-h-8 h-unit-8 rounded-full',
+                          'shadow-none transition-all w-[10rem] py-0 min-h-8 h-unit-8 rounded-full',
                       }}
                     />
                   </div>

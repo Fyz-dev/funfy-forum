@@ -1,6 +1,7 @@
 import { ICommentWithPost, IComments } from 'src/interface';
 import { ICommentService } from '../services/InterfaceServices';
 import CommentService from '../services/mock/CommentService';
+import { TSortComments } from 'src/types';
 
 interface ICommentController extends ICommentService {}
 
@@ -11,12 +12,15 @@ class CommentController implements ICommentController {
     this.commentService = commentService;
   }
 
-  async getByPost(id: string): Promise<IComments> {
-    return this.commentService.getByPost(id);
+  async getByPost(id: string, sort: TSortComments): Promise<IComments> {
+    return this.commentService.getByPost(id, sort);
   }
 
-  async getByUser(id: string): Promise<ICommentWithPost[]> {
-    return this.commentService.getByUser(id);
+  async getByUser(
+    id: string,
+    sort: TSortComments,
+  ): Promise<ICommentWithPost[]> {
+    return this.commentService.getByUser(id, sort);
   }
 }
 

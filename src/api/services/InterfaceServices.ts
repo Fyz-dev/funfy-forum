@@ -7,7 +7,7 @@ import {
   IUser,
 } from 'src/interface';
 import { PostCreateDTO, TopicCreateDTO } from '../dto';
-import { TSortPost } from 'src/types';
+import { TSortComments, TSortPost } from 'src/types';
 
 export interface IPostService {
   create(post: PostCreateDTO): Promise<void>;
@@ -18,8 +18,8 @@ export interface IPostService {
 }
 
 export interface ICommentService {
-  getByPost(id: string): Promise<IComments>;
-  getByUser(id: string): Promise<ICommentWithPost[]>;
+  getByPost(id: string, sort: TSortComments): Promise<IComments>;
+  getByUser(id: string, sort: TSortComments): Promise<ICommentWithPost[]>;
 }
 
 export interface IUserService {

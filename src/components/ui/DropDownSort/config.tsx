@@ -1,4 +1,9 @@
-import { SortNew, SortOld, SortBest } from 'src/assets/icons';
+import {
+  SortNew,
+  SortOld,
+  SortBest,
+  SortControversial,
+} from 'src/assets/icons';
 
 export const PostSortConfig = {
   defaultKey: 'new',
@@ -19,20 +24,23 @@ export const PostSortConfig = {
 export const CommentsUserSortConfig = {
   defaultKey: 'new',
   filterList: [
-    {
-      key: 'new',
-      value: 'New',
-      icon: <SortNew />,
-    },
-    {
-      key: 'old',
-      value: 'Old',
-      icon: <SortOld />,
-    },
+    ...PostSortConfig.filterList,
     {
       key: 'best',
       value: 'Best',
       icon: <SortBest />,
+    },
+  ],
+};
+
+export const CommentsSortConfig = {
+  defaultKey: 'new',
+  filterList: [
+    ...CommentsUserSortConfig.filterList,
+    {
+      key: 'controversial',
+      value: 'Сontroversial',
+      icon: <SortControversial />,
     },
   ],
 };
