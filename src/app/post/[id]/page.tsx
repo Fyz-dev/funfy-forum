@@ -52,8 +52,8 @@ const PostPage: FC<{
         />
         <main className="h-full w-full bg-content1 lg:bg-transparent">
           <Card className="w-full rounded-none p-1 shadow-none lg:rounded-large lg:shadow-medium">
+            {/* Info author */}
             <CardHeader className="flex flex-col gap-3 pb-2">
-              {/* Info author */}
               <div className="mr-auto inline-flex items-center gap-2">
                 <Avatar
                   href={`/user/${post.user.uid}`}
@@ -78,6 +78,7 @@ const PostPage: FC<{
               {/* Title */}
               <h1 className="self-start text-2xl">{post.title}</h1>
             </CardHeader>
+
             {/* Main content post */}
             <CardBody className="w-full gap-3 pb-2 text-default-500">
               <p>{post.content}</p>
@@ -89,7 +90,9 @@ const PostPage: FC<{
                 <span>{post.commentCount}</span>
               </Button>
             </CardBody>
-            <CardFooter className="flex flex-col  items-start gap-1">
+
+            {/* Comments block */}
+            <CardFooter className="flex flex-col items-start gap-1">
               <div className="mb-4 flex w-full flex-col gap-1 overflow-hidden">
                 <span>
                   Comment as{' '}
@@ -102,7 +105,7 @@ const PostPage: FC<{
                 </span>
                 <CreateComment />
               </div>
-              {comments.length !== 0 ? (
+              {comments.length !== 0 && (
                 <>
                   <div className="mr-auto flex items-center gap-1">
                     <span className="text-small text-default-500">
@@ -118,8 +121,6 @@ const PostPage: FC<{
                   </div>
                   <Divider />
                 </>
-              ) : (
-                ''
               )}
               {/* Comments */}
               <a href="#comments" />
