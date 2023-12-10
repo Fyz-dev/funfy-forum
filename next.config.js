@@ -7,6 +7,11 @@ const nextConfig = {
         destination: '/user/:id/posts',
         permanent: true,
       },
+      {
+        source: '/topic/:id',
+        destination: '/topic/:id/new',
+        permanent: true,
+      },
     ];
   },
 };

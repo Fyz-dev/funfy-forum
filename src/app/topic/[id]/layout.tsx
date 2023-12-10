@@ -1,9 +1,6 @@
 import { notFound } from 'next/navigation';
 import { FC, ReactNode } from 'react';
 import { CardFooter } from '@nextui-org/card';
-// import { SwitchButton } from 'src/components/User';
-import postController from 'src/api/controller/PostController';
-import { Post } from 'src/components/Post';
 import { ITopic } from 'src/interface';
 import topicController from 'src/api/controller/TopicController';
 import {
@@ -11,6 +8,8 @@ import {
   MobileHeaderProps,
 } from 'src/components/MobileHeaderCard';
 import { Button } from '@nextui-org/button';
+import { RedirectTabs } from 'src/components/ui/RedirectTabs';
+import { SortNew, SortOld } from 'src/assets/icons';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
@@ -44,9 +43,14 @@ const getTopic = async (id: string): Promise<ITopic> => {
   }
 };
 
-const TopicPage: FC<{ params: { id: string } }> = async ({ params }) => {
+export default async function Layout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { id: string };
+}) {
   const topic = await getTopic(params.id);
-  const posts = await postController.getByTopic(params.id);
 
   return (
     <div className="m-0 flex justify-center gap-5 sm:m-5">
@@ -58,15 +62,16 @@ const TopicPage: FC<{ params: { id: string } }> = async ({ params }) => {
           }}
         >
           <CardFooter className="flex-row">
-            {/* <SwitchButton tabs={['New', 'Old']} /> */}
+            <RedirectTabs
+              baseUrl={`/topic/${params.id}`}
+              tabs={[
+                { name: 'New', href: 'new', icon: <SortNew /> },
+                { name: 'Old', href: 'old', icon: <SortOld /> },
+              ]}
+            />
           </CardFooter>
         </TopicCardHeader>
-        <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
-          {posts &&
-            posts.map(item => {
-              return <Post key={item.id} post={item} />;
-            })}
-        </main>
+        {children}
       </div>
       <TopicCardHeader
         topic={topic}
@@ -77,6 +82,4 @@ const TopicPage: FC<{ params: { id: string } }> = async ({ params }) => {
       />
     </div>
   );
-};
-
-export default TopicPage;
+}
