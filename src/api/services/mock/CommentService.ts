@@ -3,6 +3,7 @@ import { ICommentService } from '../InterfaceServices';
 import { comments } from './data';
 import { postController } from 'src/api';
 import { TSortComments } from 'src/types';
+import { comment } from 'postcss';
 
 let postIdParent: string = '';
 
@@ -63,6 +64,33 @@ export default class CommentService implements ICommentService {
     posts.sort(getSort(sort));
 
     return posts;
+  }
+
+  async getChild(idComment: string): Promise<IComment> {
+    const comment = this.findCommentById(idComment, comments);
+
+    if (comment) return comment;
+
+    throw new Error('Not find comment.');
+  }
+
+  private findCommentById(
+    commentId: string,
+    commentsArray: IComments,
+  ): IComment | undefined {
+    for (const comment of commentsArray) {
+      if (comment.id === commentId) return comment;
+
+      if (comment.childComment && comment.childComment.length > 0) {
+        const nestedComment = this.findCommentById(
+          commentId,
+          comment.childComment,
+        );
+        if (nestedComment) return nestedComment;
+      }
+    }
+
+    return undefined;
   }
 
   private async findCommentsByUser(

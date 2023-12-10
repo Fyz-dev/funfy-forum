@@ -1,4 +1,5 @@
 import {
+  IComment,
   ICommentWithPost,
   IComments,
   IPost,
@@ -20,6 +21,7 @@ export interface IPostService {
 export interface ICommentService {
   getByPost(id: string, sort: TSortComments): Promise<IComments>;
   getByUser(id: string, sort: TSortComments): Promise<ICommentWithPost[]>;
+  getChild(idComment: string): Promise<IComment>;
 }
 
 export interface IUserService {

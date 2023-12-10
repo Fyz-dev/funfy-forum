@@ -14,7 +14,9 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
 }) => {
   return (
     <Card className="w-full hover:scale-[1.02]">
-      <RippleContainer href={`/post/${comment.post.id}/comment/${comment.id}`}>
+      <RippleContainer
+        href={`/post/${comment.post.id}/comment/${comment.id}#comments`}
+      >
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
           <div className="mr-auto flex flex-col justify-start gap-1">
             <div className="inline-flex items-center gap-3">
