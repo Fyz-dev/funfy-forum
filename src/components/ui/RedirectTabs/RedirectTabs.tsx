@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Tabs, Tab } from '@nextui-org/tabs';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 type TabsConfig = {
   name: string;
   href: string;
+  icon?: ReactNode;
 };
 
 interface SwitchButtonProps {
@@ -37,7 +38,12 @@ const RedirectTabs: FC<SwitchButtonProps> = ({
         <Tab
           as={Link}
           key={tab.name.toLocaleLowerCase()}
-          title={tab.name}
+          title={
+            <div className="flex items-center space-x-2">
+              {tab.icon}
+              <span>{tab.name}</span>
+            </div>
+          }
           href={baseUrl + '/' + tab.href}
         />
       ))}
