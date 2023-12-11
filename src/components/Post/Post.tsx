@@ -7,6 +7,7 @@ import { Message, Share } from 'src/assets/icons';
 import InfoTime from '../ui/InfoTime';
 import { RippleContainer } from '../ui/RippleContainer';
 import { IPost } from 'src/interface';
+import Link from 'next/link';
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
@@ -16,25 +17,48 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
       <RippleContainer href={`/post/${post.id}`}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
           <div className="mr-auto flex h-8 items-center justify-start gap-3">
-            <Avatar radius="full" size="sm" src={post.topic.photoURL ?? ''} />
+            <Avatar
+              as={Link}
+              href={`/topic/${post.topic.id}`}
+              radius="full"
+              size="sm"
+              src={post.topic.photoURL ?? ''}
+              className="relative"
+            />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
-              <h2 className="mr-auto flex text-small font-semibold leading-none text-default-600">
+              <Link
+                href={`/topic/${post.topic.id}`}
+                className="link relative mr-auto flex text-small font-semibold leading-none text-default-600"
+              >
                 {post.topic.name}
-              </h2>
+              </Link>
               <InfoTime
                 dotClassName="sm:block hidden"
-                content={`Posted by ${post.user.name} 15 hr. ago`}
+                content={
+                  <span>
+                    Posted by{' '}
+                    <Link
+                      className="link relative"
+                      href={`/user/${post.user.uid}`}
+                    >
+                      {post.user.name}
+                    </Link>{' '}
+                    15 hr. ago
+                  </span>
+                }
               />
             </div>
           </div>
           <h1 className="mr-auto text-left">{post.title}</h1>
         </CardHeader>
-        <CardBody className="max-h-[10rem] min-h-[3rem] w-full overflow-hidden py-0 text-small text-default-400">
-          <p>{post.content}</p>
-          <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent to-content1 to-90% " />
+        <CardBody className="static max-h-40 min-h-[3rem] w-full overflow-hidden py-0 text-small text-default-400">
+          <p className="max-h-36">{post.content}</p>
+          <div className="inset-x-0 bottom-0 -mt-5 h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
         </CardBody>
         <CardFooter className="h-12 gap-1">
           <Button
+            as={Link}
+            href={`/post/${post.id}#comments`}
             isIconOnly
             radius="full"
             variant="light"

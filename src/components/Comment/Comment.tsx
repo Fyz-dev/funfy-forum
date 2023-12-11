@@ -1,5 +1,5 @@
 import { Avatar } from '@nextui-org/avatar';
-import { FC, ReactElement, useState } from 'react';
+import { FC, ReactElement } from 'react';
 import { Button } from '@nextui-org/button';
 import InfoTime from '../ui/InfoTime';
 import { Message } from 'src/assets/icons';

@@ -19,7 +19,11 @@ import { Create, Search } from 'src/assets/icons';
 
 const Header: FC = () => {
   return (
-    <Navbar isBordered classNames={{ wrapper: 'w-full max-w-none' }}>
+    <Navbar
+      isBordered
+      className="overflow-hidden"
+      classNames={{ wrapper: 'w-full max-w-none' }}
+    >
       <NavbarContent justify="start">
         <NavbarMenuToggle className="sm:hidden" />
         <NavbarBrand>

@@ -7,3 +7,11 @@
     @apply text-large;
   }
 }
+
+@layer components {
+  .link {
+    @apply text-foreground;
+    @apply transition-colors;
+    @apply hover:text-primary;
+  }
+}

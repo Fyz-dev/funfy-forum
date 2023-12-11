@@ -18,17 +18,18 @@ const RippleContainer: FC<RippleContainerProps> = ({
   const { onClick: ripple, onClear, ripples } = useRipple();
 
   return (
-    <Link
-      href={href ? href : '#'}
+    <div
+      // href={href ? href : '#'}
       // Закругление берем с Card компонента
       className={`relative w-full overflow-hidden rounded-large ${className}`}
-      onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+      onClick={(e: MouseEvent<HTMLDivElement>) => {
         ripple(e);
       }}
     >
+      {href && <Link href={href} className="absolute inset-0" />}
       {children}
-      <Ripple onClear={onClear} ripples={ripples}></Ripple>
-    </Link>
+      <Ripple onClear={onClear} ripples={ripples} />
+    </div>
   );
 };
 
