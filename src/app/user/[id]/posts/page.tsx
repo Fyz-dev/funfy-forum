@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import postController from 'src/api/controller/PostController';
-import { Post } from 'src/components/Post';
+import Posts from 'src/components/Posts';
 import { TSearchParams } from 'src/types';
 import { getSortPostParam } from 'src/utils';
 
@@ -15,10 +15,7 @@ const UserPage: FC<{
 
   return (
     <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
-      {posts &&
-        posts.map(item => {
-          return <Post key={item.id} post={item} />;
-        })}
+      {posts && <Posts posts={posts} />}
     </main>
   );
 };
