@@ -80,7 +80,7 @@ const HeaderUser: FC = () => {
             </Link>
           </DropdownItem>
           <DropdownItem key="topicCreate" textValue="topicCreate">
-            <Link href="/topic/create">
+            <Link href="/create/topic">
               <div>Create topic</div>
             </Link>
           </DropdownItem>
