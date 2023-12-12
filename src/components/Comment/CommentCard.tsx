@@ -7,7 +7,8 @@ import ButtonVote from 'src/components/Comment/components/ButtonVote';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 import { ICommentWithPost, IUser } from 'src/interface';
-import { toCommentsPost } from 'src/utils/paths';
+import { toCommentsPost, toPost, toTopic } from 'src/utils/paths';
+import Link from 'next/link';
 
 const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
   comment,
@@ -17,32 +18,40 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
     <Card className="w-full hover:scale-[1.02]">
       <RippleContainer href={toCommentsPost(comment.post.id, comment.id)}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
-          <div className="mr-auto flex flex-col justify-start gap-1">
-            <div className="inline-flex items-center gap-3">
+          <div className="mr-auto flex w-full flex-col justify-start gap-1">
+            <Link
+              href={toTopic(comment.post.topic.id)}
+              className="link relative inline-flex items-center gap-3 text-default-600"
+            >
               <Avatar
                 radius="full"
                 size="sm"
                 className="max-h-8 min-w-[2rem] self-start"
                 src={comment.post.topic.photoURL || undefined}
               />
-              <span className="mr-auto flex text-small font-semibold leading-none text-default-600">
+              <span className="mr-auto flex text-small font-semibold leading-none">
                 {comment.post.topic.name}
               </span>
-            </div>
-            <div className="flex flex-col items-center gap-y-[0.15]">
-              <span className="mr-auto flex text-medium text-foreground">
+            </Link>
+            <div className="flex w-full overflow-hidden">
+              <Link
+                href={toPost(comment.post.id)}
+                className="link relative mr-auto truncate text-medium"
+              >
                 {comment.post.title}
-              </span>
+              </Link>
             </div>
           </div>
         </CardHeader>
         <Divider />
-        <CardBody className="mt-2 max-h-[10rem] w-full overflow-hidden py-0 text-small">
+        <CardBody className="static mt-2 max-h-[10rem] w-full overflow-hidden py-0 text-small">
           <div className="flex items-center gap-1 text-default-400">
             <Comment />
             <span>
-              <span className="text-foreground">{user.name}</span> commented 1
-              day ago
+              <Link href={toPost(user.uid)} className="link relative">
+                {user.name}
+              </Link>{' '}
+              commented 1 day ago
             </span>
           </div>
           <p>{comment.content}</p>
@@ -53,6 +62,8 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
             <Button
               radius="full"
               className="bg-transparent p-0 text-default-600 hover:bg-default-100"
+              as={Link}
+              href={toCommentsPost(comment.post.id, comment.id)}
             >
               <Message />
               <span>Reply</span>
