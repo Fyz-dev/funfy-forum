@@ -68,7 +68,7 @@ export default async function Layout({
             </CardHeader>
 
             {/* Main content post */}
-            <CardBody className="w-full gap-3 pb-4 pt-0 text-default-500">
+            <CardBody className="w-full gap-5 pb-4 pt-0 text-default-500">
               <p>{post.content}</p>
               <Button
                 radius="full"
