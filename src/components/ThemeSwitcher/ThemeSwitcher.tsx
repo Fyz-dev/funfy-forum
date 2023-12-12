@@ -26,7 +26,7 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
     <BaseSwitch
       {...restProps}
       classNameLabel={[
-        'h-8 w-8 overflow-hidden',
+        'h-8 w-8 overflow-hidden group',
         'flex items-center justify-center',
         'rounded-lg transition-all hover:bg-default/40',
       ]}
@@ -38,7 +38,9 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
           animate={{ x: 0 }}
           exit={{ x: '200%' }}
         >
-          {isSelected ? <SunIcon /> : <MoonIcon />}
+          <div className="transition group-hover:scale-110">
+            {isSelected ? <SunIcon /> : <MoonIcon />}
+          </div>
         </motion.div>
       </AnimatePresence>
     </BaseSwitch>

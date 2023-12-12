@@ -54,15 +54,11 @@ const Header: FC = () => {
             radius="full"
             fullWidth
           />
-
-          <Button href={toCreatPost()} color="primary" as={Link}>
-            Create Post
-          </Button>
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-2">
-        <NavbarItem className="flex md:hidden">
+        <NavbarItem>
           <Button
             as={Link}
             href={toCreatPost()}
@@ -70,8 +66,9 @@ const Header: FC = () => {
             isIconOnly
             variant="light"
             size="sm"
+            className="group"
           >
-            <Create className="h-4 w-4" />
+            <Create className="h-4 w-4 transition group-hover:scale-110" />
           </Button>
         </NavbarItem>
         <ThemeSwitcher />
