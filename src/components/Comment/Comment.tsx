@@ -7,6 +7,7 @@ import ButtonVote from './components/ButtonVote';
 import { IComment } from 'src/interface';
 import Link from 'next/link';
 import { toUser } from 'src/utils/paths';
+import { timePassed } from 'src/utils';
 
 type CommentProps = {
   comment: IComment;
@@ -28,7 +29,10 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             >
               {comment.user.name}
             </Link>
-            <InfoTime dotClassName="hidden sm:block" content="10 hr. ago" />
+            <InfoTime
+              dotClassName="hidden sm:block"
+              content={timePassed(comment.timestamp.createdAt)}
+            />
           </div>
         </div>
         <ButtonVote

@@ -12,11 +12,11 @@ let postIdParent: string = '';
 type FCSort = (a: IComment, b: IComment) => number;
 
 const compareByDate = (a: IComment, b: IComment): number => {
-  return a.timestamp.createdAt.getTime() - b.timestamp.createdAt.getTime();
+  return b.timestamp.createdAt.getTime() - a.timestamp.createdAt.getTime();
 };
 
 const compareByReverseDate = (a: IComment, b: IComment): number => {
-  return b.timestamp.createdAt.getTime() - a.timestamp.createdAt.getTime();
+  return a.timestamp.createdAt.getTime() - b.timestamp.createdAt.getTime();
 };
 
 const compareByVoteCount = (a: IComment, b: IComment): number => {

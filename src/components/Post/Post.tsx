@@ -9,6 +9,7 @@ import { RippleContainer } from '../ui/RippleContainer';
 import { IPost } from 'src/interface';
 import Link from 'next/link';
 import { toPost, toPostSectionComment, toTopic, toUser } from 'src/utils/paths';
+import { timePassed } from 'src/utils';
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
@@ -44,7 +45,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
                     >
                       {post.user.name}
                     </Link>{' '}
-                    15 hr. ago
+                    {timePassed(post.timestamp.createdAt)}
                   </span>
                 }
               />

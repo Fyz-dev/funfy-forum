@@ -9,6 +9,7 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
 import { toTopic, toUser } from 'src/utils/paths';
+import { formatDateFull } from 'src/utils';
 
 const getPost = async (id: string) => {
   try {
@@ -60,7 +61,7 @@ export default async function Layout({
                       {post.user.name}
                     </Link>
                   </h2>
-                  <span>{post.timestamp.createdAt.toUTCString()}</span>
+                  <span>{formatDateFull(post.timestamp.createdAt)}</span>
                 </div>
               </div>
               {/* Title */}

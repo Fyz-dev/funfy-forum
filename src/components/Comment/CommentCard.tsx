@@ -9,6 +9,7 @@ import { Divider } from '@nextui-org/divider';
 import { ICommentWithPost, IUser } from 'src/interface';
 import { toCommentsPost, toPost, toTopic } from 'src/utils/paths';
 import Link from 'next/link';
+import { timePassed } from 'src/utils';
 
 const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
   comment,
@@ -51,7 +52,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
               <Link href={toPost(user.uid)} className="link relative">
                 {user.name}
               </Link>{' '}
-              commented 1 day ago
+              commented {timePassed(comment.timestamp.createdAt)}
             </span>
           </div>
           <p>{comment.content}</p>
