@@ -12,7 +12,7 @@ import { TSortComments, TSortPost } from 'src/types';
 
 export interface IPostService {
   create(post: PostCreateDTO): Promise<void>;
-  getAll(): Promise<IPosts>;
+  getPosts(sort: TSortPost): Promise<IPosts>;
   getById(id: string): Promise<IPost>;
   getByUser(id: string, sort: TSortPost): Promise<IPosts | undefined>;
   getByTopic(id: string, sort: TSortPost): Promise<IPosts | undefined>;

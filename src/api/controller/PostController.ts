@@ -17,8 +17,8 @@ class PostController implements IPostController {
     this.postService.create(post);
   }
 
-  async getAll(): Promise<IPosts> {
-    return this.postService.getAll();
+  async getPosts(sort: TSortPost): Promise<IPosts> {
+    return this.postService.getPosts(sort);
   }
 
   async getById(id: string): Promise<IPost> {
