@@ -68,11 +68,13 @@ export default async function Layout({
             </CardHeader>
 
             {/* Main content post */}
-            <CardBody className="w-full gap-3 pb-2 text-default-500">
+            <CardBody className="w-full gap-3 pb-4 pt-0 text-default-500">
               <p>{post.content}</p>
               <Button
                 radius="full"
-                className="w-min bg-default-100 p-0 text-default-500"
+                className="h-unit-9 w-min bg-default-100 p-0 text-default-500"
+                as={Link}
+                href="#comments"
               >
                 <Message />
                 <span>{post.commentCount}</span>
