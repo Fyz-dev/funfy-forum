@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { FC } from 'react';
 import { commentController } from 'src/api';
 import { Commetns } from 'src/components/Comments';
+import { toPost } from 'src/utils/paths';
 
 const getComments = async (idComment: string) => {
   try {
@@ -21,7 +22,7 @@ const PostPageComment: FC<{
   return (
     <>
       <div className="inline-flex w-full items-center gap-2 overflow-hidden">
-        <Link className="whitespace-nowrap text-primary" href={`/post/${id}/`}>
+        <Link className="whitespace-nowrap text-primary" href={toPost(id)}>
           See full discussion
         </Link>
         <Divider />

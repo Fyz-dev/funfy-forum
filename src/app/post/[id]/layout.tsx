@@ -3,17 +3,12 @@ import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
-import { Message, Comments as CommentsIcon } from 'src/assets/icons';
-import DropDownSort, {
-  CommentsSortConfig,
-} from 'src/components/ui/DropDownSort';
+import { Message } from 'src/assets/icons';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
-import Comments from 'src/components/Comments/Comments';
-import { Divider } from '@nextui-org/divider';
-import CreateComment from './(components)/CreateComment';
+import { toTopic, toUser } from 'src/utils/paths';
 
 const getPost = async (id: string) => {
   try {
@@ -31,10 +26,6 @@ export default async function Layout({
   params: { id: string };
 }) {
   const post = await getPost(params.id);
-  //   const comments = await commentController.getByPost(
-  //     post.id,
-  //     getSortCommentsParam(searchParams),
-  //   );
 
   return (
     <div className="m-0 flex h-screen justify-center gap-5 lg:m-5 lg:h-auto">
@@ -42,7 +33,7 @@ export default async function Layout({
       <div className="box-content flex w-full max-w-page flex-col lg:-m-10 lg:overflow-auto lg:p-10">
         <MobileHeaderCard
           title={post.topic.name}
-          hrefTitle={`/topic/${post.topic.id}`}
+          hrefTitle={toTopic(post.topic.id)}
           mediaQuery="lg"
           photoURL={post.topic.photoURL}
           classNames={{
@@ -56,7 +47,7 @@ export default async function Layout({
             <CardHeader className="flex flex-col gap-3 pb-2">
               <div className="mr-auto inline-flex items-center gap-2">
                 <Avatar
-                  href={`/user/${post.user.uid}`}
+                  href={toUser(post.user.uid)}
                   as={Link}
                   radius="full"
                   size="md"
@@ -65,10 +56,7 @@ export default async function Layout({
                 <div className="text-small text-default-500">
                   <h2>
                     Posted by{' '}
-                    <Link
-                      href={`/user/${post.user.uid}`}
-                      className="text-primary"
-                    >
+                    <Link href={toUser(post.user.uid)} className="text-primary">
                       {post.user.name}
                     </Link>
                   </h2>

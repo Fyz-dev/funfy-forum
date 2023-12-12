@@ -13,6 +13,7 @@ import { User } from '@nextui-org/user';
 
 import { useAuth } from 'src/context/Auth';
 import Link from 'next/link';
+import { toCreatTopic, toUser } from 'src/utils/paths';
 
 const disabledKeys = ['user'];
 
@@ -75,12 +76,12 @@ const HeaderUser: FC = () => {
             />
           </DropdownItem>
           <DropdownItem key="profile" textValue="profile">
-            <Link href={`/user/${user?.uid}`}>
+            <Link href={toUser(user?.uid || '')}>
               <div>Profile</div>
             </Link>
           </DropdownItem>
           <DropdownItem key="topicCreate" textValue="topicCreate">
-            <Link href="/create/topic">
+            <Link href={toCreatTopic()}>
               <div>Create topic</div>
             </Link>
           </DropdownItem>

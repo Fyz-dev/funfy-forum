@@ -5,6 +5,7 @@ import { Avatar } from '@nextui-org/avatar';
 import { ITopic } from 'src/interface';
 import Link from 'next/link';
 import { getClassName } from 'src/utils';
+import { toTopic } from 'src/utils/paths';
 
 interface ITopicCard {
   topic: ITopic;
@@ -22,7 +23,7 @@ const TopicCard: FC<ITopicCard> = ({ topic, classNames }) => {
     <Card className={`w-80 self-start ${card}`}>
       <CardHeader className={cardHeader}>
         <Link
-          href={`/topic/${topic.id}`}
+          href={toTopic(topic.id)}
           className="mr-auto inline-flex items-center gap-2 overflow-hidden transition-colors hover:text-primary"
         >
           <Avatar

@@ -12,6 +12,7 @@ import { Divider } from '@nextui-org/divider';
 import CreateComment from './(components)/CreateComment';
 import { TSearchParams } from 'src/types';
 import { getSortCommentsParam } from 'src/utils';
+import { toUser } from 'src/utils/paths';
 
 const getPost = async (id: string) => {
   try {
@@ -36,7 +37,7 @@ const PostPage: FC<{
       <div className="mb-4 flex w-full flex-col gap-1 overflow-hidden">
         <span>
           Comment as{' '}
-          <Link className="text-primary" href={`/user/${post.user.uid}`}>
+          <Link className="text-primary" href={toUser(post.user.uid)}>
             {post.user.name}
           </Link>
         </span>

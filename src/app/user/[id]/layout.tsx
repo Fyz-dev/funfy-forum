@@ -6,6 +6,7 @@ import { IUser } from 'src/interface';
 import { userController } from 'src/api/controller';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import SwitchSort from './(components)/SwitchSort';
+import { toUser } from 'src/utils/paths';
 
 const getUser = async (id: string): Promise<IUser> => {
   try {
@@ -35,7 +36,7 @@ export default async function Layout({
         >
           <CardFooter className="flex-row justify-between">
             <RedirectTabs
-              baseUrl={`/user/${params.id}`}
+              baseUrl={toUser(params.id)}
               tabs={[
                 { name: 'Posts', href: 'posts' },
                 { name: 'Comments', href: 'comments' },

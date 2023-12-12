@@ -6,6 +6,7 @@ import { Message } from 'src/assets/icons';
 import ButtonVote from './components/ButtonVote';
 import { IComment } from 'src/interface';
 import Link from 'next/link';
+import { toUser } from 'src/utils/paths';
 
 type CommentProps = {
   comment: IComment;
@@ -17,13 +18,13 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
     <div className="flex flex-col">
       <div className="inline-flex items-center gap-1">
         <div className="inline-flex items-center gap-3">
-          <Link href={`/user/${comment.user.uid}`}>
+          <Link href={toUser(comment.user.uid)}>
             <Avatar radius="full" size="md" src={comment.user.photoURL || ''} />
           </Link>
           <div className="inline-flex flex-col items-start gap-0 text-small sm:flex-row sm:items-center sm:gap-1 sm:text-medium">
             <Link
               className="transition-colors hover:text-primary"
-              href={`/user/${comment.user.uid}`}
+              href={toUser(comment.user.uid)}
             >
               {comment.user.name}
             </Link>

@@ -10,6 +10,7 @@ import {
 import { Button } from '@nextui-org/button';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import { SortNew, SortOld } from 'src/assets/icons';
+import { toTopic } from 'src/utils/paths';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
@@ -63,7 +64,7 @@ export default async function Layout({
         >
           <CardFooter className="flex-row">
             <RedirectTabs
-              baseUrl={`/topic/${params.id}`}
+              baseUrl={toTopic(params.id)}
               tabs={[
                 { name: 'New', href: 'new', icon: <SortNew /> },
                 { name: 'Old', href: 'old', icon: <SortOld /> },

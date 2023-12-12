@@ -8,18 +8,19 @@ import InfoTime from '../ui/InfoTime';
 import { RippleContainer } from '../ui/RippleContainer';
 import { IPost } from 'src/interface';
 import Link from 'next/link';
+import { toPost, toPostSectionComment, toTopic, toUser } from 'src/utils/paths';
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
 
   return (
     <Card className="w-full hover:scale-[1.02]">
-      <RippleContainer href={`/post/${post.id}`}>
+      <RippleContainer href={toPost(post.id)}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
           <div className="mr-auto flex h-8 items-center justify-start gap-3">
             <Avatar
               as={Link}
-              href={`/topic/${post.topic.id}`}
+              href={toTopic(post.topic.id)}
               radius="full"
               size="sm"
               src={post.topic.photoURL ?? ''}
@@ -27,7 +28,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
             />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
               <Link
-                href={`/topic/${post.topic.id}`}
+                href={toTopic(post.topic.id)}
                 className="link relative mr-auto flex text-small font-semibold leading-none text-default-600"
               >
                 {post.topic.name}
@@ -39,7 +40,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
                     Posted by{' '}
                     <Link
                       className="link relative"
-                      href={`/user/${post.user.uid}`}
+                      href={toUser(post.user.uid)}
                     >
                       {post.user.name}
                     </Link>{' '}
@@ -58,7 +59,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
         <CardFooter className="h-12 gap-1">
           <Button
             as={Link}
-            href={`/post/${post.id}#comments`}
+            href={toPostSectionComment(post.id)}
             isIconOnly
             radius="full"
             variant="light"

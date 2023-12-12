@@ -16,6 +16,7 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { dataHeader } from './data';
 import { Create, Search } from 'src/assets/icons';
+import { toCreatPost } from 'src/utils/paths';
 
 const Header: FC = () => {
   return (
@@ -54,7 +55,7 @@ const Header: FC = () => {
             fullWidth
           />
 
-          <Button href="/post/create/" color="primary" as={Link}>
+          <Button href={toCreatPost()} color="primary" as={Link}>
             Create Post
           </Button>
         </NavbarItem>
@@ -64,7 +65,7 @@ const Header: FC = () => {
         <NavbarItem className="flex md:hidden">
           <Button
             as={Link}
-            href="/post/create/"
+            href={toCreatPost()}
             disableRipple
             isIconOnly
             variant="light"
