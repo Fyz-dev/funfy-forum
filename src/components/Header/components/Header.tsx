@@ -33,9 +33,9 @@ const Header: FC = () => {
             className="relative inline-flex items-center gap-1 text-large font-bold text-inherit"
           >
             <Avatar
-              size="lg"
+              size="md"
               src="funfy256.png"
-              className="rounded-none bg-transparent max-sm:h-11 max-sm:w-11"
+              className="rounded-none bg-transparent"
             />
             <span>Funfy</span>
           </Link>

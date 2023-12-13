@@ -118,7 +118,6 @@ export const users: IUser[] = [
       socialNetwork: ['Instagram', 'LinkedIn'],
     },
     email: 'sofia.miller@example.com',
-    photoURL: 'https://www.example.com/sofia-miller-profile.jpg',
     isBlocked: false,
   },
   {
@@ -130,7 +129,6 @@ export const users: IUser[] = [
       socialNetwork: ['Facebook', 'Twitter'],
     },
     email: 'dmitry.volkov@example.com',
-    photoURL: 'https://www.example.com/dmitry-volkov-profile.jpg',
     isBlocked: false,
   },
 ];

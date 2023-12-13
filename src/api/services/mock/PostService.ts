@@ -41,6 +41,8 @@ export default class PostService implements IPostService {
         ? getSortNew(posts.filter(post => id === post.user.uid))
         : getSortOld(posts.filter(post => id === post.user.uid));
 
+    if (postsSort.length === 0) return undefined;
+
     return Promise.resolve(postsSort);
   }
 

@@ -24,7 +24,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
               href={toTopic(post.topic.id)}
               radius="full"
               size="sm"
-              src={post.topic.photoURL ?? ''}
+              src={post.topic.photoURL || undefined}
               className="relative"
             />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">

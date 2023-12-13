@@ -52,7 +52,7 @@ export default async function Layout({
                   as={Link}
                   radius="full"
                   size="md"
-                  src={post.user.photoURL || ''}
+                  src={post.user.photoURL}
                 />
                 <div className="text-small text-default-500">
                   <h2>

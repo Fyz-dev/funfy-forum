@@ -14,6 +14,7 @@ export {
   FaCertificate as SortNew,
   FaRocket as SortBest,
   FaArrowTrendDown as SortControversial,
+  FaBoxOpen as BoxOpen,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';

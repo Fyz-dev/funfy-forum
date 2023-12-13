@@ -12,6 +12,6 @@ export interface IUser {
   name: string | null;
   userDetails: IUserDetails;
   email: string;
-  photoURL: string | null;
+  photoURL?: string;
   isBlocked: boolean;
 }

@@ -29,7 +29,7 @@ const TopicCard: FC<ITopicCard> = ({ topic, classNames }) => {
           <Avatar
             radius="full"
             size="sm"
-            src={topic.photoURL || ''}
+            src={topic.photoURL || undefined}
             className="min-w-max"
             classNames={{ img: 'max-w-[2rem]' }}
           />
