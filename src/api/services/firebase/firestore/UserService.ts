@@ -29,6 +29,10 @@ const userConvertor = {
       email,
       photoURL,
       isBlocked,
+      userDetails: {
+        socialNetwork: [],
+        description: '',
+      },
     };
   },
 };

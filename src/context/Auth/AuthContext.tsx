@@ -79,12 +79,17 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       }
 
       const { uid, displayName: name, email, photoURL } = currentUser;
+      const photo = photoURL || undefined;
       if (email)
         setUser({
           uid,
           name,
           email,
-          photoURL,
+          photoURL: photo,
+          userDetails: {
+            description: '',
+            socialNetwork: [],
+          },
           isBlocked: false,
         });
     });
@@ -93,8 +98,19 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       if (value === null) return;
 
       const { uid, displayName: name, email, photoURL } = value.user;
+      const photo = photoURL || undefined;
       if (email)
-        userService.add({ uid, name, email, photoURL, isBlocked: false });
+        userService.add({
+          uid,
+          name,
+          email,
+          photoURL: photo,
+          userDetails: {
+            description: '',
+            socialNetwork: [],
+          },
+          isBlocked: false,
+        });
     });
 
     return () => unsubscribe();

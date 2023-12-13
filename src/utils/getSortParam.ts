@@ -5,12 +5,12 @@ import {
   TSortPost,
 } from 'src/types';
 
-const sortPost: TSortPost[] = ['new', 'old'] as const;
-const sortCommentsUser: TSortCommentsUser[] = [...sortPost, 'best'] as const;
-const sortComments: TSortComments[] = [
+const sortPost: readonly TSortPost[] = ['new', 'old'];
+const sortCommentsUser: readonly TSortCommentsUser[] = [...sortPost, 'best'];
+const sortComments: readonly TSortComments[] = [
   ...sortCommentsUser,
   'controversial',
-] as const;
+];
 
 const getSortParam = (searchParams: TSearchParams): string | undefined => {
   const sortParamArray = searchParams['sort'];
