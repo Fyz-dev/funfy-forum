@@ -26,7 +26,7 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
     <BaseSwitch
       {...restProps}
       classNameLabel={[
-        'h-8 w-8 overflow-hidden group',
+        'h-8 w-8 overflow-hidden max-sm:hidden group',
         'flex items-center justify-center',
         'rounded-lg transition-all hover:bg-default/40',
       ]}

@@ -29,9 +29,9 @@ export default async function Layout({
   const post = await getPost(params.id);
 
   return (
-    <div className="m-0 flex h-screen justify-center gap-5 lg:m-5 lg:h-auto">
+    <div className="m-0 flex h-screen justify-center gap-5 sm:m-5 lg:h-auto">
       {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
-      <div className="box-content flex w-full max-w-page flex-col lg:-m-10 lg:overflow-auto lg:p-10">
+      <div className="box-content flex w-full max-w-page flex-col overflow-hidden max-lg:rounded-medium max-lg:shadow-medium max-sm:rounded-none max-sm:shadow-none lg:-m-10 lg:overflow-auto lg:p-10">
         <MobileHeaderCard
           title={post.topic.name}
           hrefTitle={toTopic(post.topic.id)}
