@@ -6,6 +6,10 @@ import {
   onAuthStateChanged,
   signInWithRedirect,
   signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getRedirectResult,
+  sendEmailVerification,
 } from 'firebase/auth';
 import {
   createContext,
@@ -15,57 +19,120 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { auth } from '../../../firebase';
-import { User } from './Auth.type';
+import { IUser } from 'src/interface';
+import { auth, userService } from 'src/api/services/firebase';
+
+type UserAuthType = IUser | null;
 
 type AuthContextPops = {
-  user: User;
-  googleSignIn: () => Promise<void>;
-  githubSignIn: () => Promise<void>;
-  logOut: () => Promise<void>;
+  user: UserAuthType;
+  signInGoogle(): Promise<void>;
+  signInGithub(): Promise<void>;
+  signInEmailAndPassword(email: string, password: string): Promise<any>;
+  createUserWithEmail(email: string, password: string): Promise<any>;
+  sendEmailVerify(): Promise<void>;
+  logOut(): Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextPops>({
   user: null,
-  googleSignIn: async () => {},
-  githubSignIn: async () => {},
+  signInGoogle: async () => {},
+  signInGithub: async () => {},
+  signInEmailAndPassword: async () => {},
+  createUserWithEmail: async () => {},
+  sendEmailVerify: async () => {},
   logOut: async () => {},
 });
 
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<UserAuthType>(null);
 
-  const googleSignIn = async (): Promise<void> => {
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+  const signInGoogle = async () => {
+    signInWithRedirect(auth, new GoogleAuthProvider());
   };
 
-  const githubSignIn = async (): Promise<void> => {
-    const provider = new GithubAuthProvider();
-    signInWithRedirect(auth, provider);
+  const signInGithub = async () =>
+    signInWithRedirect(auth, new GithubAuthProvider());
+
+  const createUserWithEmail = async (email: string, password: string) =>
+    createUserWithEmailAndPassword(auth, email, password);
+
+  const signInEmailAndPassword = async (email: string, password: string) =>
+    signInWithEmailAndPassword(auth, email, password);
+
+  const sendEmailVerify = async () => {
+    if (auth.currentUser)
+      sendEmailVerification(auth.currentUser, {
+        url: 'https://funfy-forum.vercel.app/',
+      });
   };
 
-  const logOut = async (): Promise<void> => {
-    signOut(auth);
-  };
+  const logOut = async () => signOut(auth);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser as User);
+      if (currentUser === null) {
+        setUser(null);
+        return;
+      }
+
+      const { uid, displayName: name, email, photoURL } = currentUser;
+      const photo = photoURL || undefined;
+      if (email)
+        setUser({
+          uid,
+          name,
+          email,
+          photoURL: photo,
+          userDetails: {
+            description: '',
+            socialNetwork: [],
+          },
+          isBlocked: false,
+        });
+    });
+
+    getRedirectResult(auth).then(value => {
+      if (value === null) return;
+
+      const { uid, displayName: name, email, photoURL } = value.user;
+      const photo = photoURL || undefined;
+      if (email)
+        userService.add({
+          uid,
+          name,
+          email,
+          photoURL: photo,
+          userDetails: {
+            description: '',
+            socialNetwork: [],
+          },
+          isBlocked: false,
+        });
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, githubSignIn, logOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signInGoogle,
+        signInGithub,
+        signInEmailAndPassword,
+        createUserWithEmail,
+        sendEmailVerify,
+        logOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const UserAuth = () => {
+export const useAuth = () => {
   return useContext(AuthContext);
 };

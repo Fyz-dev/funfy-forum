@@ -1,0 +1,152 @@
+.mdx-editor {
+  /* My var */
+  --foreground: hsl(
+    var(--nextui-foreground-500) /
+      var(--nextui-foreground-500-opacity, var(--tw-text-opacity))
+  );
+
+  --foreground-contrast: hsl(
+    var(--nextui-foreground) /
+      var(--nextui-foreground-opacity, var(--tw-text-opacity))
+  );
+
+  --separator: hsl(
+    var(--nextui-foreground-200) /
+      var(--nextui-foreground-200-opacity, var(--tw-text-opacity))
+  );
+
+  --baseBg: transparent;
+
+  --baseBgActive: transparent;
+  --baseTextContrast: var(--foreground-contrast);
+  --baseText: var(--foreground);
+  --baseBase: var(--separator);
+  --baseBorder: var(--separator);
+  --basePageBg: hsl(
+    var(--nextui-default-100) / var(--nextui-default-100-opacity, 360)
+  );
+  --baseBgHover: hsl(var(--nextui-default) / 0.4);
+
+  /* Выделение */
+  --focus-cursor: hsl(
+    var(--nextui-default) /
+      var(--nextui-default-opacity, var(--tw-text-opacity))
+  );
+  --focus-cursor-selectionMatch: hsl(
+    var(--nextui-default-500) /
+      var(--nextui-default-500-opacity, var(--tw-text-opacity))
+  );
+}
+
+.ͼ1v .cm-gutter.cm-lineNumbers {
+  font-size: 0.875em;
+}
+
+/* Расцветка кода для блока кода */
+.light {
+  --sp-syntax-color-plain: var(--tw-prose-invert-pre-code) !important;
+  --sp-font-size: 0.875em !important;
+}
+
+/* Расцветка кода для блока кода */
+.cm-content {
+  --sp-syntax-color-comment: var(--tw-prose-pre-code);
+  --sp-syntax-color-plain: var(--tw-prose-pre-code);
+  --sp-syntax-color-keyword: var(--tw-prose-pre-code);
+  --sp-syntax-color-tag: var(--tw-prose-pre-code);
+  --sp-syntax-color-punctuation: var(--tw-prose-pre-code);
+  --sp-syntax-color-definition: var(--tw-prose-pre-code);
+  --sp-syntax-color-property: var(--tw-prose-pre-code);
+  --sp-syntax-color-static: var(--tw-prose-pre-code);
+  --sp-syntax-color-string: var(--tw-prose-pre-code);
+}
+
+/* --------------------Блок кода-------------------- */
+.sp-pristine {
+  background-color: var(--tw-prose-pre-bg);
+  border: none;
+}
+
+.mdxeditor .sp-wrapper {
+  border: none;
+}
+
+.cm-editor,
+.ͼo .cm-activeLineGutter,
+.ͼ2 .cm-activeLineGutter,
+.ͼo .cm-activeLine,
+.ͼ2 .cm-activeLine,
+.cm-activeLineGutter {
+  background-color: transparent;
+}
+
+.ͼo .cm-gutters {
+  color: var(--foreground-contrast);
+}
+/* ------------------------------------------------- */
+
+/* --------------------Выделение-------------------- */
+.ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+  background-color: var(--focus-cursor);
+}
+
+.ͼo.cm-focused .cm-selectionBackground,
+.ͼo .cm-selectionBackground,
+.ͼo .cm-content ::selection {
+  background-color: var(--focus-cursor);
+}
+
+.ͼo.cm-focused .cm-selectionBackground,
+.ͼo .cm-selectionBackground,
+.ͼo .cm-content ::selection {
+  background-color: var(--focus-cursor);
+}
+
+.ͼo .cm-selectionMatch {
+  background-color: var(--focus-cursor-selectionMatch);
+}
+
+.ͼ2 .cm-selectionBackground {
+  background-color: var(--focus-cursor);
+}
+/* ------------------------------------------------- */
+
+input[name='url'],
+input[id='link-title'] {
+  border: var(--nextui-border-width-medium) solid
+    hsl(
+      var(--nextui-default-200) /
+        var(--nextui-default-200-opacity, var(--tw-border-opacity))
+    );
+  @apply bg-transparent;
+  @apply text-foreground-500;
+  @apply transition;
+  @apply duration-150;
+  @apply rounded-medium;
+  @apply border-medium;
+  @apply border-default-200;
+  @apply hover:border-default-400;
+  @apply focus:border-default-foreground;
+}
+
+label[for='link-url'],
+label[for='link-title'] {
+  @apply text-small;
+}
+
+div[data-radix-popper-content-wrapper] {
+  --basePageBg: hsl(var(--nextui-content2) / var(--nextui-bg-opacity, 360));
+  --baseText: hsl(var(--nextui-content2) / var(--nextui-bg-opacity, 360));
+  @apply shadow-medium;
+}
+
+button[aria-label='Set URL'],
+button[aria-label='Cancel change'] {
+  @apply bg-primary;
+  @apply rounded-medium;
+  @apply border-none;
+}
+
+button[aria-label='Cancel change'] {
+  @apply bg-default;
+}

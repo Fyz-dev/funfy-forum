@@ -1,0 +1,30 @@
+{
+  "name": "Funfy-forum",
+  "short_name": "Funfy",
+  "lang": "en-En",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "Funfy Forum is your go-to online community for lively discussions on various topics. Connect with like-minded individuals, share ideas, and enjoy a welcoming space for laughter and camaraderie. Join us for a fun and engaging forum experience!",
+  "icons": [
+    {
+      "src": "/funfy256.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/funfy256.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/funfy256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/funfy256.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
