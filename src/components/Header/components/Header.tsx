@@ -30,12 +30,9 @@ const Header: FC = () => {
         <NavbarBrand>
           <Link
             href="/"
-            className="inline-flex items-center gap-1 font-bold text-inherit"
+            className="inline-flex items-center gap-2 text-large font-bold text-inherit"
           >
-            <Avatar
-              size="md"
-              src="https://assets.stickpng.com/images/6002f95551c2ec00048c6c70.png"
-            />
+            <Avatar size="md" src="next.svg" />
             Funfy
           </Link>
         </NavbarBrand>
@@ -43,21 +40,38 @@ const Header: FC = () => {
 
       <NavbarContent
         justify="center"
-        className="hidden w-full p-40 md:flex md:p-20 "
+        className="hidden w-full sm:flex sm:px-7 md:px-14 lg:px-28"
       >
         <NavbarItem className="flex w-full flex-row items-center gap-2">
           <Input
             startContent={<Search />}
-            variant="flat"
+            variant="faded"
             placeholder="Find topic, or post"
             size="sm"
             radius="full"
             fullWidth
+            classNames={{
+              mainWrapper: 'min-h-unit-10',
+              inputWrapper: 'max-h-unit-10',
+            }}
           />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-2">
+        <NavbarItem className="sm:hidden">
+          <Button
+            as={Link}
+            href={toCreatPost()}
+            disableRipple
+            isIconOnly
+            variant="light"
+            size="sm"
+            className="group"
+          >
+            <Search className="h-4 w-4 transition group-hover:scale-110" />
+          </Button>
+        </NavbarItem>
         <NavbarItem>
           <Button
             as={Link}
@@ -76,13 +90,6 @@ const Header: FC = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        <NavbarMenuItem>
-          <Input
-            startContent={<Search />}
-            variant="flat"
-            placeholder="Find topic, or post"
-          />
-        </NavbarMenuItem>
         {dataHeader.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link href="/">{item}</Link>

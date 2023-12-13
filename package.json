@@ -16,7 +16,7 @@
     "encoding": "^0.1.13",
     "firebase": "^10.4.0",
     "framer-motion": "^10.16.4",
-    "next": "latest",
+    "next": "^14.0.4",
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.2.1",
     "react": "latest",
