@@ -30,10 +30,14 @@ const Header: FC = () => {
         <NavbarBrand>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-large font-bold text-inherit"
+            className="relative inline-flex items-center gap-1 text-large font-bold text-inherit"
           >
-            <Avatar size="md" src="next.svg" />
-            Funfy
+            <Avatar
+              size="lg"
+              src="funfy256.png"
+              className="rounded-none bg-transparent"
+            />
+            <span>Funfy</span>
           </Link>
         </NavbarBrand>
       </NavbarContent>
