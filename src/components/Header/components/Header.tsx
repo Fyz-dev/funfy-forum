@@ -15,7 +15,7 @@ import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { dataHeader } from './data';
-import { Create, Search } from 'src/assets/icons';
+import { Create, Github, Search } from 'src/assets/icons';
 import { toCreatPost } from 'src/utils/paths';
 
 const Header: FC = () => {
@@ -95,10 +95,29 @@ const Header: FC = () => {
 
       <NavbarMenu>
         {dataHeader.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link href="/">{item}</Link>
+          <NavbarMenuItem key={`${item.value}-${index}`}>
+            <Button
+              className={`m-0 inline-flex w-full items-center ${
+                dataHeader.length - 1 === index && 'text-danger'
+              } justify-start gap-2 bg-transparent p-0 px-5 text-large hover:bg-default-300`}
+              as={Link}
+              href={item.href}
+              fullWidth
+            >
+              {item.icon}
+              <span>{item.value}</span>
+            </Button>
           </NavbarMenuItem>
         ))}
+        <NavbarMenuItem className="mb-4 mt-auto inline-flex items-center gap-1 text-small">
+          Created by
+          <Link href="/" className="pr-1 text-primary">
+            Fyz-dev
+          </Link>
+          <Link href="https://github.com/Fyz-dev/">
+            <Github className="h-5 w-5" />
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

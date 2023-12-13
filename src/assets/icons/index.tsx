@@ -15,6 +15,9 @@ export {
   FaRocket as SortBest,
   FaArrowTrendDown as SortControversial,
   FaBoxOpen as BoxOpen,
+  FaHouseUser as House,
+  FaUser as User,
+  FaDoorOpen as OpenDoor,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';
