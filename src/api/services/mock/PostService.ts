@@ -13,7 +13,7 @@ const getSortNew = (posts: IPosts) =>
 
 const getSortOld = (posts: IPosts) =>
   posts.sort(
-    (a, b) => b.timestamp.createdAt.getTime() - a.timestamp.createdAt.getTime(),
+    (a, b) => a.timestamp.createdAt.getTime() - b.timestamp.createdAt.getTime(),
   );
 
 // ------------------------------- //

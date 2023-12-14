@@ -31,7 +31,7 @@ export default async function Layout({
   return (
     <div className="m-0 flex justify-center gap-5 sm:m-5 lg:h-auto">
       {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
-      <div className="box-content flex h-full w-full max-w-page flex-col overflow-hidden max-lg:rounded-medium max-lg:shadow-medium max-sm:rounded-none max-sm:shadow-none lg:-m-10 lg:overflow-auto lg:p-10">
+      <div className="box-content flex h-full w-full max-w-page flex-col max-lg:rounded-medium max-lg:shadow-medium max-sm:h-screen max-sm:min-h-screen max-sm:rounded-none max-sm:shadow-none sm:overflow-hidden lg:-m-10 lg:overflow-auto lg:p-10">
         <MobileHeaderCard
           title={post.topic.name}
           hrefTitle={toTopic(post.topic.id)}
