@@ -13,6 +13,7 @@ import CreateComment from './(components)/CreateComment';
 import { TSearchParams } from 'src/types';
 import { getSortCommentsParam } from 'src/utils';
 import { toUser } from 'src/utils/paths';
+import { withTieToTop } from 'src/hoc';
 
 const getPost = async (id: string) => {
   try {
@@ -59,7 +60,6 @@ const PostPage: FC<{
         </>
       )}
       {/* Comments */}
-      <a href="#comments" />
       <div className="h-full w-full">
         {comments.length !== 0 ? (
           <Comments comments={comments} />
@@ -79,4 +79,4 @@ const PostPage: FC<{
   );
 };
 
-export default PostPage;
+export default withTieToTop(PostPage);

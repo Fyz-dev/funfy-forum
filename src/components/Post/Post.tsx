@@ -18,14 +18,14 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
     <Card className="w-full hover:scale-[1.02]">
       <RippleContainer href={toPost(post.id)}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
-          <div className="mr-auto flex h-8 items-center justify-start gap-3">
+          <div className="mr-auto flex h-auto items-start justify-start gap-3">
             <Avatar
               as={Link}
               href={toTopic(post.topic.id)}
               radius="full"
               size="sm"
               src={post.topic.photoURL || undefined}
-              className="relative"
+              className="relative min-w-[2rem]"
             />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
               <Link
@@ -40,7 +40,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
                   <span>
                     Posted by{' '}
                     <Link
-                      className="link relative"
+                      className="link relative text-default-400"
                       href={toUser(post.user.uid)}
                     >
                       {post.user.name}
@@ -64,7 +64,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
             isIconOnly
             radius="full"
             variant="light"
-            className="bg-transparent p-0 text-default-400"
+            className="overflow-visible bg-transparent p-0 text-default-400"
           >
             <Badge
               content={post.commentCount}

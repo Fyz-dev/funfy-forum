@@ -34,9 +34,6 @@ export const formatDateFull = (date: Date) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZoneName: 'short',
   };
 
   return new Intl.DateTimeFormat('en-US', options).format(date);
