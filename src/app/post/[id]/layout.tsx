@@ -43,7 +43,7 @@ export default async function Layout({
           }}
         />
         <main className="h-full w-full bg-content1 lg:bg-transparent">
-          <Card className="w-full rounded-none p-1 shadow-none lg:rounded-large lg:shadow-medium">
+          <Card className="static w-full rounded-none p-1 shadow-none lg:rounded-large lg:shadow-medium">
             {/* Info author */}
             <CardHeader className="flex flex-col gap-3 pb-2">
               <div className="mr-auto inline-flex items-center gap-2">
