@@ -34,7 +34,7 @@ const Header: FC = () => {
           >
             <Avatar
               size="md"
-              src="funfy256.png"
+              src="/funfy256.png"
               className="rounded-none bg-transparent"
             />
             <span>Funfy</span>
