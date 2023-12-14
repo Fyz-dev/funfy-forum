@@ -84,6 +84,7 @@ export default async function Layout({
 
             {/* Comments block */}
             <CardFooter className="flex flex-col items-start gap-1">
+              <a id="comments" href="#comments" />
               {children}
             </CardFooter>
           </Card>

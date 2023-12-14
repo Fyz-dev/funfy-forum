@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import postController from 'src/api/controller/PostController';
 import Posts from 'src/components/Posts';
+import { withTieToTop } from 'src/hoc';
 
 const TopicPage: FC<{ params: { id: string } }> = async ({ params }) => {
   const posts = await postController.getByTopic(params.id, 'old');
@@ -12,4 +13,4 @@ const TopicPage: FC<{ params: { id: string } }> = async ({ params }) => {
   );
 };
 
-export default TopicPage;
+export default withTieToTop(TopicPage);

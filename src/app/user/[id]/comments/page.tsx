@@ -4,6 +4,7 @@ import CommentCard from 'src/components/Comment/CommentCard';
 import { TSearchParams } from 'src/types';
 import { getSortCommentsUserParam } from 'src/utils';
 import Empty from '../(components)/Empty';
+import { withTieToTop } from 'src/hoc';
 
 const UserPage: FC<{
   params: { id: string };
@@ -28,4 +29,4 @@ const UserPage: FC<{
   );
 };
 
-export default UserPage;
+export default withTieToTop(UserPage);

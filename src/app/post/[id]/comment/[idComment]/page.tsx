@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { FC } from 'react';
 import { commentController } from 'src/api';
 import { Commetns } from 'src/components/Comments';
+import { withTieToTop } from 'src/hoc';
 import { toPost } from 'src/utils/paths';
 
 const getComments = async (idComment: string) => {
@@ -27,7 +28,6 @@ const PostPageComment: FC<{
         </Link>
         <Divider />
       </div>
-      <a href="#comments" />
       <div className="h-full w-full">
         <Commetns comments={comments} />
       </div>
@@ -35,4 +35,4 @@ const PostPageComment: FC<{
   );
 };
 
-export default PostPageComment;
+export default withTieToTop(PostPageComment);
