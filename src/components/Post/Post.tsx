@@ -18,7 +18,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
     <Card className="w-full hover:scale-[1.02]">
       <RippleContainer href={toPost(post.id)}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
-          <div className="mr-auto flex h-auto items-start justify-start gap-3">
+          <div className="mr-auto flex h-auto items-center justify-start gap-3 max-sm:items-start">
             <Avatar
               as={Link}
               href={toTopic(post.topic.id)}
