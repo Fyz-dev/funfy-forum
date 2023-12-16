@@ -22,7 +22,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
           <div className="mr-auto flex w-full flex-col justify-start gap-1">
             <Link
               href={toTopic(comment.post.topic.id)}
-              className="link relative inline-flex items-center gap-3 text-default-600"
+              className="link relative mr-auto inline-flex items-center gap-3 text-default-600"
             >
               <Avatar
                 radius="full"
@@ -30,7 +30,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
                 className="max-h-8 min-w-[2rem] self-start"
                 src={comment.post.topic.photoURL || undefined}
               />
-              <span className="mr-auto flex text-small font-semibold leading-none">
+              <span className="flex text-small font-semibold leading-none">
                 {comment.post.topic.name}
               </span>
             </Link>
@@ -45,7 +45,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
           </div>
         </CardHeader>
         <Divider />
-        <CardBody className="static mt-2 max-h-[10rem] w-full overflow-hidden py-0 text-small">
+        <CardBody className="static mt-2 w-full overflow-hidden py-0 text-small">
           <div className="flex items-center gap-1 text-default-400">
             <Comment />
             <span>
@@ -55,7 +55,13 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
               commented {timePassed(comment.timestamp.createdAt)}
             </span>
           </div>
-          <p>{comment.content}</p>
+          <Link
+            href={toCommentsPost(comment.post.id, comment.id)}
+            className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
+          >
+            <p>{comment.content}</p>
+            <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
+          </Link>
         </CardBody>
         <CardFooter className="gap-1 pt-0">
           <div className="inline-flex">

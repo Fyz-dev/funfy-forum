@@ -53,9 +53,13 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
           </div>
           <h1 className="mr-auto text-left">{post.title}</h1>
         </CardHeader>
-        <CardBody className="static max-h-40 min-h-[3rem] w-full overflow-hidden py-0 text-small text-default-400">
-          <p className="max-h-36">{post.content}</p>
-          <div className="inset-x-0 bottom-0 -mt-5 h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
+        <CardBody
+          as={Link}
+          href={toPost(post.id)}
+          className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
+        >
+          <p>{post.content}</p>
+          <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
         </CardBody>
         <CardFooter className="h-12 gap-1">
           <Button
