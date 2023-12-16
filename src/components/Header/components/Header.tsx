@@ -42,7 +42,7 @@ const Header: FC = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent
+      {/* <NavbarContent
         justify="center"
         className="hidden w-full sm:flex sm:px-7 md:px-14 lg:px-28"
       >
@@ -60,9 +60,24 @@ const Header: FC = () => {
             }}
           />
         </NavbarItem>
-      </NavbarContent>
+      </NavbarContent> */}
 
       <NavbarContent justify="end" className="gap-2">
+        <NavbarItem className="flex w-full flex-row justify-end max-sm:hidden">
+          <Input
+            endContent={<Search />}
+            variant="faded"
+            placeholder="Find topic, or post"
+            size="sm"
+            radius="full"
+            fullWidth
+            className="max-w-xs"
+            classNames={{
+              mainWrapper: 'min-h-unit-10',
+              inputWrapper: 'max-h-unit-10',
+            }}
+          />
+        </NavbarItem>
         <NavbarItem className="sm:hidden">
           <Button
             as={Link}
@@ -83,10 +98,10 @@ const Header: FC = () => {
             disableRipple
             isIconOnly
             variant="light"
-            size="sm"
+            size="md"
             className="group"
           >
-            <Create className="h-4 w-4 transition group-hover:scale-110" />
+            <Create className="h-5 w-5 transition group-hover:scale-110" />
           </Button>
         </NavbarItem>
         <ThemeSwitcher />
