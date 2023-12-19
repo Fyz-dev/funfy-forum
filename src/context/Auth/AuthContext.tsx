@@ -1,46 +1,47 @@
 'use client';
 
 import {
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  onAuthStateChanged,
-  signInWithRedirect,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  getRedirectResult,
-  sendEmailVerification,
-} from 'firebase/auth';
-import {
-  createContext,
   FC,
   ReactNode,
+  createContext,
   useContext,
   useEffect,
   useState,
 } from 'react';
 import { IUser } from 'src/interface';
-import { auth, userService } from 'src/api/services/firebase';
+import { createBrowserClient } from 'src/utils/supabase/client';
+import {
+  TLogOut,
+  TSignIn,
+  TSignUp,
+  logOut as logOutFC,
+  signInEmailAndPassword,
+  signInGithub,
+  signInGoogle,
+  signUpEmailAndPassword,
+} from './functions';
+import { toUser } from 'src/api/services/supabase/convertor';
+import { getUserById } from 'src/api/services/supabase/user';
 
 type UserAuthType = IUser | null;
-
 type AuthContextPops = {
   user: UserAuthType;
-  signInGoogle(): Promise<void>;
-  signInGithub(): Promise<void>;
-  signInEmailAndPassword(email: string, password: string): Promise<any>;
-  createUserWithEmail(email: string, password: string): Promise<any>;
-  sendEmailVerify(): Promise<void>;
+  signInGoogle(): Promise<TSignIn>;
+  signInGithub(): Promise<TSignIn>;
+  signInEmailAndPassword(email: string, password: string): Promise<TSignIn>;
+  signUpEmailAndPassword(
+    name: string,
+    email: string,
+    password: string,
+  ): Promise<TSignUp>;
   logOut(): Promise<void>;
 };
-
-export const AuthContext = createContext<AuthContextPops>({
+const AuthContext = createContext<AuthContextPops>({
   user: null,
-  signInGoogle: async () => {},
-  signInGithub: async () => {},
-  signInEmailAndPassword: async () => {},
-  createUserWithEmail: async () => {},
-  sendEmailVerify: async () => {},
+  signInGoogle: signInGoogle,
+  signInGithub: signInGithub,
+  signInEmailAndPassword: signInEmailAndPassword,
+  signUpEmailAndPassword: signUpEmailAndPassword,
   logOut: async () => {},
 });
 
@@ -49,71 +50,22 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<UserAuthType>(null);
 
-  const signInGoogle = async () => {
-    signInWithRedirect(auth, new GoogleAuthProvider());
-  };
-
-  const signInGithub = async () =>
-    signInWithRedirect(auth, new GithubAuthProvider());
-
-  const createUserWithEmail = async (email: string, password: string) =>
-    createUserWithEmailAndPassword(auth, email, password);
-
-  const signInEmailAndPassword = async (email: string, password: string) =>
-    signInWithEmailAndPassword(auth, email, password);
-
-  const sendEmailVerify = async () => {
-    if (auth.currentUser)
-      sendEmailVerification(auth.currentUser, {
-        url: 'https://funfy-forum.vercel.app/',
-      });
-  };
-
-  const logOut = async () => signOut(auth);
+  const logOut = () => logOutFC().then(() => setUser(null));
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      if (currentUser === null) {
+    const getUserData = async () => {
+      const supabase = createBrowserClient();
+      const user = await supabase.auth.getUser();
+
+      if (!user.data.user) {
         setUser(null);
         return;
       }
 
-      const { uid, displayName: name, email, photoURL } = currentUser;
-      const photo = photoURL || undefined;
-      if (email)
-        setUser({
-          uid,
-          name,
-          email,
-          photoURL: photo,
-          userDetails: {
-            description: '',
-            socialNetwork: [],
-          },
-          isBlocked: false,
-        });
-    });
+      setUser(await getUserById(user.data.user.id));
+    };
 
-    getRedirectResult(auth).then(value => {
-      if (value === null) return;
-
-      const { uid, displayName: name, email, photoURL } = value.user;
-      const photo = photoURL || undefined;
-      if (email)
-        userService.add({
-          uid,
-          name,
-          email,
-          photoURL: photo,
-          userDetails: {
-            description: '',
-            socialNetwork: [],
-          },
-          isBlocked: false,
-        });
-    });
-
-    return () => unsubscribe();
+    getUserData();
   }, []);
 
   return (
@@ -123,8 +75,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
         signInGoogle,
         signInGithub,
         signInEmailAndPassword,
-        createUserWithEmail,
-        sendEmailVerify,
+        signUpEmailAndPassword,
         logOut,
       }}
     >

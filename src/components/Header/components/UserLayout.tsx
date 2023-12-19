@@ -8,8 +8,8 @@ import Authorization, {
   EnumModeAuth,
   ModeAuth,
 } from 'src/components/Authorization';
-import { useAuth } from 'src/context/Auth';
 import HeaderUser from './HeaderUser';
+import { useAuth } from 'src/context/Auth';
 
 const UserLayout: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

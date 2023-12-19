@@ -28,6 +28,8 @@ const useAsyncList = <T,>({
     };
 
     getData();
+
+    //eslint-disable-next-line
   }, [filterText]);
 
   return { data, filterText, isLoading, setFilterText };

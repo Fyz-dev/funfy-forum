@@ -3,7 +3,7 @@
 // }
 
 export interface IUserDetails {
-  description: string;
+  description: string | null;
   socialNetwork: string[];
 }
 
