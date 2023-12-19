@@ -56,7 +56,18 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  await supabase.auth.getSession();
+  const { data } = await supabase.auth.getSession();
+
+  if (!data.session?.user) {
+    return Response.json(
+      { success: false, message: 'authentication failed' },
+      { status: 401 },
+    );
+  }
 
   return response;
 }
+
+export const config = {
+  matcher: ['/post/create', '/create/topic'],
+};
