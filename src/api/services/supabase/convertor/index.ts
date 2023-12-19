@@ -8,7 +8,7 @@ export const toUser = (user: Tables<'users'>): IUser => {
     email: user.email,
     photoURL: user.photo_url || undefined,
     userDetails: {
-      description: user.description,
+      description: user.description || undefined,
       socialNetwork: [],
     },
     isBlocked: user.is_blocked,

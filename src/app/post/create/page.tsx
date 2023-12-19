@@ -13,7 +13,6 @@ import { PostSchema, PostSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import postController from 'src/api/controller/PostController';
 import { useAuth } from 'src/context/Auth';
-import { Timestamp } from 'firebase/firestore';
 import Link from 'next/link';
 import { ITopic } from 'src/interface';
 import TopicCard from 'src/components/TopicCard/TopicCard';
