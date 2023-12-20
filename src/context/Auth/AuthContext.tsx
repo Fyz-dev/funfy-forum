@@ -11,7 +11,6 @@ import {
 import { IUser } from 'src/interface';
 import { createBrowserClient } from 'src/utils/supabase/client';
 import {
-  TLogOut,
   TSignIn,
   TSignUp,
   logOut as logOutFC,
@@ -20,8 +19,8 @@ import {
   signInGoogle,
   signUpEmailAndPassword,
 } from './functions';
-import { toUser } from 'src/api/services/supabase/convertor';
-import { getUserById } from 'src/api/services/supabase/user';
+import { useRouter } from 'next/navigation';
+import { userController } from 'src/api';
 
 type UserAuthType = IUser | null;
 type AuthContextPops = {
@@ -49,20 +48,25 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<UserAuthType>(null);
+  const router = useRouter();
 
-  const logOut = () => logOutFC().then(() => setUser(null));
+  const logOut = async () => {
+    await logOutFC();
+    setUser(null);
+    router.refresh();
+  };
 
   useEffect(() => {
     const getUserData = async () => {
       const supabase = createBrowserClient();
-      const user = await supabase.auth.getUser();
+      const session = await supabase.auth.getSession();
 
-      if (!user.data.user) {
+      if (!session.data.session) {
         setUser(null);
         return;
       }
 
-      setUser(await getUserById(user.data.user.id));
+      setUser(await userController.getById(session.data.session.user.id));
     };
 
     getUserData();

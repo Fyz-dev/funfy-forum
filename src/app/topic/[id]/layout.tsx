@@ -11,6 +11,7 @@ import { Button } from '@nextui-org/button';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import { SortNew, SortOld } from 'src/assets/icons';
 import { toTopic } from 'src/utils/paths';
+import { OnlyAuthor } from 'src/components/Checker';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
@@ -26,9 +27,11 @@ const TopicCardHeader: FC<
       classNames={classNames}
       mediaQuery="sm"
       childrenCardHeader={
-        <Button size="sm" className="text-small" radius="full" variant="flat">
-          Edit
-        </Button>
+        <OnlyAuthor idAuthor={topic.userID}>
+          <Button size="sm" className="text-small" radius="full" variant="flat">
+            Edit
+          </Button>
+        </OnlyAuthor>
       }
     >
       {children}

@@ -6,6 +6,7 @@ import {
   MobileHeaderCard,
   MobileHeaderProps,
 } from 'src/components/MobileHeaderCard';
+import { OnlyAuthor } from '../Checker';
 
 type UserCardPartProps = Pick<MobileHeaderProps, 'classNames'> & {
   user: IUser;
@@ -26,9 +27,16 @@ const UserCardHeader: FC<UserCardPartProps> = ({
         classNames={classNames}
         mediaQuery="sm"
         childrenCardHeader={
-          <Button size="sm" className="text-small" radius="full" variant="flat">
-            Edit
-          </Button>
+          <OnlyAuthor idAuthor={user.uid}>
+            <Button
+              size="sm"
+              className="text-small"
+              radius="full"
+              variant="flat"
+            >
+              Edit
+            </Button>
+          </OnlyAuthor>
         }
         childrenCardBody={
           <div className="flex flex-row flex-wrap justify-center gap-1 gap-y-2">

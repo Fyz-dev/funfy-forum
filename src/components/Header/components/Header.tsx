@@ -17,6 +17,7 @@ import { Input } from '@nextui-org/input';
 import { dataHeader } from './data';
 import { Create, Github, Search } from 'src/assets/icons';
 import { toCreatPost } from 'src/utils/paths';
+import { OnlyAuthorization } from 'src/components/Checker';
 
 const Header: FC = () => {
   return (
@@ -91,19 +92,21 @@ const Header: FC = () => {
             <Search className="h-4 w-4 transition group-hover:scale-110" />
           </Button>
         </NavbarItem>
-        <NavbarItem>
-          <Button
-            as={Link}
-            href={toCreatPost()}
-            disableRipple
-            isIconOnly
-            variant="light"
-            size="md"
-            className="group"
-          >
-            <Create className="h-5 w-5 transition group-hover:scale-110" />
-          </Button>
-        </NavbarItem>
+        <OnlyAuthorization>
+          <NavbarItem>
+            <Button
+              as={Link}
+              href={toCreatPost()}
+              disableRipple
+              isIconOnly
+              variant="light"
+              size="md"
+              className="group"
+            >
+              <Create className="h-5 w-5 transition group-hover:scale-110" />
+            </Button>
+          </NavbarItem>
+        </OnlyAuthorization>
         <ThemeSwitcher />
         <UserLayout />
       </NavbarContent>

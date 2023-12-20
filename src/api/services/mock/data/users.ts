@@ -2,7 +2,7 @@ import { IUser } from 'src/interface/';
 
 export const users: IUser[] = [
   {
-    uid: '95Mj61BfGVeY87mYXidwm1baC8p2',
+    uid: '6774652b-88be-4e9a-87ca-1baba102e3d0',
     name: 'Vlad',
     userDetails: {
       description: 'The creator of this site, and a programming enthusiast',
