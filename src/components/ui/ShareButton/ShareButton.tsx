@@ -14,11 +14,13 @@ const ShareButton: FC<{ url: string }> = ({ url }) => {
       radius="full"
       className="p-0 text-default-400"
       onClick={() => {
-        if (navigator.canShare())
-          navigator.share({
-            title: 'Share link',
-            url: url,
-          });
+        const shareData = {
+          title: 'Share link',
+          text: 'Funfy Forum is your go-to online community for lively discussions on various topics.',
+          url: url,
+        };
+
+        if (navigator.canShare(shareData)) navigator.share(shareData);
       }}
     >
       <Share {...styleIcon} />
