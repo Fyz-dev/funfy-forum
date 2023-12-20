@@ -3,13 +3,14 @@ import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Badge } from '@nextui-org/badge';
 import { Button } from '@nextui-org/button';
 import { Avatar } from '@nextui-org/avatar';
-import { Message, Share } from 'src/assets/icons';
+import { Message } from 'src/assets/icons';
 import InfoTime from '../ui/InfoTime';
 import { RippleContainer } from '../ui/RippleContainer';
 import { IPost } from 'src/interface';
 import Link from 'next/link';
 import { toPost, toPostSectionComment, toTopic, toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
+import ShareButton from '../ui/ShareButton/ShareButton';
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
@@ -78,14 +79,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
               <Message {...styleIcon} />
             </Badge>
           </Button>
-          <Button
-            variant="light"
-            isIconOnly
-            radius="full"
-            className="p-0 text-default-400"
-          >
-            <Share {...styleIcon} />
-          </Button>
+          <ShareButton url={toPost(post.id)} />
         </CardFooter>
       </RippleContainer>
     </Card>
