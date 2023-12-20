@@ -9,7 +9,12 @@ const CreateComment: FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <MDXEditor name="comment" markdown="" placeholder="Add a comment..." />
+      <MDXEditor
+        withPublicButton={true}
+        name="comment"
+        markdown=""
+        placeholder="Add a comment..."
+      />
     </FormProvider>
   );
 };

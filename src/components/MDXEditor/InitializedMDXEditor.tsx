@@ -30,23 +30,31 @@ import '@mdxeditor/editor/style.css';
 import './MDXEditor.css';
 import { findInputError } from 'src/utils';
 import { ErrorMessage } from 'src/components/ui/ErrorMessage';
+import { Button } from '@nextui-org/react';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const InitializedMDXEditor = ({
   name,
   diffMarkdown,
+  withPublicButton = false,
   ...props
-}: { name: string; diffMarkdown?: string } & MDXEditorProps) => {
+}: {
+  name: string;
+  diffMarkdown?: string;
+  withPublicButton?: boolean;
+} & MDXEditorProps) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
-
+  const [isNull, setIsNull] = useState<boolean>(true);
   const { message, isInvalid } = findInputError(errors, name);
 
   return (
     <div>
       <div
-        className={`overflow-hidden rounded-medium border-2 transition-all ${
+        className={`overflow-hidden rounded-medium border-2 transition-all  ${
           isInvalid
             ? 'border-danger'
             : 'border-default-200 focus-within:border-foreground'
@@ -59,7 +67,11 @@ const InitializedMDXEditor = ({
             <MDXEditorOriginal
               autoFocus
               className="mdx-editor"
-              onChange={onChange}
+              onChange={e => {
+                if (e.length === 0 && !isNull) setIsNull(true);
+                else if (e.length !== 0 && isNull) setIsNull(false);
+                onChange(e);
+              }}
               contentEditableClassName="placeholder:text-foreground-500 !focus:border-default-500 prose max-w-none prose-a dark:prose-invert"
               plugins={[
                 headingsPlugin({
@@ -111,6 +123,38 @@ const InitializedMDXEditor = ({
             />
           )}
         />
+        <AnimatePresence>
+          {withPublicButton && !isNull && (
+            <motion.div
+              initial="collapsed"
+              animate="open"
+              exit="collapsed"
+              variants={{
+                open: { opacity: 1, height: 'auto' },
+                collapsed: { opacity: 0, height: 0 },
+              }}
+              transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+              className="flex"
+            >
+              <motion.div
+                initial={{ translateY: '100%' }}
+                animate={{ translateY: '0%' }}
+                exit={{ translateY: '100%' }}
+                transition={{
+                  duration: 0.4,
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 20,
+                }}
+                className="m-1 ml-auto mt-0"
+              >
+                <Button color="primary" type="submit" radius="full">
+                  Comment
+                </Button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       {isInvalid && <ErrorMessage message={message} />}
     </div>
