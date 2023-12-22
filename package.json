@@ -39,5 +39,6 @@
     "supabase": ">=1.8.1",
     "tailwindcss": "latest",
     "typescript": "latest"
-  }
+  },
+  "license": "MIT"
 }
