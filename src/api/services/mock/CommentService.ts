@@ -66,7 +66,7 @@ export default class CommentService implements ICommentService {
     return posts;
   }
 
-  async getChild(idComment: string): Promise<IComment> {
+  async getChild(idComment: number): Promise<IComment> {
     const comment = this.findCommentById(idComment, comments);
 
     if (comment) return comment;
@@ -75,7 +75,7 @@ export default class CommentService implements ICommentService {
   }
 
   private findCommentById(
-    commentId: string,
+    commentId: number,
     commentsArray: IComments,
   ): IComment | undefined {
     for (const comment of commentsArray) {

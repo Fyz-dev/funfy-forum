@@ -65,7 +65,10 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
         </CardBody>
         <CardFooter className="gap-1 pt-0">
           <div className="inline-flex">
-            <ButtonVote voteCount={comment.voteCount} />
+            <ButtonVote
+              userVote={comment.userVote}
+              voteCount={comment.voteCount}
+            />
             <Button
               radius="full"
               className="bg-transparent p-0 text-default-600 hover:bg-default-100"

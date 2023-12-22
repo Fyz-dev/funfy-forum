@@ -1,12 +1,14 @@
+import { VoteEnum } from 'src/enums';
 import { IPost, IUser } from '.';
 import { IComments } from './IComments';
 import { ITimestamps } from './ITimestamps';
 
 interface IBase {
-  id: string;
+  id: number;
   user: IUser;
   content: string;
   voteCount: number;
+  userVote: VoteEnum;
   childComment: IComments;
   timestamp: ITimestamps;
 }

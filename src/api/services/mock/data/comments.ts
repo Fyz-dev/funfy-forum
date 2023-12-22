@@ -3,7 +3,7 @@ import { users } from './users';
 
 export const comments: IComments = [
   {
-    id: 'comment1',
+    id: 1,
     user: users[0],
     postID: 'post1',
     voteCount: 5,
@@ -11,7 +11,7 @@ export const comments: IComments = [
       'Bold of you to assume someone who has 400 lambdas has tests for them… 😂',
     childComment: [
       {
-        id: 'comment2',
+        id: 2,
         user: users[1],
         voteCount: 5,
         content:
@@ -29,7 +29,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment3',
+    id: 3,
     user: users[2],
     postID: 'post2',
     voteCount: 3,
@@ -37,28 +37,28 @@ export const comments: IComments = [
       'I can relate to that! Managing a large number of lambdas without tests can be challenging.',
     childComment: [
       {
-        id: 'comment4',
+        id: 4,
         user: users[3],
         voteCount: 10,
         content:
           'Absolutely! Testing is crucial for maintaining a reliable and scalable serverless architecture.',
         childComment: [
           {
-            id: 'comment23',
+            id: 23,
             user: users[0],
             voteCount: 230,
             content:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel ex nec urna tincidunt feugiat. Fusce aliquam libero ac sem iaculis, vel feugiat ligula facilisis.',
             childComment: [
               {
-                id: 'comment24',
+                id: 24,
                 user: users[1],
                 voteCount: 1,
                 content:
                   'I agree! Testing is crucial for building robust and reliable serverless applications.',
                 childComment: [
                   {
-                    id: 'comment25',
+                    id: 25,
                     user: users[0],
                     voteCount: 5,
                     content:
@@ -94,7 +94,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment5',
+    id: 5,
     user: users[4],
     postID: 'post1',
     content:
@@ -107,7 +107,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment6',
+    id: 6,
     user: users[5],
     postID: 'post1',
     voteCount: 5,
@@ -115,7 +115,7 @@ export const comments: IComments = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae nisi eget turpis euismod faucibus.',
     childComment: [
       {
-        id: 'comment7',
+        id: 7,
         user: users[1],
         voteCount: 10,
         content:
@@ -133,7 +133,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment9',
+    id: 9,
     user: users[8],
     postID: 'post1',
     voteCount: 5,
@@ -146,7 +146,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment10',
+    id: 10,
     user: users[9],
     postID: 'post1',
     voteCount: 1,
@@ -154,7 +154,7 @@ export const comments: IComments = [
       "Interesting topic! I recently started learning about serverless architecture, and it's fascinating.",
     childComment: [
       {
-        id: 'comment8',
+        id: 8,
         user: users[7],
         voteCount: 5,
         content:
@@ -172,7 +172,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment11',
+    id: 11,
     user: users[9],
     postID: 'post8',
     voteCount: 10,
@@ -185,7 +185,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment12',
+    id: 12,
     user: users[9],
     postID: 'post9',
     voteCount: 5,
@@ -198,7 +198,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment13',
+    id: 13,
     user: users[0],
     postID: 'post10',
     voteCount: 0,
@@ -211,7 +211,7 @@ export const comments: IComments = [
     },
   },
   {
-    id: 'comment14',
+    id: 14,
     user: users[1],
     postID: 'post1',
     voteCount: 1,
@@ -219,7 +219,7 @@ export const comments: IComments = [
       'Absolutely! Testing is crucial for maintaining a reliable and scalable serverless architecture.',
     childComment: [
       {
-        id: 'comment21',
+        id: 21,
         user: users[8],
         voteCount: 0,
         content:
@@ -231,7 +231,7 @@ export const comments: IComments = [
         },
       },
       {
-        id: 'comment20',
+        id: 20,
         user: users[2],
         voteCount: 3,
         content:

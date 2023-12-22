@@ -21,7 +21,7 @@ export interface IPostService {
 export interface ICommentService {
   getByPost(id: string, sort: TSortComments): Promise<IComments>;
   getByUser(id: string, sort: TSortComments): Promise<ICommentWithPost[]>;
-  getChild(idComment: string): Promise<IComment>;
+  getChild(idComment: number): Promise<IComment>;
 }
 
 export interface IUserService {

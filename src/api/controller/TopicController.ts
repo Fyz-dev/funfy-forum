@@ -1,6 +1,6 @@
 import { ITopic } from 'src/interface';
 import { ITopicService } from '../services/InterfaceServices';
-import { TopicService } from '../services/mock';
+import { TopicService } from '../services/supabase';
 import { TopicCreateDTO } from '../dto';
 
 interface ITopicController extends ITopicService {}

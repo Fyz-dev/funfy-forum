@@ -1,6 +1,6 @@
 import { IPost, IPosts } from 'src/interface';
 import { IPostService } from '../services/InterfaceServices';
-import { PostService } from '../services/mock';
+import { PostService } from '../services/supabase';
 import { PostCreateDTO } from '../dto';
 import { TSortPost } from 'src/types';
 
