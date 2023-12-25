@@ -11,6 +11,7 @@ import { TSortComments } from 'src/types';
 import { toComment, toCommentWithPost } from '../convertor';
 import { arrayToTree } from 'performant-array-to-tree';
 import path from 'path';
+import { AddVoteDTO } from 'src/api/dto';
 
 const sortMap: Record<TSortComments, string> = {
   new: 'pathSortNew',
@@ -96,4 +97,14 @@ export const getChildComments = async (
   } catch {
     throw new Error('Not find comment.');
   }
+};
+
+export const addVoteToComment = async (data: AddVoteDTO): Promise<void> => {
+  const { error } = await createServerClient().from('comment_votes').upsert({
+    user_id: data.userId,
+    comment_id: data.commentId,
+    vote: data.vote,
+  });
+
+  if (error) console.log(error);
 };

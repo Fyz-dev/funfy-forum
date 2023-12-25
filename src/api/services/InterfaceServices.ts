@@ -7,7 +7,7 @@ import {
   ITopic,
   IUser,
 } from 'src/interface';
-import { PostCreateDTO, TopicCreateDTO } from '../dto';
+import { AddVoteDTO, PostCreateDTO, TopicCreateDTO } from '../dto';
 import { TSortComments, TSortPost } from 'src/types';
 
 export interface IPostService {
@@ -22,6 +22,7 @@ export interface ICommentService {
   getByPost(id: string, sort: TSortComments): Promise<IComments>;
   getByUser(id: string, sort: TSortComments): Promise<ICommentWithPost[]>;
   getChild(idComment: number): Promise<IComment>;
+  addVote(data: AddVoteDTO): Promise<void>;
 }
 
 export interface IUserService {

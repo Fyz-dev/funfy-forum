@@ -41,6 +41,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             className="ml-auto hidden md:flex"
             userVote={comment.userVote}
             voteCount={comment.voteCount}
+            commentId={comment.id}
           />
         </div>
         <div className="ml-5 flex flex-col gap-1 border-l-[1px] border-default-400">
@@ -52,6 +53,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
               className="flex md:hidden"
               userVote={comment.userVote}
               voteCount={comment.voteCount}
+              commentId={comment.id}
             />
             <Button
               radius="full"
