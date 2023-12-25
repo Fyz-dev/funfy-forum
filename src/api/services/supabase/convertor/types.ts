@@ -17,3 +17,8 @@ export type TableCommentWithPostWithoutNull = RemoveNullExcept<
   TableCommentWithPost,
   'parent_comment_id'
 >;
+
+export type TreeComment = {
+  children: TreeComment[];
+  data: RemoveNullExcept<Tables<'comment_tree'>> & { users: Tables<'users'> };
+};

@@ -35,10 +35,11 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             />
           </div>
         </div>
-        <ButtonVote
+        {/* <ButtonVote
           className="ml-auto hidden md:flex"
+          userVote={comment.userVote}
           voteCount={comment.voteCount}
-        />
+        /> */}
       </div>
       <div className="ml-5 flex flex-col gap-1 border-l-[1px] border-default-400">
         <div className="ml-8 text-small">
@@ -46,7 +47,8 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
         </div>
         <div className="ml-8 inline-flex">
           <ButtonVote
-            className="flex md:hidden"
+            className="flex"
+            userVote={comment.userVote}
             voteCount={comment.voteCount}
           />
           <Button

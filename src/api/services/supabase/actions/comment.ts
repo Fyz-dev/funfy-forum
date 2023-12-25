@@ -4,17 +4,27 @@ import { createServerClient } from 'src/utils/supabase/server';
 import {
   TableCommentWithPost,
   TableCommentWithPostWithoutNull,
+  TreeComment,
 } from '../convertor/types';
-import { ICommentWithPost } from 'src/interface';
+import { IComment, ICommentWithPost, IComments } from 'src/interface';
 import { TSortComments } from 'src/types';
-import { toCommentWithPost } from '../convertor';
+import { toComment, toCommentWithPost } from '../convertor';
+import { arrayToTree } from 'performant-array-to-tree';
+import path from 'path';
+
+const sortMap: Record<TSortComments, string> = {
+  new: 'pathSortNew',
+  old: 'pathSortOld',
+  best: 'pathSortBest',
+  controversial: 'pathSortControversial',
+};
 
 export const getCommentsByUser = async (
   id: string,
   sort: TSortComments,
 ): Promise<ICommentWithPost[]> => {
-  const sortBy = sort === 'new' || sort === 'old' ? 'voteCount' : 'created_at';
-  const ascending = sort === 'new' || sort === 'best';
+  const sortBy = sort === 'new' || sort === 'old' ? 'created_at' : 'voteCount';
+  const ascending = sort === 'old' || sort === 'controversial';
 
   const { data, error } = await createServerClient()
     .from('comment_linear')
@@ -40,4 +50,50 @@ export const getCommentsByUser = async (
         )
         .map(item => toCommentWithPost(item as TableCommentWithPostWithoutNull))
     : [];
+};
+
+export const getCommentsByPost = async (
+  id: string,
+  sort: TSortComments,
+): Promise<IComments> => {
+  const { data, error } = await createServerClient()
+    .from('comment_tree')
+    .select(`*`)
+    .eq('post_id', id)
+    .order(sortMap[sort]);
+
+  if (error) console.log(error);
+
+  const comments: TreeComment[] = data
+    ? (arrayToTree(data.flat(), {
+        parentId: 'parent_comment_id',
+      }) as TreeComment[])
+    : [];
+
+  return comments.map(comment => toComment(comment));
+};
+
+export const getChildComments = async (
+  idComment: number,
+): Promise<IComment> => {
+  try {
+    const { data, error } = await createServerClient()
+      .from('comment_tree')
+      .select(`*`)
+      .contains('path', [idComment]);
+
+    if (error) console.log(error);
+
+    if (data) data[0].parent_comment_id = null;
+
+    const comments: TreeComment[] = data
+      ? (arrayToTree(data.flat(), {
+          parentId: 'parent_comment_id',
+        }) as TreeComment[])
+      : [];
+
+    return toComment(comments[0]);
+  } catch {
+    throw new Error('Not find comment.');
+  }
 };
