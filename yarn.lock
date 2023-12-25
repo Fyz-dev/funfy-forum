@@ -6536,7 +6536,7 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@>=1.8.1:
+supabase@^1.123.4:
   version "1.123.4"
   resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.123.4.tgz#f32bbd1e8b962fb6aeb5e91345b511f0248c013b"
   integrity sha512-HFQOU+n73Ah9sYbja7tdjuqT6QNDzkKXfLCCIbD9GdggbTvGZa3D+0hJPADL4y0vAfsoB5tlx3WBXswnbWIXiw==

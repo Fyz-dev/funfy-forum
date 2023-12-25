@@ -6,19 +6,40 @@ import { createServerClient } from 'src/utils/supabase/server';
 import { toPost } from '../convertor';
 import { TablePost } from '../convertor/types';
 
+// ------ utils ------ //
+const getCountComments = async (data: TablePost[]): Promise<TablePost[]> => {
+  const { data: postCountComments } = await createServerClient().rpc(
+    'get_comment_count',
+    { post_ids: data.map(item => item.id) },
+  );
+
+  return data.map(item => {
+    return {
+      ...item,
+      countComments:
+        postCountComments?.find(count => count.post_id === item.id)
+          ?.countComments || 0,
+    };
+  });
+};
+// ------------------- //
+
 export const getPosts = async (sort: TSortPost): Promise<IPosts> => {
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
     .order('created_at', { ascending: !(sort === 'new') });
 
+  if (!data) return [];
   if (error) console.log(error);
 
-  return data
-    ? data
-        .filter(item => item.users !== null && item.topics !== null)
-        .map(item => toPost(item as TablePost))
-    : [];
+  const posts = await getCountComments(
+    data.filter(
+      item => item.users !== null && item.topics !== null,
+    ) as TablePost[],
+  );
+
+  return posts.map(item => toPost(item));
 };
 
 export const getPostById = async (id: string): Promise<IPost> => {
@@ -28,7 +49,11 @@ export const getPostById = async (id: string): Promise<IPost> => {
     .eq('id', id)
     .maybeSingle();
 
-  if (data && data.users && data.topics) return toPost(data as TablePost);
+  if (data && data.users && data.topics) {
+    const posts = await getCountComments([data] as TablePost[]);
+
+    return toPost(posts[0]);
+  }
 
   throw new Error('Not find post');
 };
@@ -43,13 +68,16 @@ export const getPostsByUser = async (
     .eq('user_id', id)
     .order('created_at', { ascending: !(sort === 'new') });
 
+  if (!data) return [];
   if (error) console.log(error);
 
-  return data
-    ? data
-        .filter(item => item.users !== null && item.topics !== null)
-        .map(item => toPost(item as TablePost))
-    : [];
+  const posts = await getCountComments(
+    data.filter(
+      item => item.users !== null && item.topics !== null,
+    ) as TablePost[],
+  );
+
+  return posts.map(item => toPost(item));
 };
 
 export const getPostsByTopic = async (
@@ -62,11 +90,14 @@ export const getPostsByTopic = async (
     .eq('topic_id', id)
     .order('created_at', { ascending: !(sort === 'new') });
 
+  if (!data) return [];
   if (error) console.log(error);
 
-  return data
-    ? data
-        .filter(item => item.users && item.topics)
-        .map(item => toPost(item as TablePost))
-    : [];
+  const posts = await getCountComments(
+    data.filter(
+      item => item.users !== null && item.topics !== null,
+    ) as TablePost[],
+  );
+
+  return posts.map(item => toPost(item));
 };

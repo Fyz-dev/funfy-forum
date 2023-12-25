@@ -49,7 +49,7 @@ export const toPost = (post: TablePost): IPost => {
     imageURL: post.image_url || undefined,
     content: post.content || undefined,
     isNSFW: post.is_nsfw,
-    commentCount: 0,
+    commentCount: post?.countComments || 0,
     timestamp: {
       createdAt: new Date(post.created_at),
       updatedAt: null,

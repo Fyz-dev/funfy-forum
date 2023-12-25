@@ -3,7 +3,7 @@ import { RemoveNullExcept } from 'src/utils';
 
 export type TablePost = Tables<'posts'> & { topics: Tables<'topics'> } & {
   users: Tables<'users'>;
-};
+} & { countComments?: number };
 
 type TableCommentLinear = Omit<Tables<'comment_linear'>, 'posts' | 'users'>;
 

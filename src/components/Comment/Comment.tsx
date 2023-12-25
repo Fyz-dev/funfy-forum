@@ -22,7 +22,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
           <Link href={toUser(comment.user.uid)}>
             <Avatar radius="full" size="md" src={comment.user.photoURL} />
           </Link>
-          <div className="inline-flex flex-col items-start gap-0 text-small sm:flex-row sm:items-center sm:gap-1 sm:text-medium">
+          <div className="inline-flex flex-col items-start gap-0 text-small sm:flex-row sm:items-center sm:text-medium">
             <Link
               className="transition-colors hover:text-primary"
               href={toUser(comment.user.uid)}
