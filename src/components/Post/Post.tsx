@@ -16,7 +16,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
 
   return (
-    <Card className="w-full hover:scale-[1.02]">
+    <Card isPressable as={Card} className="w-full hover:scale-[1.02]">
       <RippleContainer href={toPost(post.id)}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
           <div className="mr-auto flex h-auto items-center justify-start gap-3 max-sm:items-start">
