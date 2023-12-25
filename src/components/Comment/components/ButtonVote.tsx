@@ -1,16 +1,10 @@
 'use client';
 
-import {
-  Dispatch,
-  FC,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, FC, ReactNode, SetStateAction, useEffect } from 'react';
 import { UpVote, DownVote } from 'src/assets/icons';
 import { Button as ButtonNext } from '@nextui-org/button';
 import { VoteEnum } from 'src/enums';
+import { useVote } from '../context/VoteContext';
 
 const Button: FC<{
   typeVote: VoteEnum;
@@ -51,12 +45,14 @@ const ButtonVote: FC<ButtonVoteProps> = ({
   userVote,
   className = '',
 }) => {
-  const [vote, setVote] = useState<VoteEnum>(userVote);
+  const { vote, setVote } = useVote();
 
   const styleIcon = { style: { height: '1.5rem', width: '1.5rem' } };
 
   useEffect(() => {
     setVote(userVote);
+
+    //eslint-disable-next-line
   }, [userVote]);
 
   return (
