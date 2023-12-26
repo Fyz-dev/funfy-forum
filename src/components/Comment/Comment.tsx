@@ -1,8 +1,6 @@
 import { Avatar } from '@nextui-org/avatar';
 import { FC, ReactElement } from 'react';
-import { Button } from '@nextui-org/button';
 import InfoTime from '../ui/InfoTime';
-import { Message } from 'src/assets/icons';
 import ButtonVote from './components/ButtonVote';
 import { IComment } from 'src/interface';
 import Link from 'next/link';
@@ -51,6 +49,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
           </div>
           <div className="ml-8 inline-flex">
             <ReplySection
+              comment={comment}
               toolsButton={
                 <ButtonVote
                   className="flex !self-start md:hidden"

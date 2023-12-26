@@ -33,7 +33,7 @@ const PostPage: FC<{
 
   return (
     <>
-      <CommentSection />
+      <CommentSection post={post} />
       {comments.length !== 0 && (
         <>
           <div className="mr-auto flex items-center gap-1">

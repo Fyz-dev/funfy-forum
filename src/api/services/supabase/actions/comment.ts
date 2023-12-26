@@ -10,8 +10,8 @@ import { IComment, ICommentWithPost, IComments } from 'src/interface';
 import { TSortComments } from 'src/types';
 import { toComment, toCommentWithPost } from '../convertor';
 import { arrayToTree } from 'performant-array-to-tree';
-import path from 'path';
 import { AddVoteDTO } from 'src/api/dto';
+import { CreateCommentDTO } from 'src/api/dto/CreateCommentDTO';
 
 const sortMap: Record<TSortComments, string> = {
   new: 'pathSortNew',
@@ -105,6 +105,19 @@ export const addVoteToComment = async (data: AddVoteDTO): Promise<void> => {
     comment_id: data.commentId,
     vote: data.vote,
   });
+
+  if (error) console.log(error);
+};
+
+export const createComment = async (comment: CreateCommentDTO) => {
+  const { error } = await createServerClient()
+    .from('comments')
+    .insert({
+      user_id: comment.userId,
+      post_id: comment.postId,
+      parent_comment_id: comment.parentCommentId || null,
+      content: comment.content,
+    });
 
   if (error) console.log(error);
 };

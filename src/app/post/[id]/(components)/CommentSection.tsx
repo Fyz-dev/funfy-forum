@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { toUser } from 'src/utils/paths';
 import CreateComment from './CreateComment';
 import { useAuth } from 'src/context/Auth';
+import { IPost } from 'src/interface';
 
-const CommentSection: FC = () => {
+const CommentSection: FC<{ post: IPost }> = ({ post }) => {
   const { user } = useAuth();
 
   return (
@@ -19,11 +20,11 @@ const CommentSection: FC = () => {
               {user.name}
             </Link>
           </span>
-          <CreateComment />
+          <CreateComment post={post} />
         </>
       ) : (
         <>
-          <CreateComment />
+          <CreateComment post={post} />
         </>
       )}
     </div>

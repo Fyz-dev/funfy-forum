@@ -14,7 +14,7 @@ interface IBase {
 }
 
 export interface IComment extends IBase {
-  postID?: string;
+  postID: string;
 }
 
 export interface ICommentWithPost extends IBase {

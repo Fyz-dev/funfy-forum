@@ -9,6 +9,7 @@ import {
 } from 'src/interface';
 import { AddVoteDTO, PostCreateDTO, TopicCreateDTO } from '../dto';
 import { TSortComments, TSortPost } from 'src/types';
+import { CreateCommentDTO } from '../dto/CreateCommentDTO';
 
 export interface IPostService {
   create(post: PostCreateDTO): Promise<void>;
@@ -23,6 +24,7 @@ export interface ICommentService {
   getByUser(id: string, sort: TSortComments): Promise<ICommentWithPost[]>;
   getChild(idComment: number): Promise<IComment>;
   addVote(data: AddVoteDTO): Promise<void>;
+  create(comment: CreateCommentDTO): Promise<void>;
 }
 
 export interface IUserService {

@@ -6,10 +6,42 @@ import { Button } from '@nextui-org/button';
 import { Message } from 'src/assets/icons';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useAuth } from 'src/context/Auth';
+import { commentController } from 'src/api';
+import { IComment } from 'src/interface';
+import { useRouter } from 'next/navigation';
+import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-const ReplySection: FC<{ toolsButton?: ReactNode }> = ({ toolsButton }) => {
-  const methods = useForm();
+const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
+  comment,
+  toolsButton,
+}) => {
+  const methods = useForm<CommentSchemaType>({
+    resolver: zodResolver(CommentSchema),
+  });
+  const { user } = useAuth();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleSubmit = methods.handleSubmit(data => {
+    if (!user) return;
+    setIsLoading(true);
+
+    commentController
+      .create({
+        userId: user.uid,
+        postId: comment.postID,
+        parentCommentId: comment.id,
+        content: data.comment,
+      })
+      .then(() => {
+        setIsLoading(false);
+        setIsOpen(false);
+        router.refresh();
+      });
+  });
 
   return (
     <div className="flex flex-col items-start gap-4 overflow-hidden">
@@ -55,6 +87,7 @@ const ReplySection: FC<{ toolsButton?: ReactNode }> = ({ toolsButton }) => {
                 }}
                 className="max-w-fit overflow-hidden sm:ml-5"
                 name="createComment"
+                onSubmit={handleSubmit}
                 noValidate
               >
                 <MDXEditor
@@ -66,6 +99,7 @@ const ReplySection: FC<{ toolsButton?: ReactNode }> = ({ toolsButton }) => {
                   name="comment"
                   markdown=""
                   placeholder="Add a comment..."
+                  isLoading={isLoading}
                 />
               </motion.form>
             </FormProvider>

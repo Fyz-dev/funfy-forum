@@ -3,6 +3,7 @@ import { ICommentService } from '../services/InterfaceServices';
 import { CommentService } from '../services/supabase';
 import { TSortComments } from 'src/types';
 import { AddVoteDTO } from '../dto';
+import { CreateCommentDTO } from '../dto/CreateCommentDTO';
 
 interface ICommentController extends ICommentService {}
 
@@ -30,6 +31,10 @@ class CommentController implements ICommentController {
 
   async addVote(data: AddVoteDTO): Promise<void> {
     return this.commentService.addVote(data);
+  }
+
+  async create(comment: CreateCommentDTO): Promise<void> {
+    this.commentService.create(comment);
   }
 }
 

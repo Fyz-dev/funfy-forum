@@ -1,3 +1,4 @@
+import { isNull } from 'src/utils';
 import z from 'zod';
 
 export const AuthSchema = z.object({
@@ -30,6 +31,13 @@ export const TopicSchema = z.object({
   description: z.string().max(300).optional(),
 });
 
+export const CommentSchema = z.object({
+  comment: z.string().refine(value => !isNull(value), {
+    message: 'Invalid data.',
+  }),
+});
+
 export type AuthSchemaType = z.infer<typeof AuthSchema>;
 export type PostSchemaType = z.infer<typeof PostSchema>;
 export type TopicSchemaType = z.infer<typeof TopicSchema>;
+export type CommentSchemaType = z.infer<typeof CommentSchema>;

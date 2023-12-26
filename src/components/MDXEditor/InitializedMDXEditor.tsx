@@ -36,6 +36,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const InitializedMDXEditor = ({
   name,
+  isLoading,
   onCancel,
   diffMarkdown,
   withPublicButton = false,
@@ -43,6 +44,7 @@ const InitializedMDXEditor = ({
   ...props
 }: {
   name: string;
+  isLoading?: boolean;
   onCancel?: () => void;
   diffMarkdown?: string;
   withPublicButton?: boolean;
@@ -67,7 +69,7 @@ const InitializedMDXEditor = ({
         <Controller
           name={name}
           control={control}
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange } }) => (
             <MDXEditorOriginal
               autoFocus
               className="mdx-editor"
@@ -158,7 +160,12 @@ const InitializedMDXEditor = ({
                     Cancel
                   </Button>
                 )}
-                <Button color="primary" type="submit" radius="full">
+                <Button
+                  color="primary"
+                  type="submit"
+                  radius="full"
+                  isLoading={isLoading}
+                >
                   Comment
                 </Button>
               </motion.div>
