@@ -36,19 +36,23 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const InitializedMDXEditor = ({
   name,
+  onCancel,
   diffMarkdown,
   withPublicButton = false,
+  withHideAnim = false,
   ...props
 }: {
   name: string;
+  onCancel?: () => void;
   diffMarkdown?: string;
   withPublicButton?: boolean;
+  withHideAnim?: boolean;
 } & MDXEditorProps) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
-  const [isNull, setIsNull] = useState<boolean>(true);
+  const [isNull, setIsNull] = useState<boolean>(withHideAnim);
   const { message, isInvalid } = findInputError(errors, name);
 
   return (
@@ -63,14 +67,15 @@ const InitializedMDXEditor = ({
         <Controller
           name={name}
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <MDXEditorOriginal
               autoFocus
               className="mdx-editor"
               onChange={e => {
+                onChange(e);
+                if (!withHideAnim) return;
                 if (e.length === 0 && !isNull) setIsNull(true);
                 else if (e.length !== 0 && isNull) setIsNull(false);
-                onChange(e);
               }}
               contentEditableClassName="placeholder:text-foreground-500 !focus:border-default-500 prose max-w-none prose-a dark:prose-invert"
               plugins={[
@@ -146,8 +151,13 @@ const InitializedMDXEditor = ({
                   stiffness: 400,
                   damping: 20,
                 }}
-                className="m-1 ml-auto mt-0"
+                className="m-1 ml-auto mt-0 flex gap-2"
               >
+                {onCancel && (
+                  <Button type="reset" radius="full" onClick={onCancel}>
+                    Cancel
+                  </Button>
+                )}
                 <Button color="primary" type="submit" radius="full">
                   Comment
                 </Button>

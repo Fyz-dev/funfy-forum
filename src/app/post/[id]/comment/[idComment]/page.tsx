@@ -7,7 +7,7 @@ import { Commetns } from 'src/components/Comments';
 import { withTieToTop } from 'src/hoc';
 import { toPost } from 'src/utils/paths';
 
-const getComments = async (idComment: string) => {
+const getComments = async (idComment: number) => {
   try {
     return [await commentController.getChild(idComment)];
   } catch (error) {
@@ -18,7 +18,7 @@ const getComments = async (idComment: string) => {
 const PostPageComment: FC<{
   params: { id: string; idComment: string };
 }> = async ({ params: { id, idComment } }) => {
-  const comments = await getComments(idComment);
+  const comments = await getComments(Number(idComment));
 
   return (
     <>

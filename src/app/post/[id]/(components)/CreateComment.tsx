@@ -19,6 +19,7 @@ const CreateComment: FC = () => {
     <FormProvider {...methods}>
       <form name="createComment" noValidate onSubmit={handleCreate}>
         <MDXEditor
+          withHideAnim={true}
           withPublicButton={true}
           name="comment"
           markdown=""

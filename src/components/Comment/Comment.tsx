@@ -9,10 +9,11 @@ import Link from 'next/link';
 import { toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
+import ReplySection from './components/ReplySection';
 
 type CommentProps = {
   comment: IComment;
-  children?: ReactElement | ReactElement[];
+  children?: ReactElement[];
 };
 
 const Comment: FC<CommentProps> = ({ comment, children }) => {
@@ -49,23 +50,20 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             <p>{comment.content}</p>
           </div>
           <div className="ml-8 inline-flex">
-            <ButtonVote
-              className="flex md:hidden"
-              userVote={comment.userVote}
-              voteCount={comment.voteCount}
-              commentId={comment.id}
+            <ReplySection
+              toolsButton={
+                <ButtonVote
+                  className="flex !self-start md:hidden"
+                  userVote={comment.userVote}
+                  voteCount={comment.voteCount}
+                  commentId={comment.id}
+                />
+              }
             />
-            <Button
-              radius="full"
-              className="bg-transparent p-0 text-default-600 hover:bg-default-100"
-            >
-              <Message />
-              <span>Reply</span>
-            </Button>
           </div>
 
           {/* Здесь будут дочерние коментарии */}
-          {children && <div className="ml-2">{children}</div>}
+          {children?.length !== 0 && <div className="ml-2">{children}</div>}
         </div>
         {/* Вариант через i */}
         {/* <div className="inline-flex">
