@@ -6,5 +6,4 @@ export interface PostCreateDTO {
   title: string;
   content?: string;
   isNSFW: boolean;
-  timestamp: ITimestamps;
 }

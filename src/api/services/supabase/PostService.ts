@@ -7,11 +7,12 @@ import {
   getPostsByTopic,
   getPostsByUser,
   getPosts,
+  createPost,
 } from './actions';
 
 export default class PostService implements IPostService {
   async create(post: PostCreateDTO): Promise<void> {
-    console.log(post);
+    createPost(post);
   }
 
   async getPosts(sort: TSortPost): Promise<IPosts> {

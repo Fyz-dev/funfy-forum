@@ -23,6 +23,7 @@
     "performant-array-to-tree": "^1.11.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.47.0",
     "zod": "^3.22.4"
   },

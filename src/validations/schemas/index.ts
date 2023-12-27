@@ -17,7 +17,7 @@ export const AuthSchema = z.object({
 
 export const PostSchema = z.object({
   title: z.string().min(1).max(300),
-  content: z.string().max(5000).optional(),
+  content: z.string().max(8000).optional(),
   topicID: z.string({
     errorMap: () => ({
       message: 'Required',

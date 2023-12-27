@@ -16,8 +16,9 @@ import { useAuth } from 'src/context/Auth';
 import Link from 'next/link';
 import { ITopic } from 'src/interface';
 import TopicCard from 'src/components/TopicCard/TopicCard';
+import { useRouter } from 'next/navigation';
 
-const ButtonPublic = () => {
+const ButtonPublic: FC<{ isLoading: boolean }> = ({ isLoading }) => {
   return (
     <>
       <Button
@@ -26,6 +27,7 @@ const ButtonPublic = () => {
         radius="full"
         color="primary"
         content="Public"
+        isLoading={isLoading}
       >
         Public
       </Button>
@@ -34,24 +36,28 @@ const ButtonPublic = () => {
 };
 
 const CreatePage: FC = () => {
-  const [topic, setTopic] = useState<ITopic | undefined>(undefined);
-
   const methods = useForm<PostSchemaType>({
     resolver: zodResolver(PostSchema),
   });
   const { user } = useAuth();
+  const redirect = useRouter();
+
+  const [topic, setTopic] = useState<ITopic | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const createPost = methods.handleSubmit(async data => {
     if (!user) return;
+    setIsLoading(true);
 
-    postController.create({
-      userID: user.uid,
-      ...data,
-      timestamp: {
-        createdAt: new Date(),
-        updatedAt: null,
-      },
-    });
+    postController
+      .create({
+        userID: user.uid,
+        ...data,
+      })
+      .then(() => {
+        setIsLoading(false);
+        redirect.push('/');
+      });
   });
 
   return (
@@ -102,7 +108,7 @@ const CreatePage: FC = () => {
                       >
                         Cancel
                       </Button>
-                      <ButtonPublic />
+                      <ButtonPublic isLoading={isLoading} />
                     </div>
                   </CardFooter>
                 </Card>
@@ -118,7 +124,7 @@ const CreatePage: FC = () => {
                         setTopic={setTopic}
                       />
                       <div className="flex justify-center gap-2 max-[350px]:w-full lg:hidden">
-                        <ButtonPublic />
+                        <ButtonPublic isLoading={isLoading} />
                       </div>
                     </Card>
                   </div>
