@@ -8,6 +8,7 @@ import { toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
 import ReplySection from './components/ReplySection';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 type CommentProps = {
   comment: IComment;
@@ -45,7 +46,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
         </div>
         <div className="ml-5 flex flex-col gap-1 border-l-[1px] border-default-400">
           <div className="ml-8 text-small">
-            <p>{comment.content}</p>
+            <MDXRemote source={comment.content} />
           </div>
           <div className="ml-8 inline-flex">
             <ReplySection

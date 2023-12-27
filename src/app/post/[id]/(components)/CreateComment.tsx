@@ -21,8 +21,6 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
     if (!user) return;
     setIsLoading(true);
 
-    console.log(data);
-
     commentController
       .create({
         userId: user.uid,

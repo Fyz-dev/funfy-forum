@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { toPost, toPostSectionComment, toTopic, toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
 import { ShareButton } from '../ui/ShareButton';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
@@ -59,7 +60,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
           href={toPost(post.id)}
           className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
         >
-          <p>{post.content}</p>
+          <MDXRemote source={post.content || ''} />
           <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
         </CardBody>
         <CardFooter className="h-12 gap-1">

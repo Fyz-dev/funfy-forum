@@ -10,6 +10,7 @@ import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
 import { toTopic, toUser } from 'src/utils/paths';
 import { formatDateFull } from 'src/utils';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const getPost = async (id: string) => {
   try {
@@ -69,8 +70,10 @@ export default async function Layout({
             </CardHeader>
 
             {/* Main content post */}
-            <CardBody className="w-full gap-5 pb-4 pt-0 text-default-500">
-              <p>{post.content}</p>
+            <CardBody className="w-full gap-5 pb-4 pt-0">
+              <div className="prose text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
+                <MDXRemote source={post.content || ''} />
+              </div>
               <Button
                 radius="full"
                 className="h-unit-9 w-min bg-default-100 p-0 text-default-500"
