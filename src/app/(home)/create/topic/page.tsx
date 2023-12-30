@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Input } from 'src/components/ui/Input';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { TopicSchema, TopicSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from 'src/context/Auth';
@@ -11,6 +11,7 @@ import { Textarea } from 'src/components/ui/Textarea';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 import topicController from 'src/api/controller/TopicController';
+import { Dropzone } from 'src/components/Dropzone';
 
 const CreatePage: FC = () => {
   const methods = useForm<TopicSchemaType>({
@@ -20,6 +21,8 @@ const CreatePage: FC = () => {
 
   const createTopic = methods.handleSubmit(async data => {
     if (!user) return;
+
+    console.log(data);
 
     topicController.create({ userID: user.uid, photoURL: '', ...data });
   });
@@ -51,6 +54,19 @@ const CreatePage: FC = () => {
                 placeholder="Add a description... (optional)"
                 maxRows={10}
               />
+              <Controller
+                control={methods.control}
+                name="avatar"
+                render={({ field: { onChange } }) => {
+                  return (
+                    <Dropzone
+                      onChange={file => {
+                        onChange(file);
+                      }}
+                    />
+                  );
+                }}
+              ></Controller>
             </CardBody>
             <CardFooter>
               <div className="fixed bottom-0 left-0 z-10 ml-auto gap-2 max-sm:w-full sm:relative sm:flex sm:p-0">

@@ -38,7 +38,7 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
           animate={{ x: 0 }}
           exit={{ x: '200%' }}
         >
-          <div className=" transition group-hover:scale-110">
+          <div className="transition group-hover:scale-110">
             {isSelected ? (
               <SunIcon className="h-5 w-5" />
             ) : (
