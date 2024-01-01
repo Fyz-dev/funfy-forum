@@ -71,7 +71,7 @@ export default async function Layout({
 
             {/* Main content post */}
             <CardBody className="w-full gap-5 pb-4 pt-0">
-              <div className="prose text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
+              <div className="prose w-full min-w-full text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
                 <MDXRemote source={post.content || ''} />
               </div>
               <Button
