@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Input } from 'src/components/ui/Input';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
@@ -10,21 +10,45 @@ import { useAuth } from 'src/context/Auth';
 import { Textarea } from 'src/components/ui/Textarea';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import topicController from 'src/api/controller/TopicController';
 import { Dropzone } from 'src/components/Dropzone';
+import { createBrowserClient } from 'src/utils/supabase/client';
+import { topicController } from 'src/api';
+import { useRouter } from 'next/navigation';
 
 const CreatePage: FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const methods = useForm<TopicSchemaType>({
     resolver: zodResolver(TopicSchema),
   });
   const { user } = useAuth();
+  const router = useRouter();
 
   const createTopic = methods.handleSubmit(async data => {
     if (!user) return;
 
-    console.log(data);
+    setIsLoading(true);
+    let photoURL = '';
 
-    topicController.create({ userID: user.uid, photoURL: '', ...data });
+    if (data.avatar) {
+      const avatar = data.avatar as File;
+
+      const { data: res } = await createBrowserClient()
+        .storage.from('topic-avatars')
+        .upload(`${new Date().getTime()}_${Math.random()}`, avatar);
+
+      if (res)
+        photoURL = createBrowserClient()
+          .storage.from('topic-avatars')
+          .getPublicUrl(res.path).data.publicUrl;
+    }
+
+    topicController
+      .create({ userID: user.uid, photoURL: photoURL, name: data.name })
+      .then(() => {
+        setIsLoading(false);
+        router.push('/');
+      });
   });
 
   return (
@@ -85,6 +109,7 @@ const CreatePage: FC = () => {
                     color="primary"
                     radius="full"
                     className="max-sm:w-full"
+                    isLoading={isLoading}
                   >
                     Create
                   </Button>

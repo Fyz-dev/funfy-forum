@@ -3,8 +3,8 @@ import postController from 'src/api/controller/PostController';
 import Posts from 'src/components/Posts';
 import { TSearchParams } from 'src/types';
 import { getSortPostParam } from 'src/utils';
-import Empty from '../(components)/Empty';
 import { withTieToTop } from 'src/hoc';
+import { Empty } from 'src/components/ui/Empty';
 
 const UserPage: FC<{
   params: { id: string };

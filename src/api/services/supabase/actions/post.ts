@@ -112,5 +112,5 @@ export const createPost = async (post: PostCreateDTO) => {
     is_nsfw: post.isNSFW,
   });
 
-  if (error) return error;
+  if (error) console.log(error);
 };

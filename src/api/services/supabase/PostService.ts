@@ -23,11 +23,11 @@ export default class PostService implements IPostService {
     return getPostById(id);
   }
 
-  async getByUser(id: string, sort: TSortPost): Promise<IPosts | undefined> {
+  async getByUser(id: string, sort: TSortPost): Promise<IPosts> {
     return getPostsByUser(id, sort);
   }
 
-  async getByTopic(id: string, sort: TSortPost): Promise<IPosts | undefined> {
+  async getByTopic(id: string, sort: TSortPost): Promise<IPosts> {
     return getPostsByTopic(id, sort);
   }
 }

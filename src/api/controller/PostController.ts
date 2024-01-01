@@ -25,11 +25,11 @@ class PostController implements IPostController {
     return this.postService.getById(id);
   }
 
-  async getByUser(id: string, sort: TSortPost): Promise<IPosts | undefined> {
+  async getByUser(id: string, sort: TSortPost): Promise<IPosts> {
     return this.postService.getByUser(id, sort);
   }
 
-  async getByTopic(id: string, sort: TSortPost): Promise<IPosts | undefined> {
+  async getByTopic(id: string, sort: TSortPost): Promise<IPosts> {
     return this.postService.getByTopic(id, sort);
   }
 }

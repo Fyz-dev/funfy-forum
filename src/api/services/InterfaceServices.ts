@@ -15,8 +15,8 @@ export interface IPostService {
   create(post: PostCreateDTO): Promise<void>;
   getPosts(sort: TSortPost): Promise<IPosts>;
   getById(id: string): Promise<IPost>;
-  getByUser(id: string, sort: TSortPost): Promise<IPosts | undefined>;
-  getByTopic(id: string, sort: TSortPost): Promise<IPosts | undefined>;
+  getByUser(id: string, sort: TSortPost): Promise<IPosts>;
+  getByTopic(id: string, sort: TSortPost): Promise<IPosts>;
 }
 
 export interface ICommentService {

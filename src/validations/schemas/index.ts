@@ -29,7 +29,7 @@ export const PostSchema = z.object({
 export const TopicSchema = z.object({
   name: z.string().min(1, 'Required').max(21),
   description: z.string().max(300).optional(),
-  avatar: z.any().optional(),
+  avatar: z.any().optional(), // As file
 });
 
 export const CommentSchema = z.object({
