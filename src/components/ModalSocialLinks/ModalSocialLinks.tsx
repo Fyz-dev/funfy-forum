@@ -12,10 +12,12 @@ import { ArrowLeft } from 'src/assets/icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { socialLinks } from 'src/utils';
+import { FormProvider, useForm } from 'react-hook-form';
 
 const ModalSocialLinks: FC<
   Pick<ReturnType<typeof useDisclosure>, 'isOpen' | 'onOpenChange'>
 > = ({ isOpen, onOpenChange }) => {
+  const methods = useForm();
   const [currentSocial, setCurrentSocial] =
     useState<(typeof socialLinks)[number]>();
 
@@ -29,52 +31,54 @@ const ModalSocialLinks: FC<
         {onClose => (
           <>
             {currentSocial ? (
-              <>
-                <ModalHeader className="flex justify-center text-center">
-                  <Button
-                    size="sm"
-                    radius="full"
-                    variant="light"
-                    className="absolute left-1 top-1"
-                    isIconOnly
-                    onClick={() => {
-                      setCurrentSocial(undefined);
-                    }}
-                  >
-                    <ArrowLeft className="h-[1em] w-[1em] text-foreground-500" />
-                  </Button>
-                  Add Social Link
-                </ModalHeader>
-                <ModalBody>
-                  <Button
-                    key={currentSocial.key}
-                    className="mr-auto max-w-min text-black"
-                    style={{ backgroundColor: currentSocial.color }}
-                    radius="full"
-                    startContent={
-                      <Image
-                        width={16}
-                        height={16}
-                        src={currentSocial.icon}
-                        alt={currentSocial.key}
-                      />
-                    }
-                    disabled
-                  >
-                    {currentSocial.key}
-                  </Button>
-                  <Input variant="bordered" placeholder="Display text" />
-                  <Input
-                    variant="bordered"
-                    placeholder={currentSocial.placeHolder}
-                  />
-                </ModalBody>
-                <ModalFooter>
-                  <Button radius="full" color="primary" onPress={onClose}>
-                    Save
-                  </Button>
-                </ModalFooter>
-              </>
+              <FormProvider {...methods}>
+                <form noValidate>
+                  <ModalHeader className="flex justify-center text-center">
+                    <Button
+                      size="sm"
+                      radius="full"
+                      variant="light"
+                      className="absolute left-1 top-1"
+                      isIconOnly
+                      onClick={() => {
+                        setCurrentSocial(undefined);
+                      }}
+                    >
+                      <ArrowLeft className="h-[1em] w-[1em] text-foreground-500" />
+                    </Button>
+                    Add Social Link
+                  </ModalHeader>
+                  <ModalBody>
+                    <Button
+                      key={currentSocial.key}
+                      className="mr-auto max-w-min text-black"
+                      style={{ backgroundColor: currentSocial.color }}
+                      radius="full"
+                      startContent={
+                        <Image
+                          width={16}
+                          height={16}
+                          src={currentSocial.icon}
+                          alt={currentSocial.key}
+                        />
+                      }
+                      disabled
+                    >
+                      {currentSocial.key}
+                    </Button>
+                    <Input variant="bordered" placeholder="Display text" />
+                    <Input
+                      variant="bordered"
+                      placeholder={currentSocial.placeHolder}
+                    />
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button radius="full" color="primary" onPress={onClose}>
+                      Save
+                    </Button>
+                  </ModalFooter>
+                </form>
+              </FormProvider>
             ) : (
               <>
                 <ModalHeader className="flex justify-center text-center">

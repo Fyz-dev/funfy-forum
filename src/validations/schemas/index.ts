@@ -48,6 +48,17 @@ export const ProfileSchema = z.object({
   avatar: avatarValid, // As file
 });
 
+export const SocialLinkSchema = z.object({
+  displayName: z
+    .string({
+      errorMap: () => ({
+        message: 'Required',
+      }),
+    })
+    .max(20),
+  url: z.string(),
+});
+
 export type AuthSchemaType = z.infer<typeof AuthSchema>;
 export type PostSchemaType = z.infer<typeof PostSchema>;
 export type TopicSchemaType = z.infer<typeof TopicSchema>;

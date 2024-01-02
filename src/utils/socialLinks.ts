@@ -63,6 +63,6 @@ export const socialLinks = [
     key: 'YouTube',
     color: '#FFDDCC',
     icon: '/static/socialLinks/youtube.svg',
-    placeHolder: 'https://www.youtube.com/',
+    placeHolder: 'https://www.youtube.com',
   },
 ];
