@@ -6,15 +6,15 @@ import Link from 'next/link';
 import { Message } from 'src/assets/icons';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
-import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
 import { toTopic, toUser } from 'src/utils/paths';
 import { formatDateFull } from 'src/utils';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getPostById } from 'src/api/supabase';
 
 const getPost = async (id: string) => {
   try {
-    return await postController.getById(id);
+    return await getPostById(id);
   } catch (error) {
     notFound();
   }

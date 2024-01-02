@@ -2,14 +2,14 @@ import { Divider } from '@nextui-org/divider';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
-import { commentController } from 'src/api';
+import { getChildComments } from 'src/api/supabase';
 import { Comments } from 'src/components/Comments';
 import { withTieToTop } from 'src/hoc';
 import { toPost } from 'src/utils/paths';
 
 const getComments = async (idComment: number) => {
   try {
-    return [await commentController.getChild(idComment)];
+    return [await getChildComments(idComment)];
   } catch (error) {
     notFound();
   }

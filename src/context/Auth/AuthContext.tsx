@@ -20,7 +20,7 @@ import {
   signUpEmailAndPassword,
 } from './functions';
 import { useRouter } from 'next/navigation';
-import { userController } from 'src/api';
+import { getUserById } from 'src/api/supabase';
 
 type UserAuthType = IUser | null;
 type AuthContextPops = {
@@ -66,7 +66,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
         return;
       }
 
-      setUser(await userController.getById(session.data.session.user.id));
+      setUser(await getUserById(session.data.session.user.id));
     };
 
     getUserData();

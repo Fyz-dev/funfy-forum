@@ -12,8 +12,8 @@ import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 import { DropzoneAvatar } from 'src/components/DropzoneAvatar';
 import { createBrowserClient } from 'src/utils/supabase/client';
-import { topicController } from 'src/api';
 import { useRouter } from 'next/navigation';
+import { createTopic } from 'src/api/supabase';
 
 const CreatePage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const CreatePage: FC = () => {
   const { user } = useAuth();
   const router = useRouter();
 
-  const createTopic = methods.handleSubmit(async data => {
+  const handleSubmit = methods.handleSubmit(async data => {
     if (!user) return;
 
     setIsLoading(true);
@@ -43,19 +43,19 @@ const CreatePage: FC = () => {
           .getPublicUrl(res.path).data.publicUrl;
     }
 
-    topicController
-      .create({ userID: user.uid, photoURL: photoURL, name: data.name })
-      .then(() => {
+    createTopic({ userID: user.uid, photoURL: photoURL, name: data.name }).then(
+      () => {
         setIsLoading(false);
         router.push('/');
-      });
+      },
+    );
   });
 
   return (
     <FormProvider {...methods}>
       <form
         name="createTopic"
-        onSubmit={createTopic}
+        onSubmit={handleSubmit}
         noValidate
         className="m-0 flex justify-center sm:m-5"
       >

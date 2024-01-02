@@ -32,8 +32,12 @@ const Profile = () => {
     <div className="flex justify-center sm:m-5">
       <main className="flex w-full max-w-page flex-col items-start gap-3 sm:gap-5">
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit} className="w-full" noValidate>
-            <Card className="max-sm:rounded-none max-sm:bg-transparent">
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-sm:h-[100vh]"
+            noValidate
+          >
+            <Card className="h-full max-sm:rounded-none max-sm:bg-transparent">
               <CardHeader>
                 <h1>Setting Profile</h1>
               </CardHeader>

@@ -64,7 +64,10 @@ const ModalSocialLinks: FC<
                     {currentSocial.key}
                   </Button>
                   <Input variant="bordered" placeholder="Display text" />
-                  <Input variant="bordered" placeholder="https://discord.com" />
+                  <Input
+                    variant="bordered"
+                    placeholder={currentSocial.placeHolder}
+                  />
                 </ModalBody>
                 <ModalFooter>
                   <Button radius="full" color="primary" onPress={onClose}>

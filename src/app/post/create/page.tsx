@@ -11,12 +11,12 @@ import { Tooltip } from '@nextui-org/tooltip';
 import { FormProvider, useForm } from 'react-hook-form';
 import { PostSchema, PostSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import postController from 'src/api/controller/PostController';
 import { useAuth } from 'src/context/Auth';
 import Link from 'next/link';
 import { ITopic } from 'src/interface';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import { useRouter } from 'next/navigation';
+import { createPost } from 'src/api/supabase';
 
 const ButtonPublic: FC<{ isLoading: boolean }> = ({ isLoading }) => {
   return (
@@ -45,19 +45,17 @@ const CreatePage: FC = () => {
   const [topic, setTopic] = useState<ITopic | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const createPost = methods.handleSubmit(async data => {
+  const handleSubmit = methods.handleSubmit(async data => {
     if (!user) return;
     setIsLoading(true);
 
-    postController
-      .create({
-        userID: user.uid,
-        ...data,
-      })
-      .then(() => {
-        setIsLoading(false);
-        redirect.push('/');
-      });
+    createPost({
+      userID: user.uid,
+      ...data,
+    }).then(() => {
+      setIsLoading(false);
+      redirect.push('/');
+    });
   });
 
   return (
@@ -65,7 +63,7 @@ const CreatePage: FC = () => {
       <FormProvider {...methods}>
         <form
           name="createPost"
-          onSubmit={createPost}
+          onSubmit={handleSubmit}
           noValidate
           className="m-0 flex justify-center max-lg:pb-28 max-sm:h-screen sm:m-5"
         >

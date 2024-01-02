@@ -1,8 +1,8 @@
-import postController from 'src/api/controller/PostController';
+import { getPosts } from 'src/api/supabase';
 import Posts from 'src/components/Posts';
 
 export default async function Home() {
-  const posts = await postController.getPosts('new');
+  const posts = await getPosts('new');
 
   return (
     <div className="m-3 flex justify-center sm:m-5">

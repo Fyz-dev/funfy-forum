@@ -3,14 +3,14 @@ import { notFound } from 'next/navigation';
 import { CardFooter } from '@nextui-org/card';
 import { UserCardHeader } from 'src/components/User';
 import { IUser } from 'src/interface';
-import { userController } from 'src/api/controller';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import SwitchSort from './(components)/SwitchSort';
 import { toUser } from 'src/utils/paths';
+import { getUserById } from 'src/api/supabase';
 
 const getUser = async (id: string): Promise<IUser> => {
   try {
-    return await userController.getById(id);
+    return await getUserById(id);
   } catch (error) {
     notFound();
   }

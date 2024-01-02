@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { commentController } from 'src/api';
+import { createComment } from 'src/api/supabase';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { useAuth } from 'src/context/Auth';
 import { IPost } from 'src/interface';
@@ -21,17 +21,15 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
     if (!user) return;
     setIsLoading(true);
 
-    commentController
-      .create({
-        userId: user.uid,
-        postId: post.id,
-        content: data.comment,
-      })
-      .then(() => {
-        setIsLoading(false);
-        setRerendMDX(true);
-        router.refresh();
-      });
+    createComment({
+      userId: user.uid,
+      postId: post.id,
+      content: data.comment,
+    }).then(() => {
+      setIsLoading(false);
+      setRerendMDX(true);
+      router.refresh();
+    });
   });
 
   useEffect(() => {

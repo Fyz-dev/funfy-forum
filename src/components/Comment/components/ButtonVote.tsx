@@ -5,8 +5,8 @@ import { UpVote, DownVote } from 'src/assets/icons';
 import { Button as ButtonNext } from '@nextui-org/button';
 import { VoteEnum } from 'src/enums';
 import { useVote } from '../context/VoteContext';
-import { commentController } from 'src/api';
 import { useAuth } from 'src/context/Auth';
+import { addVoteToComment } from 'src/api/supabase';
 
 const Button: FC<{
   typeVote: VoteEnum;
@@ -64,7 +64,7 @@ const ButtonVote: FC<ButtonVoteProps> = ({
     if (!user) return;
 
     setVote(vote);
-    commentController.addVote({
+    addVoteToComment({
       userId: user.uid,
       commentId,
       vote,

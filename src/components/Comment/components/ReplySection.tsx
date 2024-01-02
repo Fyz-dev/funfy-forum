@@ -7,11 +7,11 @@ import { Message } from 'src/assets/icons';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from 'src/context/Auth';
-import { commentController } from 'src/api';
 import { IComment } from 'src/interface';
 import { useRouter } from 'next/navigation';
 import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { createComment } from 'src/api/supabase';
 
 const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
   comment,
@@ -29,18 +29,16 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
     if (!user) return;
     setIsLoading(true);
 
-    commentController
-      .create({
-        userId: user.uid,
-        postId: comment.postID,
-        parentCommentId: comment.id,
-        content: data.comment,
-      })
-      .then(() => {
-        setIsLoading(false);
-        setIsOpen(false);
-        router.refresh();
-      });
+    createComment({
+      userId: user.uid,
+      postId: comment.postID,
+      parentCommentId: comment.id,
+      content: data.comment,
+    }).then(() => {
+      setIsLoading(false);
+      setIsOpen(false);
+      router.refresh();
+    });
   });
 
   return (

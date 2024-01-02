@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { FC, ReactNode } from 'react';
 import { CardFooter } from '@nextui-org/card';
 import { ITopic } from 'src/interface';
-import topicController from 'src/api/controller/TopicController';
 import {
   MobileHeaderCard,
   MobileHeaderProps,
@@ -12,6 +11,7 @@ import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import { SortNew, SortOld } from 'src/assets/icons';
 import { toTopic } from 'src/utils/paths';
 import { OnlyAuthor } from 'src/components/Checker';
+import { getTopicById } from 'src/api/supabase';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
@@ -41,7 +41,7 @@ const TopicCardHeader: FC<
 
 const getTopic = async (id: string): Promise<ITopic> => {
   try {
-    return await topicController.getById(id);
+    return await getTopicById(id);
   } catch (error) {
     notFound();
   }
