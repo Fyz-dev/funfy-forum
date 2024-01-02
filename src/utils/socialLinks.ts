@@ -21,7 +21,7 @@ export const socialLinks = [
   },
   {
     key: 'LinkedIn',
-    color: '#94EBF8',
+    color: '#5DCEEA',
     icon: '/static/socialLinks/linkedin.svg',
   },
   {
