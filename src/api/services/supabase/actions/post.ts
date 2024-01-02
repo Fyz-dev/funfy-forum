@@ -62,7 +62,7 @@ export const getPostById = async (id: string): Promise<IPost> => {
 export const getPostsByUser = async (
   id: string,
   sort: TSortPost,
-): Promise<IPosts | undefined> => {
+): Promise<IPosts> => {
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
@@ -84,7 +84,7 @@ export const getPostsByUser = async (
 export const getPostsByTopic = async (
   id: string,
   sort: TSortPost,
-): Promise<IPosts | undefined> => {
+): Promise<IPosts> => {
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
 import { commentController } from 'src/api';
-import { Commetns } from 'src/components/Comments';
+import { Comments } from 'src/components/Comments';
 import { withTieToTop } from 'src/hoc';
 import { toPost } from 'src/utils/paths';
 
@@ -29,7 +29,7 @@ const PostPageComment: FC<{
         <Divider />
       </div>
       <div className="h-full w-full">
-        <Commetns comments={comments} />
+        <Comments comments={comments} />
       </div>
     </>
   );
