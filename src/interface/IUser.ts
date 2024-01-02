@@ -9,7 +9,7 @@ export interface IUserDetails {
 
 export interface IUser {
   uid: string;
-  name: string | null;
+  name: string;
   userDetails: IUserDetails;
   email: string;
   photoURL?: string;

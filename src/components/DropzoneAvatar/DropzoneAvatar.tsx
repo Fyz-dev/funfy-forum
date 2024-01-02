@@ -1,17 +1,30 @@
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload } from 'src/assets/icons';
 import { ErrorMessage } from '../ui/ErrorMessage';
 
+// type Avatar = File & { preview: string };
+
 interface DropzoneProps {
+  textDragNoActive: string;
+  defaultUrlImage?: string;
   onChange?: (file: File) => void;
   className?: string;
 }
 
-const Dropzone: FC<DropzoneProps> = ({ onChange, className = '' }) => {
-  const [image, setImage] = useState<File & { preview: string }>();
+const DropzoneAvatar: FC<DropzoneProps> = ({
+  textDragNoActive,
+  defaultUrlImage,
+  onChange,
+  className = '',
+}) => {
+  const [url, setUrl] = useState<string | undefined>(defaultUrlImage);
+  // const [image, setImage] = useState<Avatar>();
+
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
     useDropzone({
       accept: {
@@ -20,11 +33,9 @@ const Dropzone: FC<DropzoneProps> = ({ onChange, className = '' }) => {
       maxSize: 200000,
       onDrop: acceptedFiles => {
         const file = acceptedFiles[0];
-        const withPreview = Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        });
 
-        setImage(withPreview);
+        if (url) URL.revokeObjectURL(url);
+        setUrl(URL.createObjectURL(file));
 
         if (onChange) onChange(file);
       },
@@ -46,15 +57,31 @@ const Dropzone: FC<DropzoneProps> = ({ onChange, className = '' }) => {
     },
   };
 
+  const image = url ? (
+    <Image
+      priority={true}
+      src={url}
+      alt="Selected image"
+      fill
+      className="object-contain"
+    />
+  ) : null;
+
+  useEffect(() => {
+    return () => {
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [url]);
+
   return (
     <AnimatePresence>
       <div>
         <div
-          className={`relative flex min-h-[400px] select-none flex-col items-center justify-center overflow-hidden rounded-medium border-medium p-1 text-center text-default-500 transition-colors !duration-150 hover:border-default-400 ${className}`}
+          className={`relative flex max-h-full min-h-[200px] select-none flex-col items-center justify-center overflow-hidden rounded-medium border-medium p-1 text-center text-default-500 transition-colors !duration-150 hover:border-default-400 ${className}`}
           {...getRootProps()}
         >
           <input className="focus:bg-red active:bg-red" {...getInputProps()} />
-          {!image && (
+          {!url && (
             <>
               <Upload className="h-10 w-10" />
               {isDragActive ? (
@@ -63,12 +90,12 @@ const Dropzone: FC<DropzoneProps> = ({ onChange, className = '' }) => {
                 </motion.p>
               ) : (
                 <motion.p key="drag-no-active" {...animate}>
-                  Drag and drop avatar topic, or click to select image
+                  {textDragNoActive}
                 </motion.p>
               )}
             </>
           )}
-          {image && (
+          {url && (
             <>
               <AnimatePresence>
                 {isDragActive && (
@@ -88,12 +115,7 @@ const Dropzone: FC<DropzoneProps> = ({ onChange, className = '' }) => {
                   </>
                 )}
               </AnimatePresence>
-              <Image
-                src={image.preview}
-                alt="Selected image"
-                fill
-                className="object-contain"
-              />
+              {image}
             </>
           )}
         </div>
@@ -107,4 +129,4 @@ const Dropzone: FC<DropzoneProps> = ({ onChange, className = '' }) => {
   );
 };
 
-export default Dropzone;
+export default DropzoneAvatar;

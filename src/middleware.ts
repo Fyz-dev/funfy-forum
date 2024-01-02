@@ -69,5 +69,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/post/create', '/create/topic'],
+  matcher: ['/post/create', '/create/topic', '/settings/profile'],
 };

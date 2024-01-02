@@ -13,7 +13,7 @@ import { User } from '@nextui-org/user';
 
 import { useAuth } from 'src/context/Auth';
 import Link from 'next/link';
-import { toCreatTopic, toUser } from 'src/utils/paths';
+import { toCreatTopic, toProfileSetting, toUser } from 'src/utils/paths';
 
 const disabledKeys = ['user'];
 
@@ -86,7 +86,9 @@ const HeaderUser: FC = () => {
             </Link>
           </DropdownItem>
           <DropdownItem key="settings" textValue="settings">
-            Settings
+            <Link href={toProfileSetting()}>
+              <div>Settings</div>
+            </Link>
           </DropdownItem>
         </DropdownSection>
         <DropdownSection aria-label="Help & Feedback">

@@ -7,6 +7,8 @@ import {
   MobileHeaderProps,
 } from 'src/components/MobileHeaderCard';
 import { OnlyAuthor } from '../Checker';
+import Link from 'next/link';
+import { toProfileSetting } from 'src/utils/paths';
 
 type UserCardPartProps = Pick<MobileHeaderProps, 'classNames'> & {
   user: IUser;
@@ -29,6 +31,8 @@ const UserCardHeader: FC<UserCardPartProps> = ({
         childrenCardHeader={
           <OnlyAuthor idAuthor={user.uid}>
             <Button
+              as={Link}
+              href={toProfileSetting()}
               size="sm"
               className="text-small"
               radius="full"

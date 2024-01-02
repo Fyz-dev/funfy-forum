@@ -10,7 +10,7 @@ import { useAuth } from 'src/context/Auth';
 import { Textarea } from 'src/components/ui/Textarea';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import { Dropzone } from 'src/components/Dropzone';
+import { DropzoneAvatar } from 'src/components/DropzoneAvatar';
 import { createBrowserClient } from 'src/utils/supabase/client';
 import { topicController } from 'src/api';
 import { useRouter } from 'next/navigation';
@@ -83,7 +83,8 @@ const CreatePage: FC = () => {
                 name="avatar"
                 render={({ field: { onChange } }) => {
                   return (
-                    <Dropzone
+                    <DropzoneAvatar
+                      textDragNoActive="Drag and drop avatar topic, or click to select image"
                       onChange={file => {
                         onChange(file);
                       }}
