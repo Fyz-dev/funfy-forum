@@ -18,6 +18,8 @@ export {
   FaHouseUser as House,
   FaUser as User,
   FaDoorOpen as OpenDoor,
+  FaArrowLeft as ArrowLeft,
+  FaTrash as Delete,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';

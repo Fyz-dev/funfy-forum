@@ -4,15 +4,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload } from 'src/assets/icons';
+import { Delete, Upload } from 'src/assets/icons';
 import { ErrorMessage } from '../ui/ErrorMessage';
+import { Button } from '@nextui-org/button';
 
 // type Avatar = File & { preview: string };
 
 interface DropzoneProps {
   textDragNoActive: string;
   defaultUrlImage?: string;
-  onChange?: (file: File) => void;
+  onChange?: (file: File | undefined) => void;
   className?: string;
 }
 
@@ -23,7 +24,6 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
   className = '',
 }) => {
   const [url, setUrl] = useState<string | undefined>(defaultUrlImage);
-  // const [image, setImage] = useState<Avatar>();
 
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
     useDropzone({
@@ -116,6 +116,21 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
                 )}
               </AnimatePresence>
               {image}
+              <motion.div className="absolute bottom-1 right-1" {...animate}>
+                <Button
+                  isIconOnly
+                  variant="light"
+                  size="sm"
+                  radius="full"
+                  type="button"
+                  onClick={() => {
+                    setUrl(undefined);
+                    if (onChange) onChange(undefined);
+                  }}
+                >
+                  <Delete className="text-default-500" />
+                </Button>
+              </motion.div>
             </>
           )}
         </div>

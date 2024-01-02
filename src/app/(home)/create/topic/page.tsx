@@ -91,7 +91,7 @@ const CreatePage: FC = () => {
                     />
                   );
                 }}
-              ></Controller>
+              />
             </CardBody>
             <CardFooter>
               <div className="fixed bottom-0 left-0 z-10 ml-auto gap-2 max-sm:w-full sm:relative sm:flex sm:p-0">

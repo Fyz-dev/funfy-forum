@@ -1,8 +1,12 @@
 import { isNull } from 'src/utils';
 import z from 'zod';
 
+const nameValid = z.string().min(3).optional();
+const descriptionValid = z.string().max(300).optional();
+const avatarValid = z.any().optional();
+
 export const AuthSchema = z.object({
-  name: z.string().min(3).optional(),
+  name: nameValid,
   email: z.string().email().min(4),
   password: z
     .string()
@@ -28,8 +32,8 @@ export const PostSchema = z.object({
 
 export const TopicSchema = z.object({
   name: z.string().min(1, 'Required').max(21),
-  description: z.string().max(300).optional(),
-  avatar: z.any().optional(), // As file
+  description: descriptionValid,
+  avatar: avatarValid, // As file
 });
 
 export const CommentSchema = z.object({
@@ -38,7 +42,14 @@ export const CommentSchema = z.object({
   }),
 });
 
+export const ProfileSchema = z.object({
+  name: nameValid,
+  description: descriptionValid,
+  avatar: avatarValid, // As file
+});
+
 export type AuthSchemaType = z.infer<typeof AuthSchema>;
 export type PostSchemaType = z.infer<typeof PostSchema>;
 export type TopicSchemaType = z.infer<typeof TopicSchema>;
 export type CommentSchemaType = z.infer<typeof CommentSchema>;
+export type ProfileSchemaType = z.infer<typeof ProfileSchema>;
