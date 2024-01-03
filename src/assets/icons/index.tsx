@@ -38,5 +38,6 @@ export {
   MdPerson as Person,
   MdOutlineArrowDropDown as ArrowDown,
   MdCreate as Create,
+  MdEdit as Edit,
   MdCloudUpload as Upload,
 } from 'react-icons/md';

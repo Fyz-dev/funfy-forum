@@ -9,6 +9,9 @@ import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
 import ReplySection from './components/ReplySection';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { Button } from '@nextui-org/button';
+import { Edit } from 'src/assets/icons';
+import { OnlyAuthor } from '../Checker';
 
 type CommentProps = {
   comment: IComment;
@@ -38,7 +41,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             </div>
           </div>
           <ButtonVote
-            className="ml-auto hidden md:flex"
+            className="ml-auto"
             userVote={comment.userVote}
             voteCount={comment.voteCount}
             commentId={comment.id}
@@ -52,12 +55,24 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             <ReplySection
               comment={comment}
               toolsButton={
-                <ButtonVote
-                  className="flex !self-start md:hidden"
-                  userVote={comment.userVote}
-                  voteCount={comment.voteCount}
-                  commentId={comment.id}
-                />
+                <>
+                  {/* <ButtonVote
+                    className="flex !self-start md:hidden"
+                    userVote={comment.userVote}
+                    voteCount={comment.voteCount}
+                    commentId={comment.id}
+                  /> */}
+                  <OnlyAuthor idAuthor={comment.user.uid}>
+                    <Button
+                      className="ml-auto hover:text-default-600 "
+                      radius="full"
+                      variant="light"
+                      isIconOnly
+                    >
+                      <Edit />
+                    </Button>
+                  </OnlyAuthor>
+                </>
               }
             />
           </div>

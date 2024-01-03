@@ -31,7 +31,7 @@ import './MDXEditor.css';
 import { findInputError } from 'src/utils';
 import { ErrorMessage } from 'src/components/ui/ErrorMessage';
 import { Button } from '@nextui-org/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const InitializedMDXEditor = ({
@@ -53,9 +53,16 @@ const InitializedMDXEditor = ({
   const {
     control,
     formState: { errors },
+    setValue,
   } = useFormContext();
   const [isNull, setIsNull] = useState<boolean>(withHideAnim);
   const { message, isInvalid } = findInputError(errors, name);
+
+  useEffect(() => {
+    setValue(name, props.markdown);
+
+    //eslint-disable-next-line
+  }, [props.markdown]);
 
   return (
     <div>
