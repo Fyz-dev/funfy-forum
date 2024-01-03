@@ -39,7 +39,7 @@ export default async function Layout({
         <EditContextProvider>
           <main className="h-full w-full bg-content1 lg:bg-transparent">
             <Card className="static w-full rounded-none p-0 shadow-none lg:rounded-large lg:shadow-medium">
-              {/* ---- Mobile Info Topic ---- */}
+              {/* <---- Mobile Info Topic ----> */}
               <MobileHeaderCard
                 title={post.topic.name}
                 hrefTitle={toTopic(post.topic.id)}
@@ -63,7 +63,7 @@ export default async function Layout({
               />
 
               <CardHeader className="flex flex-col gap-3 pb-2">
-                {/* ---- Info author ---- */}
+                {/* <---- Info author ----> */}
                 <div className="inline-flex w-full items-center justify-start gap-2 self-start">
                   <Avatar
                     href={toUser(post.user.uid)}
@@ -105,10 +105,10 @@ export default async function Layout({
                   }}
                 >
                   <div className="flex flex-col gap-2">
-                    {/* ---- Title ---- */}
+                    {/* <---- Title ----> */}
                     <h1 className="self-start text-2xl">{post.title}</h1>
 
-                    {/* ---- Main content post ---- */}
+                    {/* <---- Main content post ----> */}
                     <div className="prose w-full min-w-full text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
                       <MDXRemote source={post.content || ''} />
                     </div>
@@ -125,7 +125,7 @@ export default async function Layout({
                 </Button>
               </CardBody>
 
-              {/* ---- Comments block ---- */}
+              {/* <---- Comments block ----> */}
               <CardFooter className="flex flex-col items-start gap-1">
                 <a id="comments" href="#comments" />
                 {children}
@@ -135,7 +135,7 @@ export default async function Layout({
         </EditContextProvider>
       </div>
 
-      {/* ---- PC Info Topic ---- */}
+      {/* <---- PC Info Topic ----> */}
       <section className="hidden items-center lg:flex">
         <TopicCard topic={post.topic} />
       </section>
