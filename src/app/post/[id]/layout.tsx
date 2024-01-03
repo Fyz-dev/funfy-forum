@@ -42,6 +42,7 @@ export default async function Layout({
         <main className="h-full w-full bg-content1 lg:bg-transparent">
           <Card className="static w-full rounded-none p-0 shadow-none lg:rounded-large lg:shadow-medium">
             <EditPostContextProvider
+              postId={post.id}
               defaultValues={{ topicID: post.topic.id, isNSFW: post.isNSFW }}
             >
               {/* ---- Mobile Info Topic ---- */}
@@ -99,36 +100,43 @@ export default async function Layout({
                     <Edit className="h-5 w-5" />
                   </ToggleEdit>
                 </div>
-                {/* ---- Title ---- */}
-                <EditContent
-                  forEdit={
-                    <Input
-                      name="title"
-                      variant="bordered"
-                      placeholder="Title"
-                      defaultValue={post.title}
-                      classNames={{ input: '!text-2xl' }}
-                    />
-                  }
-                >
-                  <h1 className="self-start text-2xl">{post.title}</h1>
-                </EditContent>
               </CardHeader>
 
-              {/* ---- Main content post ---- */}
               <CardBody className="w-full gap-5 pb-4 pt-0">
-                <EditContent
-                  forEdit={
-                    <MDXEditor name="content" markdown={post.content || ''} />
-                  }
-                >
-                  <div className="prose w-full min-w-full text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
-                    <MDXRemote source={post.content || ''} />
-                  </div>
-                </EditContent>
+                <div className="flex flex-col gap-2">
+                  {/* ---- Title ---- */}
+                  <EditContent
+                    forEdit={
+                      <Input
+                        name="title"
+                        variant="bordered"
+                        placeholder="Title"
+                        defaultValue={post.title}
+                        classNames={{ input: '!text-2xl' }}
+                      />
+                    }
+                  >
+                    <h1 className="self-start text-2xl">{post.title}</h1>
+                  </EditContent>
 
-                <SubmitEdit />
+                  {/* ---- Main content post ---- */}
+                  <EditContent
+                    forEdit={
+                      <MDXEditor
+                        name="content"
+                        markdown={post.content || ''}
+                        diffMarkdown={post.content || ''}
+                      />
+                    }
+                  >
+                    <div className="prose w-full min-w-full text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
+                      <MDXRemote source={post.content || ''} />
+                    </div>
+                  </EditContent>
 
+                  {/* ---- Update edit ---- */}
+                  <SubmitEdit />
+                </div>
                 <Button
                   radius="full"
                   className="h-unit-9 w-min bg-default-100 p-0 text-default-500"

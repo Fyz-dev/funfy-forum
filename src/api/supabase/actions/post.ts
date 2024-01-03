@@ -5,7 +5,7 @@ import { TSortPost } from 'src/types';
 import { createServerClient } from 'src/utils/supabase/server';
 import { toPost } from '../convertor';
 import { TablePost } from '../convertor/types';
-import { PostCreateDTO } from 'src/api/dto';
+import { CreatePostDTO, UpdatePostDTO } from 'src/api/dto';
 
 // ------ utils ------ //
 const getCountComments = async (data: TablePost[]): Promise<TablePost[]> => {
@@ -103,7 +103,7 @@ export const getPostsByTopic = async (
   return posts.map(item => toPost(item));
 };
 
-export const createPost = async (post: PostCreateDTO) => {
+export const createPost = async (post: CreatePostDTO) => {
   const { error } = await createServerClient().from('posts').insert({
     title: post.title,
     content: post.content,
@@ -111,6 +111,15 @@ export const createPost = async (post: PostCreateDTO) => {
     topic_id: post.topicID,
     is_nsfw: post.isNSFW,
   });
+
+  if (error) console.log(error);
+};
+
+export const updatePost = async (post: UpdatePostDTO) => {
+  const { error } = await createServerClient()
+    .from('posts')
+    .update({ title: post.title, content: post.content })
+    .eq('id', post.id);
 
   if (error) console.log(error);
 };

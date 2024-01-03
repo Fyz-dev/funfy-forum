@@ -5,25 +5,20 @@ import { FC } from 'react';
 import { useEditContext } from 'src/context/Edit';
 
 const SubmitEdit: FC = () => {
-  const { isEdit, setIsEdit } = useEditContext();
+  const { isEdit, setIsEdit, isLoading } = useEditContext();
 
   return (
     <>
       {isEdit ? (
         <div className="ml-auto flex flex-row gap-2">
-          <Button
-            onClick={() => setIsEdit(false)}
-            type="button"
-            radius="full"
-            className="max-sm:hidden"
-          >
+          <Button onClick={() => setIsEdit(false)} type="button" radius="full">
             Cancel
           </Button>
           <Button
             type="submit"
             color="primary"
             radius="full"
-            className="max-sm:w-full"
+            isLoading={isLoading}
           >
             Update
           </Button>

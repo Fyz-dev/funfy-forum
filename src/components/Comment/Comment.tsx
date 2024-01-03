@@ -64,12 +64,13 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
                   /> */}
                   <OnlyAuthor idAuthor={comment.user.uid}>
                     <Button
-                      className="ml-auto hover:text-default-600 "
                       radius="full"
                       variant="light"
-                      isIconOnly
+                      className="bg-transparent p-0 text-default-600 hover:bg-default-100"
+                      size="sm"
                     >
                       <Edit />
+                      Edit
                     </Button>
                   </OnlyAuthor>
                 </>

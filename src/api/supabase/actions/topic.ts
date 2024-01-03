@@ -3,7 +3,7 @@
 import { createServerClient } from 'src/utils/supabase/server';
 import { toTopic } from '../convertor';
 import { ITopic } from 'src/interface';
-import { TopicCreateDTO } from 'src/api/dto';
+import { CreateTopicDTO } from 'src/api/dto';
 
 export const getTopicById = async (id: string): Promise<ITopic> => {
   const { data } = await createServerClient()
@@ -29,7 +29,7 @@ export const getTopicsByTitle = async (name: string): Promise<ITopic[]> => {
   return data ? data.map(item => toTopic(item)) : [];
 };
 
-export const createTopic = async (topic: TopicCreateDTO) => {
+export const createTopic = async (topic: CreateTopicDTO) => {
   const { error } = await createServerClient().from('topics').insert({
     name: topic.name,
     description: topic.description,

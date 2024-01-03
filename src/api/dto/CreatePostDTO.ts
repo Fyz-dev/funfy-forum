@@ -1,6 +1,6 @@
 import { ITimestamps } from 'src/interface';
 
-export interface PostCreateDTO {
+export interface CreatePostDTO {
   userID: string;
   topicID: string;
   title: string;

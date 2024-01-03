@@ -46,6 +46,7 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
       <div className="flex flex-row">
         {toolsButton}
         <Button
+          size="sm"
           radius="full"
           className="bg-transparent p-0 text-default-600 hover:bg-default-100"
           onClick={() => {

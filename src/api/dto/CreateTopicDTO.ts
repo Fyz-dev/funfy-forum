@@ -1,4 +1,4 @@
-export interface TopicCreateDTO {
+export interface CreateTopicDTO {
   userID: string;
   name: string;
   description?: string;
