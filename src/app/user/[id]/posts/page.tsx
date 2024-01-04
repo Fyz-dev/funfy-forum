@@ -14,7 +14,7 @@ const UserPage: FC<{
 
   return (
     <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
-      {posts ? (
+      {posts.length !== 0 ? (
         <Posts posts={posts} />
       ) : (
         <Empty description="I wonder what this man is hiding" />
