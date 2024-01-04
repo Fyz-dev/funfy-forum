@@ -19,6 +19,8 @@
     @apply dark:prose-invert;
     @apply prose;
     @apply prose-headings:text-inherit;
+    @apply prose-blockquote:text-inherit;
+    @apply prose-blockquote:my-[0.1em];
 
     /* <---- Hr ----> */
     @apply prose-hr:my-[0.2em];
