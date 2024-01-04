@@ -31,13 +31,19 @@ const HeaderUser: FC = () => {
         <Button
           color="primary"
           variant="light"
-          className="hidden p-0 text-foreground sm:flex"
+          className="min-w-[6rem] overflow-hidden truncate px-2 text-foreground sm:flex"
         >
           <User
             name={user?.name}
             avatarProps={{
               src: user?.photoURL ?? '',
               size: 'sm',
+              className: 'min-w-[2rem]',
+            }}
+            className="justify-start overflow-hidden"
+            classNames={{
+              name: 'truncate w-full',
+              wrapper: 'overflow-hidden w-full',
             }}
           />
         </Button>
