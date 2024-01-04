@@ -1,7 +1,7 @@
 export interface ITopic {
   id: string;
   userID: string;
-  photoURL: string | null;
+  photoURL?: string;
   name: string;
   description: string | undefined;
 }

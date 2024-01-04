@@ -43,26 +43,6 @@ const Header: FC = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      {/* <NavbarContent
-        justify="center"
-        className="hidden w-full sm:flex sm:px-7 md:px-14 lg:px-28"
-      >
-        <NavbarItem className="flex w-full flex-row items-center gap-2">
-          <Input
-            startContent={<Search />}
-            variant="faded"
-            placeholder="Find topic, or post"
-            size="sm"
-            radius="full"
-            fullWidth
-            classNames={{
-              mainWrapper: 'min-h-unit-10',
-              inputWrapper: 'max-h-unit-10',
-            }}
-          />
-        </NavbarItem>
-      </NavbarContent> */}
-
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem className="flex w-full flex-row justify-end max-sm:hidden">
           <Input
@@ -107,7 +87,9 @@ const Header: FC = () => {
             </Button>
           </NavbarItem>
         </OnlyAuthorization>
-        <ThemeSwitcher />
+        <div className="max-sm:hidden">
+          <ThemeSwitcher />
+        </div>
         <UserLayout />
       </NavbarContent>
 

@@ -22,6 +22,7 @@ import {
   linkDialogPlugin,
   CreateLink,
   ListsToggle,
+  frontmatterPlugin,
 } from '@mdxeditor/editor';
 import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo';
 import { BoldItalicUnderlineToggles } from '@mdxeditor/editor/plugins/toolbar/components/BoldItalicUnderlineToggles';
@@ -86,15 +87,16 @@ const InitializedMDXEditor = ({
                 if (e.length === 0 && !isNull) setIsNull(true);
                 else if (e.length !== 0 && isNull) setIsNull(false);
               }}
-              contentEditableClassName="placeholder:text-foreground-500 !focus:border-default-500 prose max-w-none prose-a dark:prose-invert"
+              contentEditableClassName="placeholder:text-foreground-500 !focus:border-default-500 max-w-none markdown"
               plugins={[
                 headingsPlugin({
-                  allowedHeadingLevels: [1, 2, 3, 4],
+                  allowedHeadingLevels: [1, 2, 3],
                 }),
                 listsPlugin(),
                 quotePlugin(),
                 linkPlugin(),
                 linkDialogPlugin(),
+                frontmatterPlugin(),
                 codeBlockPlugin({
                   defaultCodeBlockLanguage: 'text',
                   codeBlockEditorDescriptors: [
@@ -110,9 +112,9 @@ const InitializedMDXEditor = ({
                     text: 'text',
                   },
                 }),
+                diffSourcePlugin({ diffMarkdown: diffMarkdown }),
                 thematicBreakPlugin(),
                 markdownShortcutPlugin(),
-                diffSourcePlugin({ diffMarkdown: diffMarkdown }),
                 toolbarPlugin({
                   toolbarContents: () => (
                     <>

@@ -8,7 +8,7 @@ import {
 } from 'src/components/MobileHeaderCard';
 import { Button } from '@nextui-org/button';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
-import { SortNew, SortOld } from 'src/assets/icons';
+import { Hashtag, SortNew, SortOld } from 'src/assets/icons';
 import { toTopic } from 'src/utils/paths';
 import { OnlyAuthor } from 'src/components/Checker';
 import { getTopicById } from 'src/api/supabase';
@@ -26,6 +26,7 @@ const TopicCardHeader: FC<
       photoURL={topic.photoURL}
       classNames={classNames}
       mediaQuery="sm"
+      fallback={<Hashtag className="h-10 w-10 text-primary" />}
       childrenCardHeader={
         <OnlyAuthor idAuthor={topic.userID}>
           <Button size="sm" className="text-small" radius="full" variant="flat">

@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Badge } from '@nextui-org/badge';
 import { Button } from '@nextui-org/button';
 import { Avatar } from '@nextui-org/avatar';
-import { Message } from 'src/assets/icons';
+import { Hashtag, Message } from 'src/assets/icons';
 import InfoTime from '../ui/InfoTime';
 import { RippleContainer } from '../ui/RippleContainer';
 import { IPost } from 'src/interface';
@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { toPost, toPostSectionComment, toTopic, toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
 import { ShareButton } from '../ui/ShareButton';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRender } from '../MDXRender';
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
@@ -27,6 +27,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
               radius="full"
               size="sm"
               src={post.topic.photoURL || undefined}
+              fallback={<Hashtag className="h-5 w-5 text-primary" />}
               className="relative min-w-[2rem]"
             />
             <div className="flex flex-col items-center justify-start gap-y-[0.15] sm:flex sm:flex-row">
@@ -56,12 +57,13 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
           <h1 className="mr-auto text-left">{post.title}</h1>
         </CardHeader>
         <CardBody
-          as={Link}
-          href={toPost(post.id)}
-          className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
+          // as={Link}
+          // href={toPost(post.id)}
+          className="relative max-h-72 w-full overflow-hidden py-0"
         >
-          <MDXRemote source={post.content || ''} />
-          <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
+          <Link href={toPost(post.id)} className="absolute inset-0" />
+          <MDXRender className="text-default-500">{post.content}</MDXRender>
+          <div className="absolute inset-x-0 top-0 mt-[15.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
         </CardBody>
         <CardFooter className="h-12 gap-1">
           <Button

@@ -7,7 +7,8 @@ import Link from 'next/link';
 export interface MobileHeaderProps {
   title: string | null;
   description?: string;
-  photoURL?: string | null;
+  photoURL?: string;
+  fallback?: JSX.Element;
   hrefTitle?: string;
   childrenCardHeader?: ReactNode;
   childrenCardBody?: ReactNode;
@@ -21,22 +22,6 @@ export interface MobileHeaderProps {
   };
   mediaQuery: 'sm' | 'lg';
 }
-
-// На тот случай если нету photoURL
-const WithAvatar: FC<Pick<MobileHeaderProps, 'photoURL'>> = ({ photoURL }) => {
-  return (
-    <>
-      {photoURL ? (
-        <Avatar
-          className="-mt-11 h-16 w-16 self-center text-large"
-          src={photoURL}
-        />
-      ) : (
-        <Avatar className="-mt-11 h-16 w-16 self-center text-large" />
-      )}
-    </>
-  );
-};
 
 const mediaQueryClasses = {
   sm: {
@@ -59,6 +44,7 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
   childrenCardBody,
   children,
   mediaQuery,
+  fallback,
 }) => {
   const cardMediaQuery = mediaQueryClasses[mediaQuery].card;
   const cardBodyMediaQuery = mediaQueryClasses[mediaQuery].cardBody;
@@ -90,7 +76,11 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
               href={hrefTitle ?? '#'}
               className="flex flex-col items-center gap-1"
             >
-              <WithAvatar photoURL={photoURL} />
+              <Avatar
+                src={photoURL}
+                fallback={fallback}
+                className="-mt-11 h-16 w-16 self-center text-large"
+              />
               <h6 className="text-center text-large">{title}</h6>
             </Link>
             <div className="flex flex-col gap-2">

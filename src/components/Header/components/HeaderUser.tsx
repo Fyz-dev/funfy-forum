@@ -31,7 +31,7 @@ const HeaderUser: FC = () => {
         <Button
           color="primary"
           variant="light"
-          className="min-w-[6rem] overflow-hidden truncate px-2 text-foreground sm:flex"
+          className="min-w-[6rem] overflow-hidden truncate px-2 text-foreground max-sm:min-w-[2rem] max-sm:px-0 sm:flex"
         >
           <User
             name={user?.name}
@@ -42,7 +42,7 @@ const HeaderUser: FC = () => {
             }}
             className="justify-start overflow-hidden"
             classNames={{
-              name: 'truncate w-full',
+              name: 'truncate w-full max-sm:hidden',
               wrapper: 'overflow-hidden w-full',
             }}
           />
