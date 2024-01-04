@@ -11,6 +11,7 @@ import { toCommentsPost, toPost, toTopic } from 'src/utils/paths';
 import Link from 'next/link';
 import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
+import { MDXRender } from '../MDXRender';
 
 const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
   comment,
@@ -61,7 +62,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
               href={toCommentsPost(comment.post.id, comment.id)}
               className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
             >
-              <p>{comment.content}</p>
+              <MDXRender>{comment.content}</MDXRender>
               <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
             </Link>
           </CardBody>

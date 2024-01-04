@@ -14,4 +14,48 @@
     @apply transition-colors;
     @apply hover:text-primary;
   }
+
+  .markdown {
+    @apply dark:prose-invert;
+    @apply prose;
+    @apply prose-headings:text-inherit;
+
+    /* <---- Hr ----> */
+    @apply prose-hr:my-[0.2em];
+
+    /* <---- Code ----> */
+    @apply prose-pre:my-[0.1em];
+
+    /* <---- Strong ----> */
+    @apply prose-strong:text-inherit;
+
+    /* <---- Lists ----> */
+    @apply prose-ul:my-[0.1em];
+    @apply prose-ol:my-[0.1em];
+    @apply prose-li:my-[0.4em];
+    @apply prose-li:pl-0;
+
+    /* <---- Links ----> */
+    @apply prose-a:text-primary;
+    @apply prose-a:relative;
+
+    /* <---- Paragraph ----> */
+    @apply prose-p:text-base;
+    @apply prose-p:my-0;
+    @apply prose-p:py-[0.4em];
+    @apply prose-p:after:content-none;
+    @apply prose-p:before:content-none;
+
+    /* <---- Heading ----> */
+    @apply prose-headings:font-normal;
+    @apply prose-h1:mt-[1.4em];
+    @apply prose-h1:mb-[0.2em];
+    @apply prose-h2:mt-[1.4em];
+    @apply prose-h2:mb-[0.2em];
+    @apply prose-h3:mt-[1.4em];
+    @apply prose-h3:mb-[0.2em];
+    @apply prose-h1:text-2xl;
+    @apply prose-h2:text-xl;
+    @apply prose-h3:text-lg;
+  }
 }

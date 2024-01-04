@@ -43,12 +43,15 @@ const CreatePage: FC = () => {
           .getPublicUrl(res.path).data.publicUrl;
     }
 
-    createTopic({ userID: user.uid, photoURL: photoURL, name: data.name }).then(
-      () => {
-        setIsLoading(false);
-        router.push('/');
-      },
-    );
+    createTopic({
+      userID: user.uid,
+      photoURL: photoURL,
+      name: data.name,
+      description: data.description,
+    }).then(() => {
+      setIsLoading(false);
+      router.push('/');
+    });
   });
 
   return (

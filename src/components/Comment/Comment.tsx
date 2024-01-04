@@ -8,11 +8,11 @@ import { toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
 import ReplySection from './components/ReplySection';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Edit } from 'src/assets/icons';
 import { EditContextProvider } from 'src/context/Edit';
 import EditContentComment from './components/EditContentComment';
 import { ToggleEdit } from '../ToggleEdit';
+import { MDXRender } from '../MDXRender';
 
 type CommentProps = {
   comment: IComment;
@@ -53,7 +53,9 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
           <EditContextProvider>
             <div className="ml-8 text-small">
               <EditContentComment comment={comment}>
-                <MDXRemote source={comment.content} />
+                <>
+                  <MDXRender>{comment.content}</MDXRender>
+                </>
               </EditContentComment>
             </div>
             <div className="ml-8 inline-flex">

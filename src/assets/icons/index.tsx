@@ -20,6 +20,7 @@ export {
   FaDoorOpen as OpenDoor,
   FaArrowLeft as ArrowLeft,
   FaTrash as Delete,
+  FaHashtag as Hashtag,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';

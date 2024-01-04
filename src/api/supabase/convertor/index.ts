@@ -32,7 +32,7 @@ export const toTopic = (topic: Tables<'topics'>): ITopic => {
   return {
     id,
     userID: topic.user_id,
-    photoURL: topic.photo_url,
+    photoURL: topic.photo_url || undefined,
     name,
     description: description || undefined,
   };

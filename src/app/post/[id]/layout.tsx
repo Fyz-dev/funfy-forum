@@ -9,11 +9,11 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import { notFound } from 'next/navigation';
 import { toTopic, toUser } from 'src/utils/paths';
 import { formatDateFull } from 'src/utils';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPostById } from 'src/api/supabase';
 import { ToggleEdit } from 'src/components/ToggleEdit';
 import { EditContextProvider } from 'src/context/Edit';
 import EditContentPost from './(components)/EditContentPost';
+import { MDXRender } from 'src/components/MDXRender';
 
 const getPost = async (id: string) => {
   try {
@@ -109,8 +109,10 @@ export default async function Layout({
                     <h1 className="self-start text-2xl">{post.title}</h1>
 
                     {/* <---- Main content post ----> */}
-                    <div className="prose w-full min-w-full text-default-500 prose-headings:text-default-500 prose-strong:text-default-500 prose-em:text-default-500">
-                      <MDXRemote source={post.content || ''} />
+                    <div className="w-full min-w-full">
+                      <MDXRender className="text-foreground-600">
+                        {post.content}
+                      </MDXRender>
                     </div>
                   </div>
                 </EditContentPost>
