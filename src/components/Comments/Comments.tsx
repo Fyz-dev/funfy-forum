@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Comment from 'src/components/Comment';
+import { Comment } from 'src/components/Comment';
 import { IComments } from 'src/interface';
 
 const Comments: FC<{ comments: IComments }> = ({ comments }) => {

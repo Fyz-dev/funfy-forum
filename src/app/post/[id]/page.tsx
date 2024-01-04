@@ -1,23 +1,20 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import { Comments as CommentsIcon } from 'src/assets/icons';
 import DropDownSort, {
   CommentsSortConfig,
 } from 'src/components/ui/DropDownSort';
-import postController from 'src/api/controller/PostController';
 import { notFound } from 'next/navigation';
 import Comments from 'src/components/Comments/Comments';
-import commentController from 'src/api/controller/CommentController';
 import { Divider } from '@nextui-org/divider';
-import CreateComment from './(components)/CreateComment';
 import { TSearchParams } from 'src/types';
 import { getSortCommentsParam } from 'src/utils';
-import { toUser } from 'src/utils/paths';
 import { withTieToTop } from 'src/hoc';
+import CommentSection from './(components)/CommentSection';
+import { getCommentsByPost, getPostById } from 'src/api/supabase';
 
 const getPost = async (id: string) => {
   try {
-    return await postController.getById(id);
+    return await getPostById(id);
   } catch (error) {
     notFound();
   }
@@ -28,22 +25,14 @@ const PostPage: FC<{
   searchParams: TSearchParams;
 }> = async ({ params: { id }, searchParams }) => {
   const post = await getPost(id);
-  const comments = await commentController.getByPost(
+  const comments = await getCommentsByPost(
     post.id,
     getSortCommentsParam(searchParams),
   );
 
   return (
     <>
-      <div className="mb-4 flex w-full flex-col gap-1 overflow-hidden">
-        <span>
-          Comment as{' '}
-          <Link className="text-primary" href={toUser(post.user.uid)}>
-            {post.user.name}
-          </Link>
-        </span>
-        <CreateComment />
-      </div>
+      <CommentSection post={post} />
       {comments.length !== 0 && (
         <>
           <div className="mr-auto flex items-center gap-1">

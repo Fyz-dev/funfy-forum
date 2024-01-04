@@ -18,6 +18,8 @@ export {
   FaHouseUser as House,
   FaUser as User,
   FaDoorOpen as OpenDoor,
+  FaArrowLeft as ArrowLeft,
+  FaTrash as Delete,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';
@@ -36,4 +38,6 @@ export {
   MdPerson as Person,
   MdOutlineArrowDropDown as ArrowDown,
   MdCreate as Create,
+  MdEdit as Edit,
+  MdCloudUpload as Upload,
 } from 'react-icons/md';

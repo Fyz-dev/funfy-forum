@@ -3,11 +3,11 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { Search } from 'src/assets/icons';
-import topicController from 'src/api/controller/TopicController';
 import { ITopic } from 'src/interface';
 import useAsyncList from 'src/hooks/useAsyncList';
 import { Controller, useFormContext } from 'react-hook-form';
 import { findInputError, getClassName } from 'src/utils';
+import { getTopicsByTitle } from 'src/api/supabase';
 
 interface ISearchTopic {
   classNames?: {
@@ -29,7 +29,7 @@ const SearchTopic: FC<ISearchTopic> = ({ setTopic, classNames }) => {
     async load(filterText) {
       if (!filterText) return [];
 
-      const topics = await topicController.getByTitle(filterText);
+      const topics = await getTopicsByTitle(filterText);
 
       return topics;
     },

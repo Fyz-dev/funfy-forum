@@ -1,34 +1,61 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Input } from 'src/components/ui/Input';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { TopicSchema, TopicSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from 'src/context/Auth';
 import { Textarea } from 'src/components/ui/Textarea';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import topicController from 'src/api/controller/TopicController';
+import { DropzoneAvatar } from 'src/components/DropzoneAvatar';
+import { createBrowserClient } from 'src/utils/supabase/client';
+import { useRouter } from 'next/navigation';
+import { createTopic } from 'src/api/supabase';
 
 const CreatePage: FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const methods = useForm<TopicSchemaType>({
     resolver: zodResolver(TopicSchema),
   });
   const { user } = useAuth();
+  const router = useRouter();
 
-  const createTopic = methods.handleSubmit(async data => {
+  const handleSubmit = methods.handleSubmit(async data => {
     if (!user) return;
 
-    topicController.create({ userID: user.uid, photoURL: '', ...data });
+    setIsLoading(true);
+    let photoURL = '';
+
+    if (data.avatar) {
+      const avatar = data.avatar as File;
+
+      const { data: res } = await createBrowserClient()
+        .storage.from('topic-avatars')
+        .upload(`${new Date().getTime()}_${Math.random()}`, avatar);
+
+      if (res)
+        photoURL = createBrowserClient()
+          .storage.from('topic-avatars')
+          .getPublicUrl(res.path).data.publicUrl;
+    }
+
+    createTopic({ userID: user.uid, photoURL: photoURL, name: data.name }).then(
+      () => {
+        setIsLoading(false);
+        router.push('/');
+      },
+    );
   });
 
   return (
     <FormProvider {...methods}>
       <form
         name="createTopic"
-        onSubmit={createTopic}
+        onSubmit={handleSubmit}
         noValidate
         className="m-0 flex justify-center sm:m-5"
       >
@@ -51,6 +78,20 @@ const CreatePage: FC = () => {
                 placeholder="Add a description... (optional)"
                 maxRows={10}
               />
+              <Controller
+                control={methods.control}
+                name="avatar"
+                render={({ field: { onChange } }) => {
+                  return (
+                    <DropzoneAvatar
+                      textDragNoActive="Drag and drop avatar topic, or click to select image"
+                      onChange={file => {
+                        onChange(file);
+                      }}
+                    />
+                  );
+                }}
+              />
             </CardBody>
             <CardFooter>
               <div className="fixed bottom-0 left-0 z-10 ml-auto gap-2 max-sm:w-full sm:relative sm:flex sm:p-0">
@@ -69,6 +110,7 @@ const CreatePage: FC = () => {
                     color="primary"
                     radius="full"
                     className="max-sm:w-full"
+                    isLoading={isLoading}
                   >
                     Create
                   </Button>

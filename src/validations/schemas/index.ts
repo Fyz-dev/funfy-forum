@@ -1,7 +1,12 @@
+import { isNull } from 'src/utils';
 import z from 'zod';
 
+const nameValid = z.string().min(3).optional();
+const descriptionValid = z.string().max(300).optional();
+const avatarValid = z.any().optional();
+
 export const AuthSchema = z.object({
-  name: z.string().min(3).optional(),
+  name: nameValid,
   email: z.string().email().min(4),
   password: z
     .string()
@@ -16,7 +21,7 @@ export const AuthSchema = z.object({
 
 export const PostSchema = z.object({
   title: z.string().min(1).max(300),
-  content: z.string().max(5000).optional(),
+  content: z.string().max(8000).optional(),
   topicID: z.string({
     errorMap: () => ({
       message: 'Required',
@@ -27,9 +32,35 @@ export const PostSchema = z.object({
 
 export const TopicSchema = z.object({
   name: z.string().min(1, 'Required').max(21),
-  description: z.string().max(300).optional(),
+  description: descriptionValid,
+  avatar: avatarValid, // As file
+});
+
+export const CommentSchema = z.object({
+  comment: z.string().refine(value => !isNull(value), {
+    message: 'Invalid data.',
+  }),
+});
+
+export const ProfileSchema = z.object({
+  name: nameValid,
+  description: descriptionValid,
+  avatar: avatarValid, // As file
+});
+
+export const SocialLinkSchema = z.object({
+  displayName: z
+    .string({
+      errorMap: () => ({
+        message: 'Required',
+      }),
+    })
+    .max(20),
+  url: z.string(),
 });
 
 export type AuthSchemaType = z.infer<typeof AuthSchema>;
 export type PostSchemaType = z.infer<typeof PostSchema>;
 export type TopicSchemaType = z.infer<typeof TopicSchema>;
+export type CommentSchemaType = z.infer<typeof CommentSchema>;
+export type ProfileSchemaType = z.infer<typeof ProfileSchema>;

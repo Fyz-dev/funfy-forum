@@ -7,8 +7,8 @@ export interface IPost {
   user: IUser;
   topic: ITopic;
   title: string;
-  imageURL: string;
-  content: string;
+  imageURL?: string;
+  content?: string;
   isNSFW: boolean;
   commentCount: number;
   timestamp: ITimestamps;

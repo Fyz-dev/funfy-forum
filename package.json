@@ -12,15 +12,18 @@
     "@hookform/resolvers": "^3.3.2",
     "@mdxeditor/editor": "^1.10.1",
     "@nextui-org/react": "^2.2.9",
+    "@supabase/ssr": "^0.0.10",
+    "@supabase/supabase-js": "^2.39.1",
     "@tailwindcss/typography": "^0.5.10",
     "encoding": "^0.1.13",
-    "firebase": "^10.4.0",
     "framer-motion": "^10.16.4",
     "next": "^14.0.4",
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.2.1",
+    "performant-array-to-tree": "^1.11.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.47.0",
     "zod": "^3.22.4"
   },
@@ -35,7 +38,9 @@
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "react-icons": "^4.11.0",
+    "supabase": "^1.123.4",
     "tailwindcss": "latest",
     "typescript": "latest"
-  }
+  },
+  "license": "MIT"
 }

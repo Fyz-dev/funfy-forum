@@ -3,13 +3,13 @@
 // }
 
 export interface IUserDetails {
-  description: string;
+  description?: string;
   socialNetwork: string[];
 }
 
 export interface IUser {
   uid: string;
-  name: string | null;
+  name: string;
   userDetails: IUserDetails;
   email: string;
   photoURL?: string;

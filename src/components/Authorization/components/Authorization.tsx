@@ -37,8 +37,7 @@ const Authorization: FC<AuthProps> = ({
     signInGithub,
     signInGoogle,
     signInEmailAndPassword,
-    createUserWithEmail,
-    sendEmailVerify,
+    signUpEmailAndPassword,
   } = useAuth();
 
   const methods = useForm<AuthSchemaType>({
@@ -55,23 +54,36 @@ const Authorization: FC<AuthProps> = ({
 
   const handlerUserWithEmail = methods.handleSubmit(async data => {
     if (mode === EnumModeAuth.LOGIN) {
-      signInEmailAndPassword(data.email, data.password).catch(() =>
+      const { error } = await signInEmailAndPassword(data.email, data.password);
+
+      if (error)
         methods.setError('password', {
           type: 'manual',
           message: 'Invalid email or password',
-        }),
-      );
+        });
+
       return;
     }
 
-    createUserWithEmail(data.email, data.password)
-      .then(() => sendEmailVerify())
-      .catch(() =>
-        methods.setError('email', {
-          type: 'manual',
-          message: 'Mail is already in use',
-        }),
-      );
+    if (!data.name) {
+      methods.setError('name', {
+        type: 'manual',
+        message: 'Requied',
+      });
+      return;
+    }
+
+    const { error } = await signUpEmailAndPassword(
+      data.name,
+      data.email,
+      data.password,
+    );
+
+    if (error)
+      methods.setError('email', {
+        type: 'manual',
+        message: 'Mail is already in use',
+      });
   });
 
   useEffect(() => methods.reset(), [methods, isOpen]);

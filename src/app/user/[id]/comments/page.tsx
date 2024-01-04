@@ -1,17 +1,17 @@
 import { FC } from 'react';
-import { commentController, userController } from 'src/api';
 import CommentCard from 'src/components/Comment/CommentCard';
 import { TSearchParams } from 'src/types';
 import { getSortCommentsUserParam } from 'src/utils';
-import Empty from '../(components)/Empty';
+import { Empty } from 'src/components/ui/Empty';
 import { withTieToTop } from 'src/hoc';
+import { getCommentsByUser, getUserById } from 'src/api/supabase';
 
 const UserPage: FC<{
   params: { id: string };
   searchParams: TSearchParams;
 }> = async ({ params, searchParams }) => {
-  const user = await userController.getById(params.id);
-  const comments = await commentController.getByUser(
+  const user = await getUserById(params.id);
+  const comments = await getCommentsByUser(
     params.id,
     getSortCommentsUserParam(searchParams),
   );
