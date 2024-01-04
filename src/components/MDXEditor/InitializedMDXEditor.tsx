@@ -23,9 +23,9 @@ import {
   CreateLink,
   ListsToggle,
   frontmatterPlugin,
+  UndoRedo,
+  BoldItalicUnderlineToggles,
 } from '@mdxeditor/editor';
-import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo';
-import { BoldItalicUnderlineToggles } from '@mdxeditor/editor/plugins/toolbar/components/BoldItalicUnderlineToggles';
 import { Controller, useFormContext } from 'react-hook-form';
 import '@mdxeditor/editor/style.css';
 import './MDXEditor.css';

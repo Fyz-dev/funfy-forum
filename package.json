@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
-    "@mdxeditor/editor": "^2.0.0",
+    "@mdxeditor/editor": "^1.10.1",
     "@nextui-org/react": "^2.2.9",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.1",
