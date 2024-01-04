@@ -42,7 +42,7 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
         {!rerendMDX && (
           <MDXEditor
             withHideAnim={true}
-            withPublicButton={true}
+            publicButton="Comment"
             name="comment"
             markdown=""
             placeholder="Add a comment..."

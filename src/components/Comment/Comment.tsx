@@ -9,9 +9,10 @@ import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
 import ReplySection from './components/ReplySection';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Button } from '@nextui-org/button';
 import { Edit } from 'src/assets/icons';
-import { OnlyAuthor } from '../Checker';
+import { EditContextProvider } from 'src/context/Edit';
+import EditContentComment from './components/EditContentComment';
+import { ToggleEdit } from '../ToggleEdit';
 
 type CommentProps = {
   comment: IComment;
@@ -47,23 +48,21 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             commentId={comment.id}
           />
         </div>
+
         <div className="ml-5 flex flex-col gap-1 border-l-[1px] border-default-400">
-          <div className="ml-8 text-small">
-            <MDXRemote source={comment.content} />
-          </div>
-          <div className="ml-8 inline-flex">
-            <ReplySection
-              comment={comment}
-              toolsButton={
-                <>
-                  {/* <ButtonVote
-                    className="flex !self-start md:hidden"
-                    userVote={comment.userVote}
-                    voteCount={comment.voteCount}
-                    commentId={comment.id}
-                  /> */}
-                  <OnlyAuthor idAuthor={comment.user.uid}>
-                    <Button
+          <EditContextProvider>
+            <div className="ml-8 text-small">
+              <EditContentComment comment={comment}>
+                <MDXRemote source={comment.content} />
+              </EditContentComment>
+            </div>
+            <div className="ml-8 inline-flex">
+              <ReplySection
+                comment={comment}
+                toolsButton={
+                  <>
+                    <ToggleEdit
+                      idAuthor={comment.user.uid}
                       radius="full"
                       variant="light"
                       className="bg-transparent p-0 text-default-600 hover:bg-default-100"
@@ -71,27 +70,16 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
                     >
                       <Edit />
                       Edit
-                    </Button>
-                  </OnlyAuthor>
-                </>
-              }
-            />
-          </div>
+                    </ToggleEdit>
+                  </>
+                }
+              />
+            </div>
+          </EditContextProvider>
 
-          {/* Здесь будут дочерние коментарии */}
+          {/* <---- There will be child comments here ----> */}
           {children?.length !== 0 && <div className="ml-2">{children}</div>}
         </div>
-        {/* Вариант через i */}
-        {/* <div className="inline-flex">
-        <div className="flex h-full min-w-[40px] max-w-[40px] items-center justify-center">
-          <i className="h-full self-center border-r-2 border-default-400"></i>
-        </div>
-        <div className="ml-5">
-          <p>
-          
-          </p>
-        </div>
-      </div> */}
       </div>
     </VoteContextProvider>
   );

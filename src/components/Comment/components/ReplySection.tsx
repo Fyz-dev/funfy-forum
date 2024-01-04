@@ -91,7 +91,7 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
               >
                 <MDXEditor
                   withHideAnim={false}
-                  withPublicButton={true}
+                  publicButton="comment"
                   onCancel={() => {
                     setIsOpen(false);
                   }}

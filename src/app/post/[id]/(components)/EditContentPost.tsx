@@ -60,7 +60,7 @@ const EditContentPost: FC<{
               radius="full"
               isLoading={isLoading}
             >
-              Update
+              Save
             </Button>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import {
   DefaultValues,
   FieldValues,
@@ -42,6 +42,12 @@ const EditContent = <T extends FieldValues>({
       setIsLoading(false);
     });
   });
+
+  useEffect(() => {
+    if (!isEdit) methods.clearErrors();
+
+    //eslint-disable-next-line
+  }, [isEdit]);
 
   return (
     <>

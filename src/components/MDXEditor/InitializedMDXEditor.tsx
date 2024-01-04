@@ -39,7 +39,7 @@ const InitializedMDXEditor = ({
   isLoading,
   onCancel,
   diffMarkdown,
-  withPublicButton = false,
+  publicButton,
   withHideAnim = false,
   ...props
 }: {
@@ -47,7 +47,7 @@ const InitializedMDXEditor = ({
   isLoading?: boolean;
   onCancel?: () => void;
   diffMarkdown?: string;
-  withPublicButton?: boolean;
+  publicButton?: string;
   withHideAnim?: boolean;
 } & MDXEditorProps) => {
   const {
@@ -138,7 +138,7 @@ const InitializedMDXEditor = ({
           )}
         />
         <AnimatePresence>
-          {withPublicButton && !isNull && (
+          {publicButton && !isNull && (
             <motion.div
               initial="collapsed"
               animate="open"
@@ -173,7 +173,7 @@ const InitializedMDXEditor = ({
                   radius="full"
                   isLoading={isLoading}
                 >
-                  Comment
+                  {publicButton}
                 </Button>
               </motion.div>
             </motion.div>
