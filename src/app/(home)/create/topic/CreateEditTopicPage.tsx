@@ -123,7 +123,7 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
         <main className="flex w-full max-w-page justify-center">
           <Card className="w-full max-sm:border-none max-sm:bg-transparent max-sm:shadow-none">
             <CardHeader>
-              <h1>{editTopicData ? 'Update a topic' : 'Create a Topic'}</h1>
+              <h1>{editTopicData ? 'Edit a topic' : 'Create a Topic'}</h1>
             </CardHeader>
             <CardBody className="flex gap-3">
               <Input
