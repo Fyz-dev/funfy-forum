@@ -27,6 +27,7 @@
 
     /* <---- Code ----> */
     @apply prose-pre:my-[0.1em];
+    @apply prose-code:text-inherit;
 
     /* <---- Strong ----> */
     @apply prose-strong:text-inherit;
@@ -35,6 +36,7 @@
     @apply prose-ul:my-[0.1em];
     @apply prose-ol:my-[0.1em];
     @apply prose-li:my-[0.4em];
+    @apply prose-li:marker:text-inherit;
     @apply prose-li:pl-0;
 
     /* <---- Links ----> */

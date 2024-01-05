@@ -59,18 +59,18 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
     <section slot="wrapperSection" className={wrapperSection}>
       <Card
         slot="card"
-        className={`w-full rounded-none bg-transparent shadow-none ${cardMediaQuery} ${card}`}
+        className={`з- w-full rounded-none bg-transparent shadow-none ${cardMediaQuery} ${card}`}
       >
         <div slot="wrapper" className={wrapper}>
           <CardHeader
             slot="header"
-            className={`flex h-20 items-start justify-end rounded-none bg-gradient-to-r from-pink-500 to-indigo-500 ${header}`}
+            className={`flex h-20 items-start justify-end rounded-none bg-gradient-to-r from-pink-500 to-indigo-500 p-3 ${header}`}
           >
             {childrenCardHeader}
           </CardHeader>
           <CardBody
             slot="body"
-            className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background ${cardBodyMediaQuery} ${body}`}
+            className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background p-3 ${cardBodyMediaQuery} ${body}`}
           >
             <Link
               href={hrefTitle ?? '#'}
@@ -85,7 +85,9 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
             </Link>
             <div className="flex flex-col gap-2">
               {childrenCardBody}
-              <p className="self-start">{description}</p>
+              <p className="self-center text-balance break-words ">
+                {description}
+              </p>
             </div>
           </CardBody>
         </div>

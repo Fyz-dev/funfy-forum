@@ -1,12 +1,12 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Delete, Upload } from 'src/assets/icons';
 import { ErrorMessage } from '../ui/ErrorMessage';
 import { Button } from '@nextui-org/button';
+import { Image } from '@nextui-org/image';
 
 // type Avatar = File & { preview: string };
 
@@ -59,11 +59,12 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
 
   const image = url ? (
     <Image
-      priority={true}
       src={url}
       alt="Selected image"
-      fill
-      className="object-contain"
+      classNames={{
+        img: 'object-contain',
+        wrapper: 'overflow-hidden absolute z-0 h-full w-full flex',
+      }}
     />
   ) : null;
 
@@ -77,7 +78,7 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
     <AnimatePresence>
       <div>
         <div
-          className={`relative flex max-h-full min-h-[200px] select-none flex-col items-center justify-center overflow-hidden rounded-medium border-medium p-1 text-center text-default-500 transition-colors !duration-150 hover:border-default-400 ${className}`}
+          className={`relative flex max-h-[200px] min-h-[200px] select-none flex-col items-center justify-center overflow-hidden rounded-medium border-medium text-center text-default-500 transition-colors !duration-150 hover:border-default-400 ${className}`}
           {...getRootProps()}
         >
           <input className="focus:bg-red active:bg-red" {...getInputProps()} />

@@ -12,6 +12,7 @@ import { Hashtag, SortNew, SortOld } from 'src/assets/icons';
 import { toTopic } from 'src/utils/paths';
 import { OnlyAuthor } from 'src/components/Checker';
 import { getTopicById } from 'src/api/supabase';
+import Link from 'next/link';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
@@ -29,7 +30,14 @@ const TopicCardHeader: FC<
       fallback={<Hashtag className="h-10 w-10 text-primary" />}
       childrenCardHeader={
         <OnlyAuthor idAuthor={topic.userID}>
-          <Button size="sm" className="text-small" radius="full" variant="flat">
+          <Button
+            as={Link}
+            href="edit"
+            size="sm"
+            className="text-small"
+            radius="full"
+            variant="flat"
+          >
             Edit
           </Button>
         </OnlyAuthor>
@@ -78,6 +86,7 @@ export default async function Layout({
         </TopicCardHeader>
         {children}
       </div>
+
       <TopicCardHeader
         topic={topic}
         classNames={{

@@ -4,6 +4,7 @@ import { createServerClient } from 'src/utils/supabase/server';
 import { toTopic } from '../convertor';
 import { ITopic } from 'src/interface';
 import { CreateTopicDTO } from 'src/api/dto';
+import { UpdateTopicDTO } from 'src/api/dto/UpdateTopicDTO';
 
 export const getTopicById = async (id: string): Promise<ITopic> => {
   const { data } = await createServerClient()
@@ -36,6 +37,19 @@ export const createTopic = async (topic: CreateTopicDTO) => {
     photo_url: topic.photoURL,
     user_id: topic.userID,
   });
+
+  if (error) console.log(error);
+};
+
+export const updateTopic = async (topic: UpdateTopicDTO) => {
+  const { error } = await createServerClient()
+    .from('topics')
+    .update({
+      name: topic.name,
+      description: topic.description,
+      photo_url: topic.photoURL,
+    })
+    .eq('id', topic.topicId);
 
   if (error) console.log(error);
 };
