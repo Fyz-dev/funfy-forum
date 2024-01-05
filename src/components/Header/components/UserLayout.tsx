@@ -8,7 +8,7 @@ import Authorization, {
   EnumModeAuth,
   ModeAuth,
 } from 'src/components/Authorization';
-import HeaderUser from './HeaderUser';
+import UserDropdown from './UserDropdown';
 import { useAuth } from 'src/context/Auth';
 
 const UserLayout: FC = () => {
@@ -24,7 +24,7 @@ const UserLayout: FC = () => {
   return (
     <>
       {user ? (
-        <HeaderUser />
+        <UserDropdown />
       ) : (
         <>
           <NavbarItem>

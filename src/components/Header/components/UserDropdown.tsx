@@ -17,7 +17,7 @@ import { toCreatTopic, toProfileSetting, toUser } from 'src/utils/paths';
 
 const disabledKeys = ['user'];
 
-const HeaderUser: FC = () => {
+const UserDropdown: FC = () => {
   const { user, logOut } = useAuth();
 
   return (
@@ -107,4 +107,4 @@ const HeaderUser: FC = () => {
   );
 };
 
-export default HeaderUser;
+export default UserDropdown;
