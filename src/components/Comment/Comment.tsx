@@ -54,7 +54,9 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             <div className="ml-8 text-small">
               <EditContentComment comment={comment}>
                 <>
-                  <MDXRender>{comment.content}</MDXRender>
+                  <MDXRender className="text-foreground">
+                    {comment.content}
+                  </MDXRender>
                 </>
               </EditContentComment>
             </div>
