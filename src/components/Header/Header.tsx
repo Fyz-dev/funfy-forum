@@ -9,12 +9,12 @@ import {
 } from '@nextui-org/navbar';
 import { FC } from 'react';
 import Link from 'next/link';
-import UserLayout from './UserLayout';
+import UserLayout from './components/UserLayout';
 import ThemeSwitcher from 'src/components/ThemeSwitcher';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import { dataHeader } from './data';
+import { dataHeader } from './components/data';
 import { Create, Github, Search } from 'src/assets/icons';
 import { toCreatPost } from 'src/utils/paths';
 import { OnlyAuthorization } from 'src/components/Checker';
