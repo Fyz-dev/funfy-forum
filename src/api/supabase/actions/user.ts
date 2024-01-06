@@ -16,11 +16,18 @@ export const getUserById = async (id: string): Promise<IUser> => {
   return toUser(data);
 };
 
-export const searchUsersByName = async (text: string) => {
+export const searchUsersByName = async (
+  text: string,
+  numberPage: number = 1,
+  sizePage: number = 5,
+) => {
+  const count = numberPage * sizePage;
+
   const { data, error } = await createServerClient()
     .from('users')
     .select(`*`)
-    .ilike('name', `%${text}%`);
+    .ilike('name', `%${text}%`)
+    .range(count - sizePage, count - 1);
 
   if (!data) return [];
   if (error) console.log(error);

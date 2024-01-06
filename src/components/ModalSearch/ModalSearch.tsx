@@ -2,7 +2,7 @@
 
 import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal';
 import { Card, CardHeader, CardBody } from '@nextui-org/card';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Input } from '@nextui-org/input';
 import { Search } from 'src/assets/icons';
 import { Button } from '@nextui-org/button';
@@ -18,7 +18,22 @@ import { usePathname } from 'next/navigation';
 import { Avatar } from '@nextui-org/avatar';
 import Link from 'next/link';
 import { toTopic, toUser } from 'src/utils/paths';
-import { Empty } from '../ui/Empty';
+
+const SIZEPAGE = 3;
+
+const ButtonMore: FC<{ fc: () => void }> = ({ fc }) => {
+  return (
+    <Button
+      variant="flat"
+      color="primary"
+      radius="full"
+      className="mr-auto"
+      onClick={fc}
+    >
+      More...
+    </Button>
+  );
+};
 
 const ModalSearch: FC<
   Pick<ReturnType<typeof useDisclosure>, 'isOpen' | 'onOpenChange' | 'onClose'>
@@ -27,6 +42,9 @@ const ModalSearch: FC<
   const [users, setUsers] = useState<IUser[]>([]);
   const [posts, setPosts] = useState<IPosts>([]);
   const [topics, setTopics] = useState<ITopic[]>([]);
+  const userPage = useRef<number>(1);
+  const topicPage = useRef<number>(1);
+  const postPage = useRef<number>(1);
 
   const path = usePathname();
   const timeout = useRef<NodeJS.Timeout | null>(null);
@@ -41,21 +59,34 @@ const ModalSearch: FC<
     if (searchText === '') {
       setUsers([]);
       setTopics([]);
-      getPosts('new').then(data => setPosts(data));
+      getPosts('new', 1, 5).then(data => setPosts(data));
     } else {
-      searchUsersByName(searchText).then(data => setUsers(data));
-      searchPostByTitle(searchText).then(data => setPosts(data));
-      searchTopicsByName(searchText).then(data => setTopics(data));
+      searchUsersByName(searchText, 1, SIZEPAGE).then(data => setUsers(data));
+      searchPostByTitle(searchText, 1, SIZEPAGE).then(data => setPosts(data));
+      searchTopicsByName(searchText, 1, SIZEPAGE).then(data => setTopics(data));
     }
+
+    //eslint-disable-next-line
   }, [searchText]);
 
-  const handleChange = (value: string) => {
-    if (timeout.current) clearTimeout(timeout.current);
+  useEffect(() => {
+    if (!isOpen) setSearchText('');
+  }, [isOpen]);
 
-    timeout.current = setTimeout(function () {
-      setSearchText(value);
-    }, 500);
-  };
+  const handleChange = useMemo(
+    () => (value: string) => {
+      if (timeout.current) clearTimeout(timeout.current);
+
+      userPage.current = 1;
+      topicPage.current = 1;
+      postPage.current = 1;
+
+      timeout.current = setTimeout(() => {
+        setSearchText(value);
+      }, 500);
+    },
+    [],
+  );
 
   return (
     <Modal
@@ -98,7 +129,11 @@ const ModalSearch: FC<
                 <CardBody className="no-scrollbar min-h-96 gap-4 px-3">
                   {users.length === 0 &&
                     posts.length === 0 &&
-                    topics.length === 0 && <Empty></Empty>}
+                    topics.length === 0 && (
+                      <div className="flex min-h-96 items-center justify-center text-center">
+                        <p>No results were found for your request</p>
+                      </div>
+                    )}
                   {users.length !== 0 && (
                     <div className="flex flex-col gap-3">
                       <h1 className="text-default-500">Users</h1>
@@ -115,6 +150,17 @@ const ModalSearch: FC<
                             </span>
                           </Link>
                         ))}
+                        {users.length === userPage.current * SIZEPAGE && (
+                          <ButtonMore
+                            fc={() =>
+                              searchUsersByName(
+                                searchText,
+                                (userPage.current += 1),
+                                SIZEPAGE,
+                              ).then(data => setUsers(users.concat(data)))
+                            }
+                          />
+                        )}
                       </div>
                     </div>
                   )}
@@ -134,6 +180,17 @@ const ModalSearch: FC<
                             </div>
                           </Link>
                         ))}
+                        {topics.length === topicPage.current * SIZEPAGE && (
+                          <ButtonMore
+                            fc={() =>
+                              searchTopicsByName(
+                                searchText,
+                                (topicPage.current += 1),
+                                3,
+                              ).then(data => setTopics(topics.concat(data)))
+                            }
+                          />
+                        )}
                       </div>
                     </div>
                   )}
@@ -154,6 +211,17 @@ const ModalSearch: FC<
                           />
                         ))}
                       </div>
+                      {posts.length === postPage.current * SIZEPAGE && (
+                        <ButtonMore
+                          fc={() =>
+                            searchPostByTitle(
+                              searchText,
+                              (postPage.current += 1),
+                              3,
+                            ).then(data => setPosts(posts.concat(data)))
+                          }
+                        />
+                      )}
                     </div>
                   )}
                 </CardBody>

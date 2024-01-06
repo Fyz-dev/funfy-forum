@@ -25,11 +25,22 @@ const getCountComments = async (data: TablePost[]): Promise<TablePost[]> => {
 };
 // ------------------- //
 
-export const getPosts = async (sort: TSortPost): Promise<IPosts> => {
-  const { data, error } = await createServerClient()
+export const getPosts = async (
+  sort: TSortPost,
+  numberPage?: number,
+  sizePage?: number,
+): Promise<IPosts> => {
+  let query = createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
     .order('created_at', { ascending: !(sort === 'new') });
+
+  if (sizePage && numberPage) {
+    const count = numberPage * sizePage;
+    query = query.range(count - sizePage, count - 1);
+  }
+
+  const { data, error } = await query;
 
   if (!data) return [];
   if (error) console.log(error);
@@ -62,13 +73,16 @@ export const getPostById = async (id: string): Promise<IPost> => {
 export const getPostsByUser = async (
   id: string,
   sort: TSortPost,
+  // numberPage: number = 1,
+  // sizePage: number = 10,
 ): Promise<IPosts> => {
+  // const count = numberPage * sizePage;
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
     .eq('user_id', id)
     .order('created_at', { ascending: !(sort === 'new') });
-
+  // .range(count - sizePage, count - 1);
   if (!data) return [];
   if (error) console.log(error);
 
@@ -124,11 +138,18 @@ export const updatePost = async (post: UpdatePostDTO) => {
   if (error) console.log(error);
 };
 
-export const searchPostByTitle = async (text: string) => {
+export const searchPostByTitle = async (
+  text: string,
+  numberPage: number = 1,
+  sizePage: number = 5,
+) => {
+  const count = numberPage * sizePage;
+
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
-    .ilike('title', `%${text}%`);
+    .ilike('title', `%${text}%`)
+    .range(count - sizePage, count - 1);
 
   if (!data) return [];
   if (error) console.log(error);

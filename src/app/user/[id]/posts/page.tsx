@@ -15,7 +15,18 @@ const UserPage: FC<{
   return (
     <main className="mx-3 mb-5 flex flex-col items-start gap-5 sm:m-0">
       {posts.length !== 0 ? (
-        <Posts posts={posts} />
+        <>
+          <Posts posts={posts} />
+          {/* <InfinitePosts
+            sort={getSortPostParam(searchParams)}
+            startPage={2}
+            sizePage={5}
+            fc={async (sort, page, sizePage) => {
+              'use server';
+              return getPostsByUser(params.id, sort, page, sizePage);
+            }}
+          /> */}
+        </>
       ) : (
         <Empty description="I wonder what this man is hiding" />
       )}
