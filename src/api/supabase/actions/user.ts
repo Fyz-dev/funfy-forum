@@ -15,3 +15,15 @@ export const getUserById = async (id: string): Promise<IUser> => {
 
   return toUser(data);
 };
+
+export const searchUsersByName = async (text: string) => {
+  const { data, error } = await createServerClient()
+    .from('users')
+    .select(`*`)
+    .ilike('name', `%${text}%`);
+
+  if (!data) return [];
+  if (error) console.log(error);
+
+  return data.map(user => toUser(user));
+};

@@ -58,8 +58,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const getUserData = async () => {
-      const supabase = createBrowserClient();
-      const session = await supabase.auth.getSession();
+      const session = await createBrowserClient().auth.getSession();
 
       if (!session.data.session) {
         setUser(null);

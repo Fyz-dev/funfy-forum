@@ -18,11 +18,11 @@ export const getTopicById = async (id: string): Promise<ITopic> => {
   throw new Error('Not find topic');
 };
 
-export const getTopicsByTitle = async (name: string): Promise<ITopic[]> => {
+export const searchTopicsByName = async (text: string): Promise<ITopic[]> => {
   const { data, error } = await createServerClient()
     .from('topics')
     .select(`*`)
-    .ilike('name', `%${name}%`)
+    .ilike('name', `%${text}%`)
     .limit(8);
 
   if (error) console.log(error);

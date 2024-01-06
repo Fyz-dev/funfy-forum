@@ -123,3 +123,21 @@ export const updatePost = async (post: UpdatePostDTO) => {
 
   if (error) console.log(error);
 };
+
+export const searchPostByTitle = async (text: string) => {
+  const { data, error } = await createServerClient()
+    .from('posts')
+    .select(`*, users(*), topics(*)`)
+    .ilike('title', `%${text}%`);
+
+  if (!data) return [];
+  if (error) console.log(error);
+
+  const posts = await getCountComments(
+    data.filter(
+      item => item.users !== null && item.topics !== null,
+    ) as TablePost[],
+  );
+
+  return posts.map(item => toPost(item));
+};

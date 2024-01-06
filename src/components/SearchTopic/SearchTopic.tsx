@@ -7,7 +7,7 @@ import { ITopic } from 'src/interface';
 import useAsyncList from 'src/hooks/useAsyncList';
 import { Controller, useFormContext } from 'react-hook-form';
 import { findInputError, getClassName } from 'src/utils';
-import { getTopicsByTitle } from 'src/api/supabase';
+import { searchTopicsByName } from 'src/api/supabase';
 
 interface ISearchTopic {
   classNames?: {
@@ -29,7 +29,7 @@ const SearchTopic: FC<ISearchTopic> = ({ setTopic, classNames }) => {
     async load(filterText) {
       if (!filterText) return [];
 
-      const topics = await getTopicsByTitle(filterText);
+      const topics = await searchTopicsByName(filterText);
 
       return topics;
     },

@@ -13,11 +13,11 @@ import UserLayout from './components/UserLayout';
 import ThemeSwitcher from 'src/components/ThemeSwitcher';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
 import { dataHeader } from './components/data';
 import { Create, Github, Search } from 'src/assets/icons';
 import { toCreatPost } from 'src/utils/paths';
 import { OnlyAuthorization } from 'src/components/Checker';
+import TriggerSearch from './components/TriggerSearch';
 
 const Header: FC = () => {
   return (
@@ -44,33 +44,8 @@ const Header: FC = () => {
       </NavbarContent>
 
       <NavbarContent justify="end" className="gap-2">
-        <NavbarItem className="flex w-full flex-row justify-end max-sm:hidden">
-          <Input
-            endContent={<Search />}
-            variant="faded"
-            placeholder="Find topic, or post"
-            size="sm"
-            radius="full"
-            fullWidth
-            className="max-w-xs"
-            classNames={{
-              mainWrapper: 'min-h-unit-10',
-              inputWrapper: 'max-h-unit-10',
-            }}
-          />
-        </NavbarItem>
-        <NavbarItem className="sm:hidden">
-          <Button
-            as={Link}
-            href={toCreatPost()}
-            disableRipple
-            isIconOnly
-            variant="light"
-            size="sm"
-            className="group"
-          >
-            <Search className="h-4 w-4 transition group-hover:scale-110" />
-          </Button>
+        <NavbarItem className="flex w-full flex-row justify-end ">
+          <TriggerSearch />
         </NavbarItem>
         <OnlyAuthorization>
           <NavbarItem>

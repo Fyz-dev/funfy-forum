@@ -43,7 +43,7 @@ export const updateImage = async (
     await createBrowserClient()
       .storage.from(bucket)
       .update(`${parts[parts.length - 1]}`, newAvatar, {
-        cacheControl: cacheControl, // Assuming cacheControl is defined somewhere
+        cacheControl: cacheControl,
         upsert: true,
       });
   } else {
