@@ -94,8 +94,8 @@ const ModalSearch: FC<
                   </Button>
                 </CardHeader>
               </Card>
-              <Card className="p-3 shadow-none">
-                <CardBody className="no-scrollbar min-h-96 gap-4 p-0">
+              <Card className="py-3 shadow-none">
+                <CardBody className="no-scrollbar min-h-96 gap-4 px-3">
                   {users.length === 0 &&
                     posts.length === 0 &&
                     topics.length === 0 && <Empty></Empty>}
