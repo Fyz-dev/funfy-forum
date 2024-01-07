@@ -41,4 +41,5 @@ export {
   MdCreate as Create,
   MdEdit as Edit,
   MdCloudUpload as Upload,
+  MdSettings as Settings,
 } from 'react-icons/md';

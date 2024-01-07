@@ -14,7 +14,7 @@ import ThemeSwitcher from 'src/components/ThemeSwitcher';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { dataHeader } from './components/data';
-import { Create, Github, Search } from 'src/assets/icons';
+import { Create, Github } from 'src/assets/icons';
 import { toCreatPost } from 'src/utils/paths';
 import { OnlyAuthorization } from 'src/components/Checker';
 import TriggerSearch from './components/TriggerSearch';

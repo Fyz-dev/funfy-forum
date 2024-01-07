@@ -14,6 +14,7 @@ import { User } from '@nextui-org/user';
 import { useAuth } from 'src/context/Auth';
 import Link from 'next/link';
 import { toCreatTopic, toProfileSetting, toUser } from 'src/utils/paths';
+import { OpenDoor, Person, Plus, Settings } from 'src/assets/icons';
 
 const disabledKeys = ['user'];
 
@@ -31,7 +32,7 @@ const UserDropdown: FC = () => {
         <Button
           color="primary"
           variant="light"
-          className="min-w-[6rem] overflow-hidden truncate px-2 text-foreground max-sm:min-w-[2rem] max-sm:px-0 sm:flex"
+          className="overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
         >
           <User
             name={user?.name}
@@ -83,23 +84,35 @@ const UserDropdown: FC = () => {
           </DropdownItem>
           <DropdownItem key="profile" textValue="profile">
             <Link href={toUser(user?.uid || '')}>
-              <div>Profile</div>
+              <div className="inline-flex items-center gap-1">
+                <Person />
+                Profile
+              </div>
             </Link>
           </DropdownItem>
           <DropdownItem key="topicCreate" textValue="topicCreate">
             <Link href={toCreatTopic()}>
-              <div>Create topic</div>
+              <div className="inline-flex items-center gap-1">
+                <Plus />
+                Create topic
+              </div>
             </Link>
           </DropdownItem>
           <DropdownItem key="settings" textValue="settings">
             <Link href={toProfileSetting()}>
-              <div>Settings</div>
+              <div className="inline-flex items-center gap-1">
+                <Settings />
+                Settings
+              </div>
             </Link>
           </DropdownItem>
         </DropdownSection>
         <DropdownSection aria-label="Help & Feedback">
           <DropdownItem key="logout" textValue="logout" onClick={logOut}>
-            <span className="text-danger">Log Out</span>
+            <div className="inline-flex items-center gap-1 text-danger">
+              <OpenDoor />
+              Log Out
+            </div>
           </DropdownItem>
         </DropdownSection>
       </DropdownMenu>
