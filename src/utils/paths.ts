@@ -5,6 +5,8 @@ export const toProfileSetting = () => '/settings/profile';
 
 export const toTopic = (id: string) => `/topic/${id}`;
 export const toUser = (id: string) => `/user/${id}`;
+export const toUserPosts = (id: string) => `/user/${id}/posts`;
+export const toUserComments = (id: string) => `/user/${id}/comments`;
 export const toPost = (id: string) => `/post/${id}/`;
 export const toPostSectionComment = (id: string) => `/post/${id}#comments`;
 export const toCommentsPost = (postId: string, commentId: number) =>

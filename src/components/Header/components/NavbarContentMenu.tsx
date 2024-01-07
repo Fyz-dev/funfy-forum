@@ -7,7 +7,13 @@ import Link, { LinkProps } from 'next/link';
 import { Github, User, Plus, OpenDoor, House } from 'src/assets/icons';
 import { cn } from '@nextui-org/react';
 import { useAuth } from 'src/context/Auth';
-import { toCreatTopic, toUser } from 'src/utils/paths';
+import {
+  toCreatTopic,
+  toUser,
+  toUserComments,
+  toUserPosts,
+} from 'src/utils/paths';
+import { usePathname } from 'next/navigation';
 
 const ItemMenu: FC<ButtonProps & Pick<LinkProps, 'href'>> = props => {
   const { href, className, ...rest } = props;
@@ -32,11 +38,17 @@ const NavbarContentMenu: FC<{
   setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ setIsMenuOpen }) => {
   const { user, logOut } = useAuth();
+  const path = usePathname();
   const handleClick = () => setIsMenuOpen(false);
 
   return (
     <>
-      <ItemMenu onClick={handleClick} href="/" startContent={<House />}>
+      <ItemMenu
+        onClick={handleClick}
+        href="/"
+        startContent={<House />}
+        className={cn(path === '/' && 'text-primary')}
+      >
         Home
       </ItemMenu>
       {user && (
@@ -45,6 +57,11 @@ const NavbarContentMenu: FC<{
             onClick={handleClick}
             href={toUser(user.uid)}
             startContent={<User />}
+            className={cn(
+              (path === toUserPosts(user.uid) ||
+                path === toUserComments(user.uid)) &&
+                'text-primary',
+            )}
           >
             Profile
           </ItemMenu>
@@ -52,6 +69,7 @@ const NavbarContentMenu: FC<{
             onClick={handleClick}
             href={toCreatTopic()}
             startContent={<Plus />}
+            className={cn(path === toCreatTopic() && 'text-primary')}
           >
             Create topic
           </ItemMenu>
