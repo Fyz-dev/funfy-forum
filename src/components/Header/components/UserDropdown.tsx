@@ -32,7 +32,7 @@ const UserDropdown: FC = () => {
         <Button
           color="primary"
           variant="light"
-          className="overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
+          className="min-w-min items-center overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
         >
           <User
             name={user?.name}
@@ -43,8 +43,8 @@ const UserDropdown: FC = () => {
             }}
             className="justify-start overflow-hidden"
             classNames={{
-              name: 'truncate w-full max-sm:hidden',
-              wrapper: 'overflow-hidden w-full',
+              name: 'truncate w-full',
+              wrapper: 'overflow-hidden max-sm:hidden w-full',
             }}
           />
         </Button>
