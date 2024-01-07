@@ -62,7 +62,9 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
               href={toCommentsPost(comment.post.id, comment.id)}
               className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
             >
-              <MDXRender>{comment.content}</MDXRender>
+              <MDXRender className="text-default-500">
+                {comment.content}
+              </MDXRender>
               <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
             </Link>
           </CardBody>

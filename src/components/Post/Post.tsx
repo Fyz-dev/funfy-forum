@@ -12,12 +12,21 @@ import { toPost, toPostSectionComment, toTopic, toUser } from 'src/utils/paths';
 import { timePassed } from 'src/utils';
 import { ShareButton } from '../ui/ShareButton';
 import { MDXRender } from '../MDXRender';
+import { cn } from '@nextui-org/react';
 
-const Post: FC<{ post: IPost }> = ({ post }) => {
+const Post: FC<{
+  post: IPost;
+  hideDescription?: boolean;
+  classNames?: { card?: string };
+}> = ({ post, hideDescription, classNames }) => {
   const styleIcon = { style: { height: '1.1rem', width: '1.1rem' } };
 
   return (
-    <Card isPressable as={Card} className="w-full hover:scale-[1.02]">
+    <Card
+      isPressable
+      as={Card}
+      className={cn('w-full hover:scale-[1.02]', classNames?.card)}
+    >
       <RippleContainer href={toPost(post.id)}>
         <CardHeader className="mr-auto flex w-auto flex-none flex-col justify-start gap-1 pb-1">
           <div className="mr-auto flex h-auto items-center justify-start gap-3 max-sm:items-start">
@@ -56,15 +65,18 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
           </div>
           <h1 className="mr-auto text-left">{post.title}</h1>
         </CardHeader>
-        <CardBody
-          // as={Link}
-          // href={toPost(post.id)}
-          className="relative max-h-72 w-full overflow-hidden py-0"
-        >
-          <Link href={toPost(post.id)} className="absolute inset-0" />
-          <MDXRender className="text-default-500">{post.content}</MDXRender>
-          <div className="absolute inset-x-0 top-0 mt-[15.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
-        </CardBody>
+        {!hideDescription && (
+          <CardBody
+            // as={Link}
+            // href={toPost(post.id)}
+            className="relative max-h-72 w-full overflow-hidden py-0"
+          >
+            <Link href={toPost(post.id)} className="absolute inset-0" />
+            <MDXRender className="text-default-500">{post.content}</MDXRender>
+            <div className="absolute inset-x-0 top-0 mt-[15.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90%" />
+          </CardBody>
+        )}
+
         <CardFooter className="h-12 gap-1">
           <Button
             as={Link}

@@ -29,7 +29,10 @@ const PostPageComment: FC<{
         <Divider />
       </div>
       <div className="h-full w-full">
-        <Comments comments={comments} />
+        <Comments
+          comments={comments}
+          countParents={comments[0].path.length - 1}
+        />
       </div>
     </>
   );

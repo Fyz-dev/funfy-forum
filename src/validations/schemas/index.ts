@@ -1,12 +1,12 @@
 import { isNull } from 'src/utils';
 import z from 'zod';
 
-const nameValid = z.string().min(3).optional();
+const nameValid = z.string().min(3);
 const descriptionValid = z.string().max(300).optional();
 const avatarValid = z.any().optional();
 
 export const AuthSchema = z.object({
-  name: nameValid,
+  name: nameValid.optional(),
   email: z.string().email().min(4),
   password: z
     .string()

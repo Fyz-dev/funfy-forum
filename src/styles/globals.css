@@ -27,6 +27,7 @@
 
     /* <---- Code ----> */
     @apply prose-pre:my-[0.1em];
+    @apply prose-code:text-inherit;
 
     /* <---- Strong ----> */
     @apply prose-strong:text-inherit;
@@ -35,6 +36,7 @@
     @apply prose-ul:my-[0.1em];
     @apply prose-ol:my-[0.1em];
     @apply prose-li:my-[0.4em];
+    @apply prose-li:marker:text-inherit;
     @apply prose-li:pl-0;
 
     /* <---- Links ----> */
@@ -59,5 +61,17 @@
     @apply prose-h1:text-2xl;
     @apply prose-h2:text-xl;
     @apply prose-h3:text-lg;
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }

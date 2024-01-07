@@ -43,13 +43,15 @@ const UserCardHeader: FC<UserCardPartProps> = ({
           </OnlyAuthor>
         }
         childrenCardBody={
-          <div className="flex flex-row flex-wrap justify-center gap-1 gap-y-2">
-            {user.userDetails.socialNetwork.map((social, key) => (
-              <Chip key={key} variant="flat">
-                {social}
-              </Chip>
-            ))}
-          </div>
+          user.userDetails.socialNetwork.length !== 0 && (
+            <div className="flex flex-row flex-wrap justify-center gap-1 gap-y-2">
+              {user.userDetails.socialNetwork.map((social, key) => (
+                <Chip key={key} variant="flat">
+                  {social}
+                </Chip>
+              ))}
+            </div>
+          )
         }
       >
         {children}

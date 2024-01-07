@@ -15,6 +15,8 @@ interface IBase {
 
 export interface IComment extends IBase {
   postID: string;
+  parentId: number;
+  path: Array<number>;
 }
 
 export interface ICommentWithPost extends IBase {

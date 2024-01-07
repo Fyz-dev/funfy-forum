@@ -81,7 +81,8 @@ export const getChildComments = async (
     const { data, error } = await createServerClient()
       .from('comment_tree')
       .select(`*`)
-      .contains('path', [idComment]);
+      .contains('path', [idComment])
+      .order('pathSortNew');
 
     if (error) console.log(error);
 

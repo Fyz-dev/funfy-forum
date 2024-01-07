@@ -2,30 +2,56 @@
 
 import { Card, CardBody, CardHeader, CardFooter } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
-import { Plus } from 'src/assets/icons';
 import { DropzoneAvatar } from 'src/components/DropzoneAvatar';
 import { useAuth } from 'src/context/Auth';
-import { useDisclosure } from '@nextui-org/modal';
-import { ModalSocialLinks } from 'src/components/ModalSocialLinks';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { Textarea } from 'src/components/ui/Textarea';
 import { Input } from 'src/components/ui/Input';
 import { ProfileSchema, ProfileSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { updateUser } from 'src/api/supabase';
+import { isSupabaseImg, updateImage } from 'src/utils/supabase';
+import { useRouter } from 'next/navigation';
+import { toUser } from 'src/utils/paths';
+import { getRandom } from 'src/utils';
 
 const Profile = () => {
-  const { user } = useAuth();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { user, updateData } = useAuth();
+  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const methods = useForm<ProfileSchemaType>({
     resolver: zodResolver(ProfileSchema),
   });
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const avatarChange = useRef<boolean>(false);
 
   if (!user) return null;
 
   const handleSubmit = methods.handleSubmit(async data => {
-    console.log(data);
+    setIsLoading(true);
+    let photoURL: string | undefined = user.photoURL;
+
+    if (avatarChange.current) {
+      photoURL = await updateImage(
+        user.uid,
+        'user-avatars',
+        data.avatar as File | undefined,
+        isSupabaseImg(user.photoURL || '') ? user.photoURL : undefined,
+      );
+    }
+
+    updateUser({
+      uid: user.uid,
+      name: data.name,
+      description: data.description,
+      photoURL: photoURL,
+    }).then(() => {
+      setIsLoading(false);
+      updateData();
+      router.push(toUser(user.uid));
+      router.refresh();
+    });
   });
 
   return (
@@ -66,7 +92,7 @@ const Profile = () => {
                     placeholder="About (optional)"
                   />
                 </div>
-                <div>
+                {/* <div>
                   <div>
                     <h3>Social links (7 max)</h3>
                     <p className="text-tiny text-default-400">
@@ -79,7 +105,7 @@ const Profile = () => {
                       Add social link
                     </Button>
                   </div>
-                </div>
+                </div> */}
                 <div>
                   <h3>Avatar</h3>
                   <Controller
@@ -88,7 +114,9 @@ const Profile = () => {
                     render={({ field: { onChange } }) => {
                       return (
                         <DropzoneAvatar
-                          defaultUrlImage={user.photoURL}
+                          defaultUrlImage={
+                            user.photoURL && user.photoURL + '?c=' + getRandom()
+                          }
                           textDragNoActive="Drag and drop avatar, or click to select image"
                           onChange={file => {
                             onChange(file);
@@ -106,6 +134,7 @@ const Profile = () => {
                   radius="full"
                   color="primary"
                   type="submit"
+                  isLoading={isLoading}
                 >
                   Save
                 </Button>
@@ -113,7 +142,7 @@ const Profile = () => {
             </Card>
           </form>
         </FormProvider>
-        <ModalSocialLinks isOpen={isOpen} onOpenChange={onOpenChange} />
+        {/* <ModalSocialLinks isOpen={isOpen} onOpenChange={onOpenChange} /> */}
       </main>
     </div>
   );
