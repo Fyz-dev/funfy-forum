@@ -34,15 +34,9 @@ type AuthContextPops = {
     password: string,
   ): Promise<TSignUp>;
   logOut(): Promise<void>;
+  updateData: () => void;
 };
-const AuthContext = createContext<AuthContextPops>({
-  user: null,
-  signInGoogle: signInGoogle,
-  signInGithub: signInGithub,
-  signInEmailAndPassword: signInEmailAndPassword,
-  signUpEmailAndPassword: signUpEmailAndPassword,
-  logOut: async () => {},
-});
+const AuthContext = createContext<AuthContextPops>({} as AuthContextPops);
 
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
@@ -56,18 +50,18 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
     router.refresh();
   };
 
+  const getUserData = async () => {
+    const session = await createBrowserClient().auth.getSession();
+
+    if (!session.data.session) {
+      setUser(null);
+      return;
+    }
+
+    setUser(await getUserById(session.data.session.user.id));
+  };
+
   useEffect(() => {
-    const getUserData = async () => {
-      const session = await createBrowserClient().auth.getSession();
-
-      if (!session.data.session) {
-        setUser(null);
-        return;
-      }
-
-      setUser(await getUserById(session.data.session.user.id));
-    };
-
     getUserData();
   }, []);
 
@@ -80,6 +74,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
         signInEmailAndPassword,
         signUpEmailAndPassword,
         logOut,
+        updateData: getUserData,
       }}
     >
       {children}

@@ -4,6 +4,9 @@ import { getRandom } from '..';
 import { createBrowserClient } from './client';
 
 const cacheControl = '300';
+const supabaseURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+
+export const isSupabaseImg = (url: String) => url.includes(supabaseURL);
 
 export const getPublicUrl = (bucket: string, path: string) => {
   return createBrowserClient().storage.from(bucket).getPublicUrl(path).data
@@ -22,6 +25,7 @@ export const removeImage = (bucket: string, paths: string[]) => {
 };
 
 export const updateImage = async (
+  path: string,
   bucket: string,
   newAvatar?: File,
   editPhotoURL?: string,
@@ -48,7 +52,7 @@ export const updateImage = async (
       });
   } else {
     // If there's no existing editPhotoURL, upload a new image and get the public URL
-    const { data: res } = await uploadImage(bucket, getRandom(), newAvatar);
+    const { data: res } = await uploadImage(bucket, path, newAvatar);
 
     if (res) {
       photoURL = getPublicUrl(bucket, res.path);

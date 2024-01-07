@@ -85,7 +85,7 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
             </Link>
             <div className="flex flex-col gap-2">
               {childrenCardBody}
-              <p className="self-center text-balance break-words ">
+              <p className="self-center text-pretty break-words text-center ">
                 {description}
               </p>
             </div>

@@ -96,13 +96,13 @@ const ModalSearch: FC<
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       hideCloseButton
-      className="rounded-none bg-transparent shadow-none max-sm:m-0 max-sm:h-full sm:max-h-[calc(100%-8rem)]"
+      className="rounded-none bg-transparent shadow-none max-sm:m-0 max-sm:min-h-full sm:max-h-[calc(100%-8rem)]"
     >
       <ModalContent>
         {onClose => (
           <>
             <Card className="gap-3 overflow-hidden p-0 max-sm:gap-0 max-sm:rounded-none sm:bg-transparent">
-              <Card className="min-h-20 shadow-none max-sm:rounded-none max-sm:border-[1px] max-sm:border-b-divider">
+              <Card className="min-h-20 shadow-none max-sm:rounded-none max-sm:border-b-[1px] max-sm:border-b-divider">
                 <CardHeader className="gap-2">
                   <Input
                     classNames={{
@@ -125,7 +125,7 @@ const ModalSearch: FC<
                   </Button>
                 </CardHeader>
               </Card>
-              <Card className="py-3 shadow-none">
+              <Card className="py-3 shadow-none max-sm:min-h-[calc(100vh-5.1rem)]">
                 <CardBody className="no-scrollbar min-h-96 gap-4 px-3">
                   {users.length === 0 &&
                     posts.length === 0 &&

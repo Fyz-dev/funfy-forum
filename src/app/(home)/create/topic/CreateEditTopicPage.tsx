@@ -77,6 +77,7 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
 
     if (avatarChange.current) {
       photoURL = await updateImage(
+        getRandom(),
         'topic-avatars',
         data.avatar as File | undefined,
         editTopicData.photoURL,
