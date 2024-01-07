@@ -87,6 +87,8 @@ export const toComment = (comment: TreeComment): IComment => {
     childComment: comment.children.map(comment => {
       return toComment(comment);
     }),
+    path: comment.data.path,
+    parentId: comment.data.parent_comment_id,
     timestamp: {
       createdAt: new Date(comment.data.created_at),
       updatedAt: null,
