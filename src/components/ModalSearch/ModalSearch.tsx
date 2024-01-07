@@ -114,6 +114,7 @@ const ModalSearch: FC<
                     //   endContent={<Kbd>Esc</Kbd>}
                     placeholder="Type to search..."
                     onValueChange={handleChange}
+                    autoFocus
                   />
                   <Button
                     onClick={onClose}
