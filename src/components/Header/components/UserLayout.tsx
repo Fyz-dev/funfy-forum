@@ -94,29 +94,38 @@ const UserLayout: FC = () => {
               }}
             />
           </DropdownItem>
-          <DropdownItem key="profile" textValue="profile">
-            <Link href={toUser(user?.uid || '')}>
-              <div className="inline-flex items-center gap-1">
-                <Person />
-                Profile
-              </div>
-            </Link>
+          <DropdownItem
+            href={toUser(user?.uid || '/')}
+            as={Link}
+            key="profile"
+            textValue="profile"
+          >
+            <div className="inline-flex items-center gap-1">
+              <Person />
+              Profile
+            </div>
           </DropdownItem>
-          <DropdownItem key="topicCreate" textValue="topicCreate">
-            <Link href={toCreatTopic()}>
-              <div className="inline-flex items-center gap-1">
-                <Plus />
-                Create topic
-              </div>
-            </Link>
+          <DropdownItem
+            href={toCreatTopic()}
+            as={Link}
+            key="topicCreate"
+            textValue="topicCreate"
+          >
+            <div className="inline-flex items-center gap-1">
+              <Plus />
+              Create topic
+            </div>
           </DropdownItem>
-          <DropdownItem key="settings" textValue="settings">
-            <Link href={toProfileSetting()}>
-              <div className="inline-flex items-center gap-1">
-                <Settings />
-                Settings
-              </div>
-            </Link>
+          <DropdownItem
+            href={toProfileSetting()}
+            as={Link}
+            key="settings"
+            textValue="settings"
+          >
+            <div className="inline-flex items-center gap-1">
+              <Settings />
+              Settings
+            </div>
           </DropdownItem>
         </DropdownSection>
         <DropdownSection aria-label="Help & Feedback">
