@@ -2,7 +2,16 @@
 
 import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal';
 import { Card, CardHeader, CardBody } from '@nextui-org/card';
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Dispatch,
+  FC,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Input } from '@nextui-org/input';
 import { Search } from 'src/assets/icons';
 import { Button } from '@nextui-org/button';
@@ -12,14 +21,41 @@ import {
   searchTopicsByName,
   searchUsersByName,
 } from 'src/api/supabase';
-import { IPosts, ITopic, IUser } from 'src/interface';
+import { IPost, ITopic, IUser } from 'src/interface';
 import { Post } from '../Post';
 import { usePathname } from 'next/navigation';
 import { Avatar } from '@nextui-org/avatar';
 import Link from 'next/link';
 import { toTopic, toUser } from 'src/utils/paths';
 
-const SIZEPAGE = 3;
+// The actual displayed value will be one less,
+// since we are asking for one more to understand whether the show more button should be displayed
+const SIZEPAGE = 4;
+const defaultData = {
+  data: [],
+  resLenght: 0,
+};
+
+type ResponsData<T> = { data: T[]; resLenght: number };
+
+const loadMoreData = <T,>(
+  sourceArray: ResponsData<T>,
+  searchText: string,
+  searchFunction: (
+    text: string,
+    numberPage?: number,
+    sizePage?: number,
+  ) => Promise<T[]>,
+  pageRef: MutableRefObject<number>,
+  setData: Dispatch<SetStateAction<ResponsData<T>>>,
+) => {
+  searchFunction(searchText, (pageRef.current += 1), SIZEPAGE).then(data =>
+    setData({
+      data: sourceArray.data.concat(data.slice(0, -1)),
+      resLenght: data.length,
+    }),
+  );
+};
 
 const ButtonMore: FC<{ fc: () => void }> = ({ fc }) => {
   return (
@@ -39,15 +75,15 @@ const ModalSearch: FC<
   Pick<ReturnType<typeof useDisclosure>, 'isOpen' | 'onOpenChange' | 'onClose'>
 > = ({ isOpen, onOpenChange, onClose }) => {
   const [searchText, setSearchText] = useState('');
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [posts, setPosts] = useState<IPosts>([]);
-  const [topics, setTopics] = useState<ITopic[]>([]);
+  const [users, setUsers] = useState<ResponsData<IUser>>(defaultData);
+  const [posts, setPosts] = useState<ResponsData<IPost>>(defaultData);
+  const [topics, setTopics] = useState<ResponsData<ITopic>>(defaultData);
   const userPage = useRef<number>(1);
   const topicPage = useRef<number>(1);
   const postPage = useRef<number>(1);
+  const timeout = useRef<NodeJS.Timeout | null>(null);
 
   const path = usePathname();
-  const timeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     onClose();
@@ -57,13 +93,21 @@ const ModalSearch: FC<
 
   useEffect(() => {
     if (searchText === '') {
-      setUsers([]);
-      setTopics([]);
-      getPosts('new', 1, 5).then(data => setPosts(data));
+      setUsers(defaultData);
+      setTopics(defaultData);
+      getPosts('new', 1, 5).then(data =>
+        setPosts({ data: data, resLenght: data.length }),
+      );
     } else {
-      searchUsersByName(searchText, 1, SIZEPAGE).then(data => setUsers(data));
-      searchPostByTitle(searchText, 1, SIZEPAGE).then(data => setPosts(data));
-      searchTopicsByName(searchText, 1, SIZEPAGE).then(data => setTopics(data));
+      searchUsersByName(searchText, 1, SIZEPAGE).then(data =>
+        setUsers({ data: data.slice(0, -1), resLenght: data.length }),
+      );
+      searchPostByTitle(searchText, 1, SIZEPAGE).then(data =>
+        setPosts({ data: data.slice(0, -1), resLenght: data.length }),
+      );
+      searchTopicsByName(searchText, 1, SIZEPAGE).then(data =>
+        setTopics({ data: data.slice(0, -1), resLenght: data.length }),
+      );
     }
 
     //eslint-disable-next-line
@@ -102,6 +146,7 @@ const ModalSearch: FC<
         {onClose => (
           <>
             <Card className="gap-3 overflow-hidden p-0 max-sm:gap-0 max-sm:rounded-none sm:bg-transparent">
+              {/* <---- Search ----> */}
               <Card className="min-h-20 shadow-none max-sm:rounded-none max-sm:border-b-[1px] max-sm:border-b-divider">
                 <CardHeader className="gap-2">
                   <Input
@@ -126,20 +171,25 @@ const ModalSearch: FC<
                   </Button>
                 </CardHeader>
               </Card>
+
+              {/* <---- Content ----> */}
               <Card className="py-3 shadow-none max-sm:min-h-[calc(100vh-5.1rem)]">
                 <CardBody className="no-scrollbar min-h-96 gap-4 px-3">
-                  {users.length === 0 &&
-                    posts.length === 0 &&
-                    topics.length === 0 && (
+                  {/* <---- Not found ----> */}
+                  {users.data.length === 0 &&
+                    posts.data.length === 0 &&
+                    topics.data.length === 0 && (
                       <div className="flex min-h-96 items-center justify-center text-center">
                         <p>No results were found for your request</p>
                       </div>
                     )}
-                  {users.length !== 0 && (
+
+                  {/* <---- Users ----> */}
+                  {users.data.length !== 0 && (
                     <div className="flex flex-col gap-3">
                       <h1 className="text-default-500">Users</h1>
                       <div className="flex flex-row flex-wrap gap-2">
-                        {users.map(user => (
+                        {users.data.map(user => (
                           <Link
                             href={toUser(user.uid)}
                             key={user.uid}
@@ -151,25 +201,29 @@ const ModalSearch: FC<
                             </span>
                           </Link>
                         ))}
-                        {users.length === userPage.current * SIZEPAGE && (
+                        {users.resLenght === SIZEPAGE && (
                           <ButtonMore
                             fc={() =>
-                              searchUsersByName(
+                              loadMoreData(
+                                users,
                                 searchText,
-                                (userPage.current += 1),
-                                SIZEPAGE,
-                              ).then(data => setUsers(users.concat(data)))
+                                searchUsersByName,
+                                userPage,
+                                setUsers,
+                              )
                             }
                           />
                         )}
                       </div>
                     </div>
                   )}
-                  {topics.length !== 0 && (
+
+                  {/* <---- Topics ----> */}
+                  {topics.data.length !== 0 && (
                     <div className="flex flex-col gap-3">
                       <h1 className="text-default-500">Topics</h1>
                       <div className="flex flex-col gap-2">
-                        {topics.map(topic => (
+                        {topics.data.map(topic => (
                           <Link
                             href={toTopic(topic.id)}
                             className="inline-flex h-auto w-full items-center gap-2 rounded-large bg-default-100 p-3 transition-all hover:scale-[1.01] hover:bg-default-200"
@@ -181,27 +235,31 @@ const ModalSearch: FC<
                             </div>
                           </Link>
                         ))}
-                        {topics.length === topicPage.current * SIZEPAGE && (
+                        {topics.resLenght === SIZEPAGE && (
                           <ButtonMore
                             fc={() =>
-                              searchTopicsByName(
+                              loadMoreData(
+                                topics,
                                 searchText,
-                                (topicPage.current += 1),
-                                3,
-                              ).then(data => setTopics(topics.concat(data)))
+                                searchTopicsByName,
+                                topicPage,
+                                setTopics,
+                              )
                             }
                           />
                         )}
                       </div>
                     </div>
                   )}
-                  {posts.length !== 0 && (
+
+                  {/* <---- Posts ----> */}
+                  {posts.data.length !== 0 && (
                     <div className="flex flex-col gap-3">
                       <h1 className="text-default-500">
                         {searchText ? 'Posts' : 'New posts'}
                       </h1>
                       <div className="flex flex-col gap-2">
-                        {posts.map(post => (
+                        {posts.data.map(post => (
                           <Post
                             key={post.id}
                             post={post}
@@ -212,14 +270,16 @@ const ModalSearch: FC<
                           />
                         ))}
                       </div>
-                      {posts.length === postPage.current * SIZEPAGE && (
+                      {posts.resLenght === SIZEPAGE && (
                         <ButtonMore
                           fc={() =>
-                            searchPostByTitle(
+                            loadMoreData(
+                              posts,
                               searchText,
-                              (postPage.current += 1),
-                              3,
-                            ).then(data => setPosts(posts.concat(data)))
+                              searchPostByTitle,
+                              postPage,
+                              setPosts,
+                            )
                           }
                         />
                       )}
