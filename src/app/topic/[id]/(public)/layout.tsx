@@ -11,37 +11,45 @@ import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import { Hashtag, SortNew, SortOld } from 'src/assets/icons';
 import { toTopic } from 'src/utils/paths';
 import { OnlyAuthor } from 'src/components/Checker';
-import { getTopicById } from 'src/api/supabase';
+import { getStatsByTopic, getTopicById } from 'src/api/supabase';
 import Link from 'next/link';
+import { Stats } from 'src/components/Stats';
+import { MobileStats } from 'src/components/MobileStats';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
     MobileHeaderProps,
-    'classNames'
+    'classNames' | 'childrenCardBody' | 'childrenCardHeader'
   >
-> = ({ topic, children, classNames }) => {
+> = ({ topic, children, classNames, childrenCardBody, childrenCardHeader }) => {
   return (
     <MobileHeaderCard
       title={topic.name}
-      description={topic.description}
+      description={
+        topic.description ? topic.description : `Welcom to ${topic.name}!`
+      }
       photoURL={topic.photoURL}
       classNames={classNames}
       mediaQuery="sm"
       fallback={<Hashtag className="h-10 w-10 text-primary" />}
       childrenCardHeader={
-        <OnlyAuthor idAuthor={topic.userID}>
-          <Button
-            as={Link}
-            href="edit"
-            size="sm"
-            className="text-small"
-            radius="full"
-            variant="flat"
-          >
-            Edit
-          </Button>
-        </OnlyAuthor>
+        <>
+          {childrenCardHeader}
+          <OnlyAuthor idAuthor={topic.userID}>
+            <Button
+              as={Link}
+              href="edit"
+              size="sm"
+              className="text-small"
+              radius="full"
+              variant="flat"
+            >
+              Edit
+            </Button>
+          </OnlyAuthor>
+        </>
       }
+      childrenCardBody={childrenCardBody}
     >
       {children}
     </MobileHeaderCard>
@@ -73,6 +81,12 @@ export default async function Layout({
           classNames={{
             wrapper: 'block lg:hidden',
           }}
+          childrenCardHeader={
+            <MobileStats
+              headerText="Topic statistics"
+              stats={getStatsByTopic(topic.id)}
+            />
+          }
         >
           <CardFooter className="flex-row">
             <RedirectTabs
@@ -93,6 +107,7 @@ export default async function Layout({
           wrapperSection:
             'hidden sticky top-20 h-min w-80 min-w-[20rem] lg:block',
         }}
+        childrenCardBody={<Stats stats={getStatsByTopic(topic.id)} />}
       />
     </div>
   );

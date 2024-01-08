@@ -38,3 +38,23 @@ export const formatDateFull = (date: Date) => {
 
   return new Intl.DateTimeFormat('en-US', options).format(date);
 };
+
+export const formatDateShort = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  };
+
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+};
+
+export const formatDateShortToParts = (date: Date) => {
+  const [month, day, year] = formatDateShort(date).split(' ');
+
+  return {
+    month,
+    day: parseInt(day),
+    year: parseInt(year),
+  };
+};

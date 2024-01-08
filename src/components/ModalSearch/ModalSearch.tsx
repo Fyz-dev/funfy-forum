@@ -51,7 +51,9 @@ const loadMoreData = <T,>(
 ) => {
   searchFunction(searchText, (pageRef.current += 1), SIZEPAGE).then(data =>
     setData({
-      data: sourceArray.data.concat(data.slice(0, -1)),
+      data: sourceArray.data.concat(
+        SIZEPAGE === data.length ? data.slice(0, -1) : data,
+      ),
       resLenght: data.length,
     }),
   );
@@ -100,13 +102,22 @@ const ModalSearch: FC<
       );
     } else {
       searchUsersByName(searchText, 1, SIZEPAGE).then(data =>
-        setUsers({ data: data.slice(0, -1), resLenght: data.length }),
+        setUsers({
+          data: SIZEPAGE === data.length ? data.slice(0, -1) : data,
+          resLenght: data.length,
+        }),
       );
       searchPostByTitle(searchText, 1, SIZEPAGE).then(data =>
-        setPosts({ data: data.slice(0, -1), resLenght: data.length }),
+        setPosts({
+          data: SIZEPAGE === data.length ? data.slice(0, -1) : data,
+          resLenght: data.length,
+        }),
       );
       searchTopicsByName(searchText, 1, SIZEPAGE).then(data =>
-        setTopics({ data: data.slice(0, -1), resLenght: data.length }),
+        setTopics({
+          data: SIZEPAGE === data.length ? data.slice(0, -1) : data,
+          resLenght: data.length,
+        }),
       );
     }
 

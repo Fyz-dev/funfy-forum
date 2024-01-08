@@ -1,4 +1,4 @@
-import { Tables } from 'src/types';
+import { Database, Tables } from 'src/types';
 import { RemoveNullExcept } from 'src/utils';
 
 export type TablePost = Tables<'posts'> & { topics: Tables<'topics'> } & {
@@ -22,3 +22,9 @@ export type TreeComment = {
   children: TreeComment[];
   data: RemoveNullExcept<Tables<'comment_tree'>> & { users: Tables<'users'> };
 };
+
+export type TableTopicStats =
+  Database['public']['Functions']['get_stats_by_topic']['Returns'][number];
+
+export type TableUserStats =
+  Database['public']['Functions']['get_stats_by_user']['Returns'][number];

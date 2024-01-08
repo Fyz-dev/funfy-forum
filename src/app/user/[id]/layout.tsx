@@ -6,7 +6,9 @@ import { IUser } from 'src/interface';
 import { RedirectTabs } from 'src/components/ui/RedirectTabs';
 import SwitchSort from './(components)/SwitchSort';
 import { toUser } from 'src/utils/paths';
-import { getUserById } from 'src/api/supabase';
+import { getStatsByUser, getUserById } from 'src/api/supabase';
+import { Stats } from 'src/components/Stats';
+import { MobileStats } from 'src/components/MobileStats';
 
 const getUser = async (id: string): Promise<IUser> => {
   try {
@@ -33,6 +35,12 @@ export default async function Layout({
             wrapper: 'block lg:hidden',
           }}
           user={user}
+          childrenCardHeader={
+            <MobileStats
+              headerText="User statistics"
+              stats={getStatsByUser(user.uid)}
+            />
+          }
         >
           <CardFooter className="flex-row justify-between">
             <RedirectTabs
@@ -53,6 +61,7 @@ export default async function Layout({
             'hidden sticky top-20 h-min w-80 min-w-[20rem] lg:block',
         }}
         user={user}
+        childrenCardBody={<Stats stats={getStatsByUser(user.uid)} />}
       />
     </div>
   );

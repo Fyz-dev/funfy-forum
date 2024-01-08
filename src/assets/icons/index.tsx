@@ -21,6 +21,9 @@ export {
   FaArrowLeft as ArrowLeft,
   FaTrash as Delete,
   FaHashtag as Hashtag,
+  FaCakeCandles as Cake,
+  FaRegNewspaper as Newspaper,
+  FaCircleInfo as Info,
   // FaArrowUpWideShort as SortFirst,
   // FaArrowDownWideShort as SortLast,
 } from 'react-icons/fa6';

@@ -9,7 +9,7 @@ import TopicCard from 'src/components/TopicCard/TopicCard';
 import { notFound } from 'next/navigation';
 import { toTopic, toUser } from 'src/utils/paths';
 import { formatDateFull } from 'src/utils';
-import { getPostById } from 'src/api/supabase';
+import { getPostById, getStatsByTopic } from 'src/api/supabase';
 import { ToggleEdit } from 'src/components/ToggleEdit';
 import { EditContextProvider } from 'src/context/Edit';
 import EditContentPost from './(components)/EditContentPost';
@@ -139,7 +139,7 @@ export default async function Layout({
 
       {/* <---- PC Info Topic ----> */}
       <section className="hidden items-center lg:flex">
-        <TopicCard topic={post.topic} />
+        <TopicCard stats={getStatsByTopic(post.topic.id)} topic={post.topic} />
       </section>
     </div>
   );
