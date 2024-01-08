@@ -21,6 +21,7 @@
     "next-themes": "^0.2.1",
     "performant-array-to-tree": "^1.11.0",
     "react": "latest",
+    "react-animated-numbers": "^0.17.1",
     "react-dom": "latest",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.47.0",
@@ -39,7 +40,7 @@
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "react-icons": "^4.11.0",
-    "supabase": "^1.123.4",
+    "supabase": "^1.127.4",
     "tailwindcss": "latest",
     "typescript": "latest"
   },

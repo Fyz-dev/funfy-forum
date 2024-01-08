@@ -2,6 +2,7 @@ import {
   IComment,
   ICommentWithPost,
   IPost,
+  IStats,
   ITopic,
   IUser,
 } from 'src/interface';
@@ -9,6 +10,8 @@ import { Tables } from 'src/types';
 import {
   TableCommentWithPostWithoutNull,
   TablePost,
+  TableTopicStats,
+  TableUserStats,
   TreeComment,
 } from './types';
 
@@ -35,6 +38,10 @@ export const toTopic = (topic: Tables<'topics'>): ITopic => {
     photoURL: topic.photo_url || undefined,
     name,
     description: description || undefined,
+    timestamp: {
+      createdAt: new Date(topic.created_at),
+      updatedAt: null,
+    },
   };
 };
 
@@ -94,5 +101,13 @@ export const toComment = (comment: TreeComment): IComment => {
       updatedAt: null,
     },
     postID: comment.data.post_id,
+  };
+};
+
+export const toStats = (data: TableTopicStats | TableUserStats): IStats => {
+  return {
+    cakeDay: new Date(data.created_at),
+    countComments: data.comment_count,
+    countPosts: data.post_count,
   };
 };

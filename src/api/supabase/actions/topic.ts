@@ -1,8 +1,8 @@
 'use server';
 
 import { createServerClient } from 'src/utils/supabase/server';
-import { toTopic } from '../convertor';
-import { ITopic } from 'src/interface';
+import { toStats, toTopic } from '../convertor';
+import { IStats, ITopic } from 'src/interface';
 import { CreateTopicDTO } from 'src/api/dto';
 import { UpdateTopicDTO } from 'src/api/dto/UpdateTopicDTO';
 
@@ -58,4 +58,18 @@ export const updateTopic = async (topic: UpdateTopicDTO) => {
     .eq('id', topic.topicId);
 
   if (error) console.log(error);
+};
+
+export const getStatsByTopic = async (
+  id: string,
+): Promise<IStats | undefined> => {
+  const { data, error } = await createServerClient()
+    .rpc('get_stats_by_topic', {
+      topic_id_param: id,
+    })
+    .maybeSingle();
+
+  if (error) console.log(error);
+
+  return data ? toStats(data) : undefined;
 };

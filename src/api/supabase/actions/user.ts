@@ -1,7 +1,7 @@
 'use server';
 
-import { IUser } from 'src/interface';
-import { toUser } from '../convertor';
+import { IStats, IUser } from 'src/interface';
+import { toStats, toUser } from '../convertor';
 import { createServerClient } from 'src/utils/supabase/server';
 import { UpdateUserDTO } from 'src/api/dto';
 
@@ -47,4 +47,18 @@ export const searchUsersByName = async (
   if (error) console.log(error);
 
   return data.map(user => toUser(user));
+};
+
+export const getStatsByUser = async (
+  id: string,
+): Promise<IStats | undefined> => {
+  const { data, error } = await createServerClient()
+    .rpc('get_stats_by_user', {
+      user_id_param: id,
+    })
+    .maybeSingle();
+
+  if (error) console.log(error);
+
+  return data ? toStats(data) : undefined;
 };

@@ -6,3 +6,4 @@ export * from './IComment';
 export * from './IComments';
 export * from './ITimestamps';
 export * from './IPosts';
+export * from './IStats';

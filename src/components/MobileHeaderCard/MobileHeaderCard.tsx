@@ -59,7 +59,7 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
     <section slot="wrapperSection" className={wrapperSection}>
       <Card
         slot="card"
-        className={`з- w-full rounded-none bg-transparent shadow-none ${cardMediaQuery} ${card}`}
+        className={`w-full rounded-none bg-transparent shadow-none ${cardMediaQuery} ${card}`}
       >
         <div slot="wrapper" className={wrapper}>
           <CardHeader
@@ -72,22 +72,24 @@ const MobileHeaderCard: FC<MobileHeaderProps> = ({
             slot="body"
             className={`-mt-5 flex items-center gap-2 overflow-visible rounded-t-3xl bg-background p-3 ${cardBodyMediaQuery} ${body}`}
           >
-            <Link
-              href={hrefTitle ?? '#'}
-              className="flex flex-col items-center gap-1"
-            >
-              <Avatar
-                src={photoURL}
-                fallback={fallback}
-                className="-mt-11 h-16 w-16 self-center text-large"
-              />
-              <h6 className="text-center text-large">{title}</h6>
-            </Link>
-            <div className="flex flex-col gap-2">
-              {childrenCardBody}
-              <p className="self-center text-pretty break-words text-center ">
-                {description}
-              </p>
+            <div className="flex flex-col items-center">
+              <Link
+                href={hrefTitle ?? '#'}
+                className="flex flex-col items-center gap-1"
+              >
+                <Avatar
+                  src={photoURL}
+                  fallback={fallback}
+                  className="-mt-11 h-16 w-16 self-center text-large"
+                />
+                <h6 className="text-center text-large">{title}</h6>
+              </Link>
+              <div className="flex flex-col gap-2">
+                <p className="self-center text-pretty break-words text-center ">
+                  {description}
+                </p>
+                {childrenCardBody}
+              </div>
             </div>
           </CardBody>
         </div>
