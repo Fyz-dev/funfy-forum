@@ -12,7 +12,7 @@ import { toProfileSetting } from 'src/utils/paths';
 
 type UserCardPartProps = Pick<
   MobileHeaderProps,
-  'classNames' | 'childrenCardBody'
+  'classNames' | 'childrenCardBody' | 'childrenCardHeader'
 > & {
   user: IUser;
   children?: ReactNode;
@@ -22,6 +22,7 @@ const UserCardHeader: FC<UserCardPartProps> = ({
   user,
   children,
   classNames,
+  childrenCardHeader,
   childrenCardBody,
 }) => {
   return (
@@ -33,18 +34,21 @@ const UserCardHeader: FC<UserCardPartProps> = ({
         classNames={classNames}
         mediaQuery="sm"
         childrenCardHeader={
-          <OnlyAuthor idAuthor={user.uid}>
-            <Button
-              as={Link}
-              href={toProfileSetting()}
-              size="sm"
-              className="text-small"
-              radius="full"
-              variant="flat"
-            >
-              Edit
-            </Button>
-          </OnlyAuthor>
+          <>
+            {childrenCardHeader}
+            <OnlyAuthor idAuthor={user.uid}>
+              <Button
+                as={Link}
+                href={toProfileSetting()}
+                size="sm"
+                className="text-small"
+                radius="full"
+                variant="flat"
+              >
+                Edit
+              </Button>
+            </OnlyAuthor>
+          </>
         }
         childrenCardBody={
           <>

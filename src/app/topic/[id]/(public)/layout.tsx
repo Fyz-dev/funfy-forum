@@ -14,13 +14,14 @@ import { OnlyAuthor } from 'src/components/Checker';
 import { getStatsByTopic, getTopicById } from 'src/api/supabase';
 import Link from 'next/link';
 import { Stats } from 'src/components/Stats';
+import { MobileStats } from 'src/components/MobileStats';
 
 const TopicCardHeader: FC<
   { topic: ITopic; children?: ReactNode } & Pick<
     MobileHeaderProps,
-    'classNames' | 'childrenCardBody'
+    'classNames' | 'childrenCardBody' | 'childrenCardHeader'
   >
-> = ({ topic, children, classNames, childrenCardBody }) => {
+> = ({ topic, children, classNames, childrenCardBody, childrenCardHeader }) => {
   return (
     <MobileHeaderCard
       title={topic.name}
@@ -32,18 +33,21 @@ const TopicCardHeader: FC<
       mediaQuery="sm"
       fallback={<Hashtag className="h-10 w-10 text-primary" />}
       childrenCardHeader={
-        <OnlyAuthor idAuthor={topic.userID}>
-          <Button
-            as={Link}
-            href="edit"
-            size="sm"
-            className="text-small"
-            radius="full"
-            variant="flat"
-          >
-            Edit
-          </Button>
-        </OnlyAuthor>
+        <>
+          {childrenCardHeader}
+          <OnlyAuthor idAuthor={topic.userID}>
+            <Button
+              as={Link}
+              href="edit"
+              size="sm"
+              className="text-small"
+              radius="full"
+              variant="flat"
+            >
+              Edit
+            </Button>
+          </OnlyAuthor>
+        </>
       }
       childrenCardBody={childrenCardBody}
     >
@@ -77,6 +81,12 @@ export default async function Layout({
           classNames={{
             wrapper: 'block lg:hidden',
           }}
+          childrenCardHeader={
+            <MobileStats
+              headerText="Topic statistics"
+              stats={getStatsByTopic(topic.id)}
+            />
+          }
         >
           <CardFooter className="flex-row">
             <RedirectTabs

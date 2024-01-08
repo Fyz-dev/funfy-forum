@@ -8,6 +8,7 @@ import SwitchSort from './(components)/SwitchSort';
 import { toUser } from 'src/utils/paths';
 import { getStatsByUser, getUserById } from 'src/api/supabase';
 import { Stats } from 'src/components/Stats';
+import { MobileStats } from 'src/components/MobileStats';
 
 const getUser = async (id: string): Promise<IUser> => {
   try {
@@ -34,6 +35,12 @@ export default async function Layout({
             wrapper: 'block lg:hidden',
           }}
           user={user}
+          childrenCardHeader={
+            <MobileStats
+              headerText="User statistics"
+              stats={getStatsByUser(user.uid)}
+            />
+          }
         >
           <CardFooter className="flex-row justify-between">
             <RedirectTabs

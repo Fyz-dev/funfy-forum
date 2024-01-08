@@ -4,15 +4,12 @@ import { FC, useEffect, useState } from 'react';
 import { Cake, Comment, Newspaper } from 'src/assets/icons';
 import { IStats } from 'src/interface';
 import { formatDateShortToParts } from 'src/utils';
-import dynamic from 'next/dynamic';
-const AnimatedNumber = dynamic(() => import('react-animated-numbers'), {
-  ssr: false,
-});
+import { AnimatedNumber } from '../ui/AnimatedNumber';
 
 const Stats: FC<{ stats?: Promise<IStats | undefined> }> = ({
   stats: promiseStats,
 }) => {
-  const [stats, setStats] = useState<IStats | undefined>();
+  const [stats, setStats] = useState<IStats>();
 
   useEffect(() => {
     if (promiseStats) promiseStats.then(data => setStats(data));
@@ -32,60 +29,24 @@ const Stats: FC<{ stats?: Promise<IStats | undefined> }> = ({
         <div className="-mt-1 inline-flex gap-1 text-small text-foreground-500">
           <span> {formatDate.month}</span>
           <div className="inline-flex">
-            <AnimatedNumber
-              animateToNumber={formatDate.day}
-              transitions={index => {
-                return {
-                  mass: 1,
-                  tension: 230 * (index + 1),
-                  friction: 140,
-                };
-              }}
-            />
+            <AnimatedNumber animateToNumber={formatDate.day} />
             <span>,</span>
           </div>
-          <AnimatedNumber
-            animateToNumber={formatDate.year}
-            transitions={index => {
-              return {
-                mass: 1,
-                tension: 230 * (index + 1),
-                friction: 140,
-              };
-            }}
-          />
+          <AnimatedNumber animateToNumber={formatDate.year} />
         </div>
       </div>
       <div className="flex flex-col items-center">
         <Newspaper className="h-6 w-6" />
         <span className="text-medium">Posts</span>
         <span className="-mt-1 text-small text-foreground-500">
-          <AnimatedNumber
-            animateToNumber={stats.countPosts}
-            transitions={index => {
-              return {
-                mass: 1,
-                tension: 230 * (index + 1),
-                friction: 140,
-              };
-            }}
-          />
+          <AnimatedNumber animateToNumber={stats.countPosts} />
         </span>
       </div>
       <div className="flex flex-col items-center">
         <Comment className="h-6 w-6" />
         <span className="text-medium">Comments</span>
         <span className="-mt-1 text-small text-foreground-500">
-          <AnimatedNumber
-            animateToNumber={stats.countComments}
-            transitions={index => {
-              return {
-                mass: 1,
-                tension: 230 * (index + 1),
-                friction: 140,
-              };
-            }}
-          />
+          <AnimatedNumber animateToNumber={stats.countComments} />
         </span>
       </div>
     </div>
