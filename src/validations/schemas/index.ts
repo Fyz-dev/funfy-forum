@@ -1,12 +1,10 @@
 import { isNull } from 'src/utils';
 import z from 'zod';
 
-const nameValid = z.string().min(3);
-const descriptionValid = z.string().max(300).optional();
 const avatarValid = z.any().optional();
 
 export const AuthSchema = z.object({
-  name: nameValid.optional(),
+  name: z.string().min(3).optional(),
   email: z.string().email().min(4),
   password: z
     .string()
@@ -32,7 +30,7 @@ export const PostSchema = z.object({
 
 export const TopicSchema = z.object({
   name: z.string().min(1, 'Required').max(21),
-  description: descriptionValid,
+  description: z.string().max(300).optional(),
   avatar: avatarValid, // As file
 });
 
@@ -43,8 +41,8 @@ export const CommentSchema = z.object({
 });
 
 export const ProfileSchema = z.object({
-  name: nameValid,
-  description: descriptionValid,
+  name: z.string().min(3),
+  description: z.string().max(300).optional(),
   avatar: avatarValid, // As file
 });
 
