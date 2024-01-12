@@ -25,8 +25,8 @@ import { getUserById } from 'src/api/supabase';
 type UserAuthType = IUser | null;
 type AuthContextPops = {
   user: UserAuthType;
-  signInGoogle(): Promise<TSignIn>;
-  signInGithub(): Promise<TSignIn>;
+  signInGoogle(redirectTo: string): Promise<TSignIn>;
+  signInGithub(redirectTo: string): Promise<TSignIn>;
   signInEmailAndPassword(email: string, password: string): Promise<TSignIn>;
   signUpEmailAndPassword(
     name: string,
@@ -52,6 +52,15 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const getUserData = async () => {
     const session = await createBrowserClient().auth.getSession();
+
+    createBrowserClient().auth.onAuthStateChange(async (event, session) => {
+      if (!session) {
+        setUser(null);
+        return;
+      }
+
+      setUser(await getUserById(session.user.id));
+    });
 
     if (!session.data.session) {
       setUser(null);

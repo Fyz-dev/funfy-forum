@@ -14,6 +14,8 @@ import { Google, Github } from 'src/assets/icons';
 import { useAuth } from 'src/context/Auth';
 import InputLogin from './InputLogin';
 import InputSignUp from './InputSignUp';
+import { usePathname, useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export enum EnumModeAuth {
   LOGIN = 'Login',
@@ -39,32 +41,36 @@ const Authorization: FC<AuthProps> = ({
     signInEmailAndPassword,
     signUpEmailAndPassword,
   } = useAuth();
-
+  const path = usePathname();
   const methods = useForm<AuthSchemaType>({
     resolver: zodResolver(AuthSchema),
   });
 
   const handlerGithub = async () => {
-    await signInGithub();
+    await signInGithub(
+      `${typeof window !== 'undefined' && window.location.origin}${path}`,
+    );
   };
 
   const handlerGoogle = async () => {
-    await signInGoogle();
+    await signInGoogle(
+      `${typeof window !== 'undefined' && window.location.origin}${path}`,
+    );
   };
 
-  const handlerUserWithEmail = methods.handleSubmit(async data => {
-    if (mode === EnumModeAuth.LOGIN) {
-      const { error } = await signInEmailAndPassword(data.email, data.password);
+  const handlerSignInEmail = async (data: AuthSchemaType) => {
+    const { error } = await signInEmailAndPassword(data.email, data.password);
 
-      if (error)
-        methods.setError('password', {
-          type: 'manual',
-          message: 'Invalid email or password',
-        });
-
+    if (error) {
+      methods.setError('password', {
+        type: 'manual',
+        message: 'Invalid email or password',
+      });
       return;
     }
+  };
 
+  const handlerSignUpEmail = async (data: AuthSchemaType) => {
     if (!data.name) {
       methods.setError('name', {
         type: 'manual',
@@ -79,11 +85,28 @@ const Authorization: FC<AuthProps> = ({
       data.password,
     );
 
-    if (error)
+    if (error) {
       methods.setError('email', {
         type: 'manual',
         message: 'Mail is already in use',
       });
+      return;
+    }
+
+    setMode(EnumModeAuth.LOGIN);
+  };
+
+  const handlerUserWithEmail = methods.handleSubmit(async data => {
+    if (mode === EnumModeAuth.LOGIN) {
+      toast.promise(handlerSignInEmail(data), {
+        loading: 'Logging in...',
+        success: 'You are logged in!',
+        error: 'You are not logged in.',
+      });
+      return;
+    }
+
+    handlerSignUpEmail(data);
   });
 
   useEffect(() => methods.reset(), [methods, isOpen]);

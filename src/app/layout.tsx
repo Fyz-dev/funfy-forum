@@ -4,9 +4,8 @@ import { Roboto_Flex } from 'next/font/google';
 import { ReactNode } from 'react';
 import Header from 'src/components/Header';
 import { AuthContextProvider } from 'src/context/Auth';
-import { Toaster } from 'react-hot-toast';
-import ThemeProviders from 'src/providers/themeProviders';
 import ToastProviders from 'src/providers/ToastProviders';
+import ThemeProviders from 'src/providers/ThemeProviders';
 
 // const font = Inter({ subsets: ['latin'] });
 
