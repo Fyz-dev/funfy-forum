@@ -10,7 +10,7 @@ export default function ThemeProviders({
 }) {
   return (
     <NextUIProvider>
-      <ThemeProvider attribute="class" defaultTheme="dark">
+      <ThemeProvider attribute="class" enableSystem defaultTheme="system">
         {children}
       </ThemeProvider>
     </NextUIProvider>

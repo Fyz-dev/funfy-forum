@@ -40,7 +40,7 @@ const UserLayout: FC = () => {
         content: 'p-0 border-small border-divider bg-background',
       }}
     >
-      <DropdownTrigger>
+      <DropdownTrigger className="max-sm:hidden">
         <Button
           color="primary"
           variant="light"
