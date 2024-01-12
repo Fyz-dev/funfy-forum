@@ -54,6 +54,7 @@ const InitializedMDXEditor = ({
   const {
     control,
     formState: { errors },
+    clearErrors,
     setValue,
   } = useFormContext();
   const [isNull, setIsNull] = useState<boolean>(withHideAnim);
@@ -84,8 +85,10 @@ const InitializedMDXEditor = ({
               onChange={e => {
                 onChange(e);
                 if (!withHideAnim) return;
-                if (e.length === 0 && !isNull) setIsNull(true);
-                else if (e.length !== 0 && isNull) setIsNull(false);
+                if (e.length === 0 && !isNull) {
+                  setIsNull(true);
+                  clearErrors(name);
+                } else if (e.length !== 0 && isNull) setIsNull(false);
               }}
               contentEditableClassName="placeholder:text-foreground-500 !focus:border-default-500 max-w-none markdown"
               plugins={[

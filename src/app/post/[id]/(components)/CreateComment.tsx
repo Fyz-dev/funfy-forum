@@ -17,7 +17,13 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
   const [rerendMDX, setRerendMDX] = useState<boolean>(false);
 
   const handleSubmit = methods.handleSubmit(data => {
-    if (isNull(data.comment)) return;
+    if (isNull(data.comment)) {
+      methods.setError('comment', {
+        type: 'custom',
+        message: 'Field cannot be empty',
+      });
+      return;
+    }
     if (!user) return;
     setIsLoading(true);
 
