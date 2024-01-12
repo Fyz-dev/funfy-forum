@@ -62,14 +62,17 @@ const DropDownSort: FC<DropDownFilterProps> = ({
     >
       {item => {
         return (
-          <SelectItem key={item.key} textValue="item" value={item.key}>
-            <Link
-              href={`?sort=${item.key}`}
-              className="flex items-center gap-2"
-            >
+          <SelectItem
+            as={Link}
+            href={`?sort=${item.key}`}
+            key={item.key}
+            textValue="item"
+            value={item.key}
+          >
+            <div className="flex items-center gap-2">
               {item.icon}
               <span>{item.value}</span>
-            </Link>
+            </div>
           </SelectItem>
         );
       }}
