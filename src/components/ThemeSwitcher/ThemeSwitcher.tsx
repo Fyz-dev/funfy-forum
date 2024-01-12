@@ -8,17 +8,21 @@ import { MoonIcon, SunIcon } from 'src/assets/icons';
 import { BaseSwitch } from 'src/components/ThemeSwitcher/BaseSwitch';
 
 const ThemeSwitcher: FC<SwitchProps> = props => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, theme, setTheme } = useTheme();
+  const isLightTheme =
+    theme === 'system' ? resolvedTheme === 'light' : theme === 'light';
+
   const [mounted, setMounted] = useState(false);
-  const { isSelected, ...restProps } = useSwitch({
+  const { ...restProps } = useSwitch({
     ...props,
-    defaultSelected: theme === 'light',
+    onValueChange: () => {
+      setTheme(isLightTheme ? 'dark' : 'light');
+    },
   });
 
   useEffect(() => {
     setMounted(true);
-    setTheme(isSelected ? 'light' : 'dark');
-  }, [isSelected, setTheme]);
+  }, []);
 
   if (!mounted) return null;
 
@@ -33,13 +37,13 @@ const ThemeSwitcher: FC<SwitchProps> = props => {
     >
       <AnimatePresence mode="popLayout">
         <motion.div
-          key={isSelected ? 'sun' : 'moon'}
+          key={isLightTheme ? 'sun' : 'moon'}
           initial={{ x: '-200%' }}
           animate={{ x: 0 }}
           exit={{ x: '200%' }}
         >
           <div className="transition group-hover:scale-110">
-            {isSelected ? (
+            {isLightTheme ? (
               <SunIcon className="h-5 w-5" />
             ) : (
               <MoonIcon className="h-5 w-5" />
