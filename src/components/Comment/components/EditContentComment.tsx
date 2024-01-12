@@ -7,6 +7,7 @@ import { IComment } from 'src/interface';
 import { useEditContext } from 'src/context/Edit';
 import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 import { updateComment } from 'src/api/supabase';
+import toast from 'react-hot-toast';
 
 const EditContentComment: FC<{ children: ReactNode; comment: IComment }> = ({
   children,
@@ -20,7 +21,14 @@ const EditContentComment: FC<{ children: ReactNode; comment: IComment }> = ({
       schemaValidate={CommentSchema}
       setIsLoading={setIsLoading}
       onSubmit={async data => {
-        await updateComment({ content: data.comment, id: comment.id });
+        await toast.promise(
+          updateComment({ content: data.comment, id: comment.id }),
+          {
+            loading: 'Saving...',
+            success: 'Changes saved!',
+            error: 'Changes not saved.',
+          },
+        );
       }}
       forEdit={
         <MDXEditor

@@ -18,6 +18,7 @@ import { getPublicUrl, updateImage, uploadImage } from 'src/utils/supabase';
 import { toTopic } from 'src/utils/paths';
 import { getRandom } from 'src/utils';
 import { createBrowserClient } from 'src/utils/supabase/client';
+import toast from 'react-hot-toast';
 
 // Page for creating or editing a topic depending on the editTopicData variable
 const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
@@ -97,14 +98,28 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
     setIsLoading(true);
 
     const handler = editTopicData
-      ? handlerEditTopic(editTopicData, data).then(() => {
-          router.push(toTopic(editTopicData.id));
-          router.refresh();
-        })
-      : handlerCreateTopic(user.uid, data).then(() => {
-          router.push('/');
-          router.refresh();
-        });
+      ? toast.promise(
+          handlerEditTopic(editTopicData, data).then(() => {
+            router.push(toTopic(editTopicData.id));
+            router.refresh();
+          }),
+          {
+            loading: 'Editing a topic...',
+            success: 'Topic edited!',
+            error: 'Topic not edited.',
+          },
+        )
+      : toast.promise(
+          handlerCreateTopic(user.uid, data).then(() => {
+            router.push('/');
+            router.refresh();
+          }),
+          {
+            loading: 'Creating a topic...',
+            success: 'Topic created!',
+            error: 'Topic not created.',
+          },
+        );
 
     handler
       .then(() => {

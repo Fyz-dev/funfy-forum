@@ -1,8 +1,10 @@
 'use client';
 
+import { cn } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { createComment } from 'src/api/supabase';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { useAuth } from 'src/context/Auth';
@@ -27,15 +29,24 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
     if (!user) return;
     setIsLoading(true);
 
-    createComment({
-      userId: user.uid,
-      postId: post.id,
-      content: data.comment,
-    }).then(() => {
-      setIsLoading(false);
-      setRerendMDX(true);
-      router.refresh();
-    });
+    toast
+      .promise(
+        createComment({
+          userId: user.uid,
+          postId: post.id,
+          content: data.comment,
+        }),
+        {
+          loading: 'Saving...',
+          success: 'Comment saved!',
+          error: 'Comment not saved.',
+        },
+      )
+      .then(() => {
+        setIsLoading(false);
+        setRerendMDX(true);
+        router.refresh();
+      });
   });
 
   useEffect(() => {
@@ -44,17 +55,26 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
 
   return (
     <FormProvider {...methods}>
-      <form name="createComment" noValidate onSubmit={handleSubmit}>
-        {!rerendMDX && (
-          <MDXEditor
-            withHideAnim={true}
-            publicButton="Comment"
-            name="comment"
-            markdown=""
-            placeholder="Add a comment..."
-            isLoading={isLoading}
-          />
-        )}
+      <form
+        onClick={() => {
+          !user && toast.error('You need to log in!');
+        }}
+        name="createComment"
+        noValidate
+        onSubmit={handleSubmit}
+      >
+        <div className={cn(!user && 'pointer-events-none select-none')}>
+          {!rerendMDX && (
+            <MDXEditor
+              withHideAnim={true}
+              publicButton="Comment"
+              name="comment"
+              markdown=""
+              placeholder="Add a comment..."
+              isLoading={isLoading}
+            />
+          )}
+        </div>
       </form>
     </FormProvider>
   );

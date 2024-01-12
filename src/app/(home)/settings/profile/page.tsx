@@ -15,6 +15,7 @@ import { isSupabaseImg, updateImage } from 'src/utils/supabase';
 import { useRouter } from 'next/navigation';
 import { toUser } from 'src/utils/paths';
 import { getRandom } from 'src/utils';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
   const { user, updateData } = useAuth();
@@ -41,17 +42,26 @@ const Profile = () => {
       );
     }
 
-    updateUser({
-      uid: user.uid,
-      name: data.name,
-      description: data.description,
-      photoURL: photoURL,
-    }).then(() => {
-      setIsLoading(false);
-      updateData();
-      router.push(toUser(user.uid));
-      router.refresh();
-    });
+    toast
+      .promise(
+        updateUser({
+          uid: user.uid,
+          name: data.name,
+          description: data.description,
+          photoURL: photoURL,
+        }),
+        {
+          loading: 'Saving...',
+          success: 'Profile updated!',
+          error: 'Profile not updated.',
+        },
+      )
+      .then(() => {
+        setIsLoading(false);
+        router.push(toUser(user.uid));
+        router.refresh();
+        updateData();
+      });
   });
 
   return (

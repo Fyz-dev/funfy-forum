@@ -1,10 +1,12 @@
 import 'src/styles/globals.css';
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google';
-import ThemeProviders from './themeProviders';
 import { ReactNode } from 'react';
 import Header from 'src/components/Header';
 import { AuthContextProvider } from 'src/context/Auth';
+import { Toaster } from 'react-hot-toast';
+import ThemeProviders from 'src/providers/themeProviders';
+import ToastProviders from 'src/providers/ToastProviders';
 
 // const font = Inter({ subsets: ['latin'] });
 
@@ -25,8 +27,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={font.className}>
         <AuthContextProvider>
           <ThemeProviders>
-            <Header />
-            {children}
+            <ToastProviders>
+              <Header />
+              {children}
+            </ToastProviders>
           </ThemeProviders>
         </AuthContextProvider>
       </body>

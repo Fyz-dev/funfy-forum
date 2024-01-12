@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createComment } from 'src/api/supabase';
+import toast from 'react-hot-toast';
 
 const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
   comment,
@@ -29,16 +30,25 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
     if (!user) return;
     setIsLoading(true);
 
-    createComment({
-      userId: user.uid,
-      postId: comment.postID,
-      parentCommentId: comment.id,
-      content: data.comment,
-    }).then(() => {
-      setIsLoading(false);
-      setIsOpen(false);
-      router.refresh();
-    });
+    toast
+      .promise(
+        createComment({
+          userId: user.uid,
+          postId: comment.postID,
+          parentCommentId: comment.id,
+          content: data.comment,
+        }),
+        {
+          loading: 'Saving...',
+          success: 'Comment saved!',
+          error: 'Comment not saved.',
+        },
+      )
+      .then(() => {
+        setIsLoading(false);
+        setIsOpen(false);
+        router.refresh();
+      });
   });
 
   return (
@@ -50,6 +60,10 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
           radius="full"
           className="bg-transparent p-0 text-default-600 hover:bg-default-100"
           onClick={() => {
+            if (!user) {
+              toast.error('You need to log in!');
+              return;
+            }
             setIsOpen(!isOpen);
           }}
         >
