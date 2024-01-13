@@ -32,7 +32,7 @@ export const AuthSchema = z.object({
 export const PostSchema = z.object({
   title: z
     .string()
-    .min(1)
+    .min(1, 'Required')
     .max(300)
     .refine(value => !isNull(value), {
       message: 'Title cannot be empty',
@@ -62,9 +62,17 @@ export const TopicSchema = z.object({
 });
 
 export const CommentSchema = z.object({
-  comment: z.string().refine(value => !isNull(value), {
-    message: 'Field cannot be empty',
-  }),
+  comment: z
+    .string()
+    .min(1, 'Required')
+    .max(1500)
+    .refine(value => !isNull(value), {
+      message: 'Field cannot be empty',
+    }),
+});
+
+export const CommentSchemaCreate = z.object({
+  comment: z.string().min(1, 'Required').max(1500),
 });
 
 export const ProfileSchema = z.object({
@@ -88,4 +96,5 @@ export type AuthSchemaType = z.infer<typeof AuthSchema>;
 export type PostSchemaType = z.infer<typeof PostSchema>;
 export type TopicSchemaType = z.infer<typeof TopicSchema>;
 export type CommentSchemaType = z.infer<typeof CommentSchema>;
+export type CommentSchemaCreateType = z.infer<typeof CommentSchemaCreate>;
 export type ProfileSchemaType = z.infer<typeof ProfileSchema>;
