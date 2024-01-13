@@ -18,7 +18,9 @@ const TriggerSearch: FC = () => {
       >
         <Input
           autoFocus={false}
-          endContent={<IconSearch />}
+          endContent={
+            <IconSearch className="transition group-hover:scale-110" />
+          }
           variant="faded"
           placeholder="Find topic, or post"
           size="sm"

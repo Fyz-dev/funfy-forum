@@ -1,14 +1,26 @@
 import { isNull } from 'src/utils';
 import z from 'zod';
 
-const avatarValid = z.any().optional();
+const avatar = () => z.any().optional();
+const name = () =>
+  z
+    .string()
+    .min(3)
+    .max(32, 'Username must be at most 32 characters')
+    .refine(value => /^[а-яА-ЯёЁіІїЇєЄa-zA-Z0-9_\s-]+$/.test(value), {
+      message: 'Username can only contain letters, numbers, "-", and "_"',
+    })
+    .refine(value => /^[а-яА-ЯёЁіІїЇєЄa-zA-Z0-9_-]/.test(value), {
+      message: 'Username cannot consist of only spaces',
+    });
 
 export const AuthSchema = z.object({
-  name: z.string().min(3).optional(),
-  email: z.string().email().min(4),
+  name: name().optional(),
+  email: z.string().email(),
   password: z
     .string()
     .min(8)
+    .max(50, 'Password must be at most 50 characters')
     .refine(value => /[a-zA-Z]/.test(value), {
       message: 'The password must contain at least one letter.',
     })
@@ -18,7 +30,13 @@ export const AuthSchema = z.object({
 });
 
 export const PostSchema = z.object({
-  title: z.string().min(1).max(300),
+  title: z
+    .string()
+    .min(1)
+    .max(300)
+    .refine(value => !isNull(value), {
+      message: 'Title cannot be empty',
+    }),
   content: z.string().max(8000).optional(),
   topicID: z.string({
     errorMap: () => ({
@@ -29,21 +47,30 @@ export const PostSchema = z.object({
 });
 
 export const TopicSchema = z.object({
-  name: z.string().min(1, 'Required').max(21),
+  name: z
+    .string()
+    .min(1, 'Required')
+    .max(21)
+    .refine(value => /^[а-яА-ЯёЁіІїЇєЄa-zA-Z0-9_\s-]+$/.test(value), {
+      message: 'Name can only contain letters, numbers, "-", and "_"',
+    })
+    .refine(value => /^[а-яА-ЯёЁіІїЇєЄa-zA-Z0-9_-]/.test(value), {
+      message: 'Name cannot consist of only spaces',
+    }),
   description: z.string().max(300).optional(),
-  avatar: avatarValid, // As file
+  avatar: avatar(), // As file
 });
 
 export const CommentSchema = z.object({
   comment: z.string().refine(value => !isNull(value), {
-    message: 'Invalid data.',
+    message: 'Field cannot be empty',
   }),
 });
 
 export const ProfileSchema = z.object({
-  name: z.string().min(3),
+  name: name(),
   description: z.string().max(300).optional(),
-  avatar: avatarValid, // As file
+  avatar: avatar(), // As file
 });
 
 export const SocialLinkSchema = z.object({

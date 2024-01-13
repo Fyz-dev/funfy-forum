@@ -7,6 +7,7 @@ import { VoteEnum } from 'src/enums';
 import { useVote } from '../context/VoteContext';
 import { useAuth } from 'src/context/Auth';
 import { addVoteToComment } from 'src/api/supabase';
+import toast from 'react-hot-toast';
 
 const Button: FC<{
   typeVote: VoteEnum;
@@ -61,7 +62,10 @@ const ButtonVote: FC<ButtonVoteProps> = ({
   }, [userVote]);
 
   const handlerClick = (vote: VoteEnum) => {
-    if (!user) return;
+    if (!user) {
+      toast.error('You need to log in!');
+      return;
+    }
 
     setVote(vote);
     addVoteToComment({

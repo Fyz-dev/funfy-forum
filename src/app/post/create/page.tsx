@@ -17,6 +17,7 @@ import { ITopic } from 'src/interface';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import { useRouter } from 'next/navigation';
 import { createPost } from 'src/api/supabase';
+import toast from 'react-hot-toast';
 
 const ButtonPublic: FC<{ isLoading: boolean }> = ({ isLoading }) => {
   return (
@@ -49,13 +50,22 @@ const CreatePage: FC = () => {
     if (!user) return;
     setIsLoading(true);
 
-    createPost({
-      userID: user.uid,
-      ...data,
-    }).then(() => {
-      setIsLoading(false);
-      redirect.push('/');
-    });
+    toast
+      .promise(
+        createPost({
+          userID: user.uid,
+          ...data,
+        }),
+        {
+          loading: 'Creating a post...',
+          success: 'Post created!',
+          error: 'Post not created.',
+        },
+      )
+      .then(() => {
+        setIsLoading(false);
+        redirect.push('/');
+      });
   });
 
   return (

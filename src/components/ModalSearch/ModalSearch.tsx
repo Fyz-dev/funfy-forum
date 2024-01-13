@@ -204,7 +204,7 @@ const ModalSearch: FC<
                           <Link
                             href={toUser(user.uid)}
                             key={user.uid}
-                            className="inline-flex max-w-min select-none items-center gap-2 rounded-full bg-default-100 pr-3 transition-all hover:scale-[1.01] hover:bg-default-200"
+                            className="inline-flex max-w-min select-none items-center gap-2 rounded-full bg-default-100 pr-3 transition-all hover:scale-[1.01] hover:bg-default-200 active:scale-[0.97]"
                           >
                             <Avatar src={user.photoURL} />
                             <span className="whitespace-nowrap">
@@ -237,7 +237,7 @@ const ModalSearch: FC<
                         {topics.data.map(topic => (
                           <Link
                             href={toTopic(topic.id)}
-                            className="inline-flex h-auto w-full items-center gap-2 rounded-large bg-default-100 p-3 transition-all hover:scale-[1.01] hover:bg-default-200"
+                            className="inline-flex h-auto w-full items-center gap-2 rounded-large bg-default-100 p-3 transition-all hover:scale-[1.01] hover:bg-default-200 active:scale-[0.97]"
                             key={topic.id}
                           >
                             <Avatar src={topic.photoURL} />

@@ -2,6 +2,7 @@
 
 import { Button } from '@nextui-org/button';
 import { FC, ReactNode, useState } from 'react';
+import toast from 'react-hot-toast';
 import { updatePost } from 'src/api/supabase';
 import { EditContent } from 'src/components/EditContent';
 import { MDXEditor } from 'src/components/MDXEditor';
@@ -21,11 +22,18 @@ const EditContentPost: FC<{
   return (
     <EditContent<PostSchemaType>
       onSubmit={async data => {
-        await updatePost({
-          id: post.id,
-          title: data.title,
-          content: data.content,
-        });
+        await toast.promise(
+          updatePost({
+            id: post.id,
+            title: data.title,
+            content: data.content,
+          }),
+          {
+            loading: 'Editing a post...',
+            success: 'Post updated!',
+            error: 'Post not updated.',
+          },
+        );
       }}
       schemaValidate={PostSchema}
       setIsLoading={setIsLoading}

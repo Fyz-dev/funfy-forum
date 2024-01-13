@@ -1,10 +1,11 @@
 import 'src/styles/globals.css';
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google';
-import ThemeProviders from './themeProviders';
 import { ReactNode } from 'react';
 import Header from 'src/components/Header';
 import { AuthContextProvider } from 'src/context/Auth';
+import ThemeProviders from 'src/providers/ThemeProviders';
+import ToastProviders from 'src/providers/ToastProviders';
 
 // const font = Inter({ subsets: ['latin'] });
 
@@ -23,12 +24,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body className={font.className}>
-        <AuthContextProvider>
-          <ThemeProviders>
-            <Header />
-            {children}
-          </ThemeProviders>
-        </AuthContextProvider>
+        <ThemeProviders>
+          <AuthContextProvider>
+            <ToastProviders>
+              <Header />
+              {children}
+            </ToastProviders>
+          </AuthContextProvider>
+        </ThemeProviders>
       </body>
     </html>
   );

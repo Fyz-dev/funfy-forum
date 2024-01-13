@@ -74,7 +74,7 @@ const NavbarContentMenu: FC<{
         </NavbarMenuItem>
       )}
 
-      <Divider className="-mx-12 min-w-[calc(100%+6rem)] self-center" />
+      <Divider className="-mx-12 min-w-[calc(100%+3rem)] self-center" />
       <NavbarMenuItem>
         <span className="text-medium text-default-400">Theme</span>
         <Tabs
@@ -102,7 +102,7 @@ const NavbarContentMenu: FC<{
           />
         </Tabs>
       </NavbarMenuItem>
-      <Divider className="-mx-12 min-w-[calc(100%+6rem)] self-center" />
+      <Divider className="-mx-12 min-w-[calc(100%+3rem)] self-center" />
 
       {/* <---- Main menu content ----> */}
       <ItemMenu

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AuthError,
   AuthResponse,
@@ -12,15 +14,21 @@ export type TLogOut = {
   error: AuthError | null;
 };
 
-export const signInGoogle = async (): Promise<TSignIn> => {
+export const signInGoogle = async (redirectTo: string): Promise<TSignIn> => {
   return createBrowserClient().auth.signInWithOAuth({
     provider: 'google',
+    options: {
+      redirectTo: redirectTo,
+    },
   });
 };
 
-export const signInGithub = async (): Promise<TSignIn> => {
+export const signInGithub = async (redirectTo: string): Promise<TSignIn> => {
   return createBrowserClient().auth.signInWithOAuth({
     provider: 'github',
+    options: {
+      redirectTo: redirectTo,
+    },
   });
 };
 
@@ -44,7 +52,7 @@ export const signUpEmailAndPassword = async (
     password: password,
     options: {
       data: {
-        name: name,
+        full_name: name,
       },
     },
   });

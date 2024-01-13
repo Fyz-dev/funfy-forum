@@ -10,10 +10,7 @@ export async function middleware(request: NextRequest) {
   }).auth.getSession();
 
   if (!data.session?.user) {
-    return Response.json(
-      { success: false, message: 'authentication failed' },
-      { status: 401 },
-    );
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   return response;

@@ -24,7 +24,9 @@
     "react-dom": "latest",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.47.0",
+    "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.1",
+    "react-responsive": "^9.0.2",
     "rehype-raw": "^7.0.0",
     "zod": "^3.22.4"
   },
