@@ -53,15 +53,6 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   const getUserData = async () => {
     const session = await createBrowserClient().auth.getSession();
 
-    createBrowserClient().auth.onAuthStateChange(async (event, session) => {
-      if (!session) {
-        setUser(null);
-        return;
-      }
-
-      setUser(await getUserById(session.user.id));
-    });
-
     if (!session.data.session) {
       setUser(null);
       return;
@@ -71,7 +62,20 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   };
 
   useEffect(() => {
+    const { data } = createBrowserClient().auth.onAuthStateChange(
+      async (_, session) => {
+        if (!session) {
+          setUser(null);
+          return;
+        }
+
+        setUser(await getUserById(session.user.id));
+      },
+    );
+
     getUserData();
+
+    return data.subscription.unsubscribe();
   }, []);
 
   return (

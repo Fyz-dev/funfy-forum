@@ -6,6 +6,7 @@ import Header from 'src/components/Header';
 import { AuthContextProvider } from 'src/context/Auth';
 import ThemeProviders from 'src/providers/ThemeProviders';
 import ToastProviders from 'src/providers/ToastProviders';
+import { ModalAuthContextProvider } from 'src/context/ModalAuth';
 
 // const font = Inter({ subsets: ['latin'] });
 
@@ -27,8 +28,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeProviders>
           <AuthContextProvider>
             <ToastProviders>
-              <Header />
-              {children}
+              <ModalAuthContextProvider>
+                <Header />
+                {children}
+              </ModalAuthContextProvider>
             </ToastProviders>
           </AuthContextProvider>
         </ThemeProviders>
