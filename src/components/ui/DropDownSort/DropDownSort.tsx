@@ -63,12 +63,13 @@ const DropDownSort: FC<DropDownFilterProps> = ({
       {item => {
         return (
           <SelectItem
-            as={Link}
-            href={`?sort=${item.key}`}
+            // as={Link}
+            // href={`?sort=${item.key}`}
             key={item.key}
             textValue="item"
             value={item.key}
           >
+            <Link href={`?sort=${item.key}`} className="absolute inset-0" />
             <div className="flex items-center gap-2">
               {item.icon}
               <span>{item.value}</span>
