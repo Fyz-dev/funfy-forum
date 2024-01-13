@@ -1,13 +1,10 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useMediaQuery } from 'react-responsive';
 
-export default function ToastProviders({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ToastProviders({ children }: { children: ReactNode }) {
   const isDesktop = useMediaQuery({ minWidth: '640px' });
 
   return (
