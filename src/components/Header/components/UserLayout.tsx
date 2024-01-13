@@ -2,12 +2,7 @@
 
 import { NavbarItem } from '@nextui-org/navbar';
 import { Button } from '@nextui-org/button';
-import { FC, useState } from 'react';
-import { useDisclosure } from '@nextui-org/use-disclosure';
-import Authorization, {
-  EnumModeAuth,
-  ModeAuth,
-} from 'src/components/Authorization';
+import { FC } from 'react';
 import {
   Dropdown,
   DropdownItem,
@@ -20,18 +15,12 @@ import { User } from '@nextui-org/user';
 import Link from 'next/link';
 import { toCreatTopic, toProfileSetting, toUser } from 'src/utils/paths';
 import { OpenDoor, Person, Plus, Settings } from 'src/assets/icons';
-
-const disabledKeys = ['user'];
+import { useModalAuthContext } from 'src/context/ModalAuth';
+import { AuthMode } from 'src/enums';
 
 const UserLayout: FC = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [mode, setMode] = useState<ModeAuth>(EnumModeAuth.LOGIN);
+  const { onOpen } = useModalAuthContext();
   const { user, logOut } = useAuth();
-
-  const handlerAuth = (openMode: ModeAuth) => {
-    if (openMode !== mode) setMode(openMode);
-    onOpen();
-  };
 
   const UserDropdown = () => (
     <Dropdown
@@ -62,8 +51,7 @@ const UserLayout: FC = () => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        disabledKeys={disabledKeys}
-        aria-label="Custom item styles"
+        aria-label="Drop down user"
         className="p-3"
         itemClasses={{
           base: [
@@ -81,7 +69,8 @@ const UserLayout: FC = () => {
       >
         <DropdownSection aria-label="Profile & Actions" showDivider>
           <DropdownItem
-            isReadOnly
+            as={Link}
+            href={toUser(user?.uid || '/')}
             key="user"
             textValue="user"
             className="opacity-100"
@@ -148,7 +137,7 @@ const UserLayout: FC = () => {
         <>
           <NavbarItem>
             <Button
-              onClick={() => handlerAuth(EnumModeAuth.LOGIN)}
+              onClick={() => onOpen(AuthMode.LOGIN)}
               color="primary"
               variant="flat"
             >
@@ -157,19 +146,13 @@ const UserLayout: FC = () => {
           </NavbarItem>
           <NavbarItem className="hidden lg:flex">
             <Button
-              onClick={() => handlerAuth(EnumModeAuth.SIGNUP)}
+              onClick={() => onOpen(AuthMode.SIGNUP)}
               color="primary"
               variant="solid"
             >
               Sign Up
             </Button>
           </NavbarItem>
-          <Authorization
-            isOpen={isOpen}
-            mode={mode}
-            setMode={setMode}
-            onOpenChange={onOpenChange}
-          />
         </>
       )}
     </>

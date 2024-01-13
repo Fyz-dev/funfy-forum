@@ -1,13 +1,14 @@
 'use client';
 
-import { Dispatch, FC, ReactNode, SetStateAction, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { UpVote, DownVote } from 'src/assets/icons';
 import { Button as ButtonNext } from '@nextui-org/button';
-import { VoteEnum } from 'src/enums';
+import { AuthMode, VoteEnum } from 'src/enums';
 import { useVote } from '../context/VoteContext';
 import { useAuth } from 'src/context/Auth';
 import { addVoteToComment } from 'src/api/supabase';
 import toast from 'react-hot-toast';
+import { useModalAuthContext } from 'src/context/ModalAuth';
 
 const Button: FC<{
   typeVote: VoteEnum;
@@ -52,6 +53,7 @@ const ButtonVote: FC<ButtonVoteProps> = ({
 }) => {
   const { vote, setVote } = useVote();
   const { user } = useAuth();
+  const { onOpen } = useModalAuthContext();
 
   const styleIcon = { style: { height: '1.5rem', width: '1.5rem' } };
 
@@ -64,6 +66,7 @@ const ButtonVote: FC<ButtonVoteProps> = ({
   const handlerClick = (vote: VoteEnum) => {
     if (!user) {
       toast.error('You need to log in!');
+      onOpen(AuthMode.LOGIN);
       return;
     }
 

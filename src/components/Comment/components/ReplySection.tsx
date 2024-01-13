@@ -55,21 +55,17 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
     <div className="flex flex-col items-start gap-4 overflow-hidden">
       <div className="flex flex-row">
         {toolsButton}
-        <Button
-          size="sm"
-          radius="full"
-          className="bg-transparent p-0 text-default-600 hover:bg-default-100"
-          onClick={() => {
-            if (!user) {
-              toast.error('You need to log in!');
-              return;
-            }
-            setIsOpen(!isOpen);
-          }}
-        >
-          <Message />
-          <span>Reply</span>
-        </Button>
+        {user && (
+          <Button
+            size="sm"
+            radius="full"
+            className="bg-transparent p-0 text-default-600 hover:bg-default-100"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <Message />
+            <span>Reply</span>
+          </Button>
+        )}
       </div>
       <AnimatePresence>
         {isOpen && (

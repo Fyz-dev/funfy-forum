@@ -2,16 +2,7 @@
 
 import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal';
 import { Card, CardHeader, CardBody } from '@nextui-org/card';
-import {
-  Dispatch,
-  FC,
-  MutableRefObject,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Input } from '@nextui-org/input';
 import { Search } from 'src/assets/icons';
 import { Button } from '@nextui-org/button';
@@ -22,55 +13,17 @@ import {
   searchUsersByName,
 } from 'src/api/supabase';
 import { IPost, ITopic, IUser } from 'src/interface';
-import { Post } from '../Post';
 import { usePathname } from 'next/navigation';
-import { Avatar } from '@nextui-org/avatar';
-import Link from 'next/link';
-import { toTopic, toUser } from 'src/utils/paths';
+import { loadMoreData } from './utils/loadMoreData';
+import Posts from './components/Posts';
+import Topics from './components/Topics';
+import Users from './components/Users';
+import ButtonMore from './components/ButtonMore';
 
-// The actual displayed value will be one less,
-// since we are asking for one more to understand whether the show more button should be displayed
-const SIZEPAGE = 4;
+const SIZEPAGE = 3;
 const defaultData = {
   data: [],
   resLenght: 0,
-};
-
-type ResponsData<T> = { data: T[]; resLenght: number };
-
-const loadMoreData = <T,>(
-  sourceArray: ResponsData<T>,
-  searchText: string,
-  searchFunction: (
-    text: string,
-    numberPage?: number,
-    sizePage?: number,
-  ) => Promise<T[]>,
-  pageRef: MutableRefObject<number>,
-  setData: Dispatch<SetStateAction<ResponsData<T>>>,
-) => {
-  searchFunction(searchText, (pageRef.current += 1), SIZEPAGE).then(data =>
-    setData({
-      data: sourceArray.data.concat(
-        SIZEPAGE === data.length ? data.slice(0, -1) : data,
-      ),
-      resLenght: data.length,
-    }),
-  );
-};
-
-const ButtonMore: FC<{ fc: () => void }> = ({ fc }) => {
-  return (
-    <Button
-      variant="flat"
-      color="primary"
-      radius="full"
-      className="mr-auto"
-      onClick={fc}
-    >
-      More...
-    </Button>
-  );
 };
 
 const ModalSearch: FC<
@@ -80,6 +33,7 @@ const ModalSearch: FC<
   const [users, setUsers] = useState<ResponsData<IUser>>(defaultData);
   const [posts, setPosts] = useState<ResponsData<IPost>>(defaultData);
   const [topics, setTopics] = useState<ResponsData<ITopic>>(defaultData);
+
   const userPage = useRef<number>(1);
   const topicPage = useRef<number>(1);
   const postPage = useRef<number>(1);
@@ -101,21 +55,21 @@ const ModalSearch: FC<
         setPosts({ data: data, resLenght: data.length }),
       );
     } else {
-      searchUsersByName(searchText, 1, SIZEPAGE).then(data =>
+      searchUsersByName(searchText, 1, SIZEPAGE + 1).then(data =>
         setUsers({
-          data: SIZEPAGE === data.length ? data.slice(0, -1) : data,
+          data: SIZEPAGE + 1 === data.length ? data.slice(0, -1) : data,
           resLenght: data.length,
         }),
       );
-      searchPostByTitle(searchText, 1, SIZEPAGE).then(data =>
+      searchPostByTitle(searchText, 1, SIZEPAGE + 1).then(data =>
         setPosts({
-          data: SIZEPAGE === data.length ? data.slice(0, -1) : data,
+          data: SIZEPAGE + 1 === data.length ? data.slice(0, -1) : data,
           resLenght: data.length,
         }),
       );
-      searchTopicsByName(searchText, 1, SIZEPAGE).then(data =>
+      searchTopicsByName(searchText, 1, SIZEPAGE + 1).then(data =>
         setTopics({
-          data: SIZEPAGE === data.length ? data.slice(0, -1) : data,
+          data: SIZEPAGE + 1 === data.length ? data.slice(0, -1) : data,
           resLenght: data.length,
         }),
       );
@@ -200,19 +154,8 @@ const ModalSearch: FC<
                     <div className="flex flex-col gap-3">
                       <h1 className="text-default-500">Users</h1>
                       <div className="flex flex-row flex-wrap gap-2">
-                        {users.data.map(user => (
-                          <Link
-                            href={toUser(user.uid)}
-                            key={user.uid}
-                            className="inline-flex max-w-min select-none items-center gap-2 rounded-full bg-default-100 pr-3 transition-all hover:scale-[1.01] hover:bg-default-200 active:scale-[0.97]"
-                          >
-                            <Avatar src={user.photoURL} />
-                            <span className="whitespace-nowrap">
-                              {user.name}
-                            </span>
-                          </Link>
-                        ))}
-                        {users.resLenght === SIZEPAGE && (
+                        <Users users={users} />
+                        {users.resLenght > SIZEPAGE && (
                           <ButtonMore
                             fc={() =>
                               loadMoreData(
@@ -221,6 +164,7 @@ const ModalSearch: FC<
                                 searchUsersByName,
                                 userPage,
                                 setUsers,
+                                SIZEPAGE,
                               )
                             }
                           />
@@ -233,33 +177,21 @@ const ModalSearch: FC<
                   {topics.data.length !== 0 && (
                     <div className="flex flex-col gap-3">
                       <h1 className="text-default-500">Topics</h1>
-                      <div className="flex flex-col gap-2">
-                        {topics.data.map(topic => (
-                          <Link
-                            href={toTopic(topic.id)}
-                            className="inline-flex h-auto w-full items-center gap-2 rounded-large bg-default-100 p-3 transition-all hover:scale-[1.01] hover:bg-default-200 active:scale-[0.97]"
-                            key={topic.id}
-                          >
-                            <Avatar src={topic.photoURL} />
-                            <div>
-                              <h1>{topic.name}</h1>
-                            </div>
-                          </Link>
-                        ))}
-                        {topics.resLenght === SIZEPAGE && (
-                          <ButtonMore
-                            fc={() =>
-                              loadMoreData(
-                                topics,
-                                searchText,
-                                searchTopicsByName,
-                                topicPage,
-                                setTopics,
-                              )
-                            }
-                          />
-                        )}
-                      </div>
+                      <Topics topics={topics} />
+                      {topics.resLenght > SIZEPAGE && (
+                        <ButtonMore
+                          fc={() =>
+                            loadMoreData(
+                              topics,
+                              searchText,
+                              searchTopicsByName,
+                              topicPage,
+                              setTopics,
+                              SIZEPAGE,
+                            )
+                          }
+                        />
+                      )}
                     </div>
                   )}
 
@@ -269,19 +201,8 @@ const ModalSearch: FC<
                       <h1 className="text-default-500">
                         {searchText ? 'Posts' : 'New posts'}
                       </h1>
-                      <div className="flex flex-col gap-2">
-                        {posts.data.map(post => (
-                          <Post
-                            key={post.id}
-                            post={post}
-                            classNames={{
-                              card: 'hover:bg-default-200 hover:scale-[1.01] bg-default-100 shadow-none',
-                            }}
-                            hideDescription
-                          />
-                        ))}
-                      </div>
-                      {posts.resLenght === SIZEPAGE && (
+                      <Posts posts={posts} />
+                      {posts.resLenght > SIZEPAGE && searchText !== '' && (
                         <ButtonMore
                           fc={() =>
                             loadMoreData(
@@ -290,6 +211,7 @@ const ModalSearch: FC<
                               searchPostByTitle,
                               postPage,
                               setPosts,
+                              SIZEPAGE,
                             )
                           }
                         />
