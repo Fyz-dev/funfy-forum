@@ -9,10 +9,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from 'src/context/Auth';
 import { IComment } from 'src/interface';
 import { useRouter } from 'next/navigation';
-import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createComment } from 'src/api/supabase';
 import toast from 'react-hot-toast';
+import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 
 const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
   comment,

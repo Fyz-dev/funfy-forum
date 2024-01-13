@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
@@ -12,9 +13,15 @@ import { useModalAuthContext } from 'src/context/ModalAuth';
 import { AuthMode } from 'src/enums';
 import { IPost } from 'src/interface';
 import { isNull } from 'src/utils';
+import {
+  CommentSchemaCreate,
+  CommentSchemaCreateType,
+} from 'src/validations/schemas';
 
 const CreateComment: FC<{ post: IPost }> = ({ post }) => {
-  const methods = useForm();
+  const methods = useForm<CommentSchemaCreateType>({
+    resolver: zodResolver(CommentSchemaCreate),
+  });
   const { user } = useAuth();
   const { onOpen } = useModalAuthContext();
   const router = useRouter();

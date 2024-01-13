@@ -5,9 +5,9 @@ import { EditContent } from '../../EditContent';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { IComment } from 'src/interface';
 import { useEditContext } from 'src/context/Edit';
-import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 import { updateComment } from 'src/api/supabase';
 import toast from 'react-hot-toast';
+import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
 
 const EditContentComment: FC<{ children: ReactNode; comment: IComment }> = ({
   children,
