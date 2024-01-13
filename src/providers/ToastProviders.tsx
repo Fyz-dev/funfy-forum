@@ -11,26 +11,23 @@ export default function ToastProviders({
   const isDesktop = useMediaQuery({ minWidth: '640px' });
 
   return (
-    <>
+    <div>
       {children}
       <Toaster
         position={isDesktop ? 'bottom-right' : 'top-center'}
         toastOptions={{
           success: {
-            className:
-              '!shadow-medium subpixel-antialiased !text-success-700 !bg-success-200',
+            className: 'toast-success',
           },
           error: {
-            className:
-              '!shadow-medium subpixel-antialiased !text-danger-700 !bg-danger-200',
+            className: 'toast-error',
           },
           loading: {
-            className:
-              '!shadow-medium subpixel-antialiased !text-foreground !bg-content1',
+            className: 'toast-loading',
           },
         }}
         containerStyle={{ top: '4.5rem' }}
       />
-    </>
+    </div>
   );
 }

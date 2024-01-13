@@ -4,8 +4,8 @@ import { Roboto_Flex } from 'next/font/google';
 import { ReactNode } from 'react';
 import Header from 'src/components/Header';
 import { AuthContextProvider } from 'src/context/Auth';
-import ToastProviders from 'src/providers/ToastProviders';
 import ThemeProviders from 'src/providers/ThemeProviders';
+import ToastProviders from 'src/providers/ToastProviders';
 
 // const font = Inter({ subsets: ['latin'] });
 
@@ -24,14 +24,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body className={font.className}>
-        <AuthContextProvider>
-          <ThemeProviders>
+        <ThemeProviders>
+          <AuthContextProvider>
             <ToastProviders>
               <Header />
               {children}
             </ToastProviders>
-          </ThemeProviders>
-        </AuthContextProvider>
+          </AuthContextProvider>
+        </ThemeProviders>
       </body>
     </html>
   );

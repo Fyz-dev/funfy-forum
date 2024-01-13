@@ -9,12 +9,14 @@
 }
 
 @layer components {
+  /* Activate link on hover */
   .link {
     @apply text-foreground;
     @apply transition-colors;
     @apply hover:text-primary;
   }
 
+  /* Prose settings for markdown */
   .markdown {
     @apply dark:prose-invert;
     @apply prose;
@@ -64,6 +66,7 @@
   }
 }
 
+/* Hide scroll utilities */
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
@@ -74,4 +77,30 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+}
+
+/* Styles for react-hot-toast */
+
+/* TODO: Find a solution to the @layer components style order problem.
+If you take these classes to the @layer components level, 
+they will not be able to change the parent toast styles */
+.toast-success {
+  @apply !shadow-medium;
+  @apply subpixel-antialiased;
+  @apply !text-success-700;
+  @apply !bg-success-200;
+}
+
+.toast-error {
+  @apply !shadow-medium;
+  @apply subpixel-antialiased;
+  @apply !text-danger-700;
+  @apply !bg-danger-200;
+}
+
+.toast-loading {
+  @apply !shadow-medium;
+  @apply subpixel-antialiased;
+  @apply !text-foreground;
+  @apply !bg-content1;
 }
