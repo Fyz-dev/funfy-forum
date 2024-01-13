@@ -34,6 +34,7 @@ const Authorization: FC<AuthProps> = ({
     signInGoogle,
     signInEmailAndPassword,
     signUpEmailAndPassword,
+    updateData,
   } = useAuth();
   const path = usePathname();
   const methods = useForm<AuthSchemaType>({
@@ -60,8 +61,10 @@ const Authorization: FC<AuthProps> = ({
         type: 'manual',
         message: 'Invalid email or password',
       });
-      return;
+      throw 'Invalid email or password';
     }
+
+    updateData();
   };
 
   const handlerSignUpEmail = async (data: AuthSchemaType) => {
@@ -92,11 +95,13 @@ const Authorization: FC<AuthProps> = ({
 
   const handlerUserWithEmail = methods.handleSubmit(async data => {
     if (mode === AuthMode.LOGIN) {
-      toast.promise(handlerSignInEmail(data), {
-        loading: 'Logging in...',
-        success: 'You are logged in!',
-        error: 'You are not logged in.',
-      });
+      toast
+        .promise(handlerSignInEmail(data), {
+          loading: 'Logging in...',
+          success: 'You are logged in!',
+          error: 'You are not logged in.',
+        })
+        .then(() => onOpenChange());
       return;
     }
 
@@ -118,6 +123,7 @@ const Authorization: FC<AuthProps> = ({
             <ModalBody className="mt-10">
               <Tabs
                 defaultSelectedKey={mode}
+                selectedKey={mode}
                 onSelectionChange={key => {
                   setMode(key as AuthMode);
                   methods.reset();
