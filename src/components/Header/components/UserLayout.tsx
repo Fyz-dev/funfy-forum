@@ -3,7 +3,6 @@
 import { NavbarItem } from '@nextui-org/navbar';
 import { Button } from '@nextui-org/button';
 import { FC } from 'react';
-import { EnumModeAuth } from 'src/components/Authorization';
 import {
   Dropdown,
   DropdownItem,
@@ -17,6 +16,7 @@ import Link from 'next/link';
 import { toCreatTopic, toProfileSetting, toUser } from 'src/utils/paths';
 import { OpenDoor, Person, Plus, Settings } from 'src/assets/icons';
 import { useModalAuthContext } from 'src/context/ModalAuth';
+import { AuthMode } from 'src/enums';
 
 const UserLayout: FC = () => {
   const { onOpen } = useModalAuthContext();
@@ -137,7 +137,7 @@ const UserLayout: FC = () => {
         <>
           <NavbarItem>
             <Button
-              onClick={() => onOpen(EnumModeAuth.LOGIN)}
+              onClick={() => onOpen(AuthMode.LOGIN)}
               color="primary"
               variant="flat"
             >
@@ -146,7 +146,7 @@ const UserLayout: FC = () => {
           </NavbarItem>
           <NavbarItem className="hidden lg:flex">
             <Button
-              onClick={() => onOpen(EnumModeAuth.SIGNUP)}
+              onClick={() => onOpen(AuthMode.SIGNUP)}
               color="primary"
               variant="solid"
             >

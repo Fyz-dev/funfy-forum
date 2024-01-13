@@ -14,19 +14,13 @@ import { Google, Github } from 'src/assets/icons';
 import { useAuth } from 'src/context/Auth';
 import InputLogin from './InputLogin';
 import InputSignUp from './InputSignUp';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
-
-export enum EnumModeAuth {
-  LOGIN = 'Login',
-  SIGNUP = 'Sign up',
-}
-
-export type ModeAuth = EnumModeAuth;
+import { AuthMode } from 'src/enums';
 
 type AuthProps = Pick<UseDisclosureReturn, 'isOpen' | 'onOpenChange'> & {
-  mode: EnumModeAuth;
-  setMode(mode: EnumModeAuth): void;
+  mode: AuthMode;
+  setMode(mode: AuthMode): void;
 };
 
 const Authorization: FC<AuthProps> = ({
@@ -93,11 +87,11 @@ const Authorization: FC<AuthProps> = ({
       return;
     }
 
-    setMode(EnumModeAuth.LOGIN);
+    setMode(AuthMode.LOGIN);
   };
 
   const handlerUserWithEmail = methods.handleSubmit(async data => {
-    if (mode === EnumModeAuth.LOGIN) {
+    if (mode === AuthMode.LOGIN) {
       toast.promise(handlerSignInEmail(data), {
         loading: 'Logging in...',
         success: 'You are logged in!',
@@ -125,16 +119,16 @@ const Authorization: FC<AuthProps> = ({
               <Tabs
                 defaultSelectedKey={mode}
                 onSelectionChange={key => {
-                  setMode(key as ModeAuth);
+                  setMode(key as AuthMode);
                   methods.reset();
                 }}
                 fullWidth
                 aria-label="Tabs form"
               >
-                <Tab key={EnumModeAuth.LOGIN} title="Login">
+                <Tab key={AuthMode.LOGIN} title="Login">
                   <InputLogin />
                 </Tab>
-                <Tab key={EnumModeAuth.SIGNUP} title="Sign up">
+                <Tab key={AuthMode.SIGNUP} title="Sign up">
                   <InputSignUp />
                 </Tab>
               </Tabs>

@@ -2,14 +2,12 @@
 
 import { useDisclosure } from '@nextui-org/react';
 import { FC, ReactNode, createContext, useContext, useState } from 'react';
-import Authorization, {
-  EnumModeAuth,
-  ModeAuth,
-} from 'src/components/Authorization';
+import Authorization from 'src/components/Authorization';
+import { AuthMode } from 'src/enums';
 
 type ModalAuthContextPops = {
   isOpen: boolean;
-  onOpen: (openMode: ModeAuth) => void;
+  onOpen: (openMode: AuthMode) => void;
 };
 
 const ModalAuthContext = createContext<ModalAuthContextPops>(
@@ -20,9 +18,9 @@ export const ModalAuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [mode, setMode] = useState<ModeAuth>(EnumModeAuth.LOGIN);
+  const [mode, setMode] = useState<AuthMode>(AuthMode.LOGIN);
 
-  const handlerOpen = (openMode: ModeAuth) => {
+  const handlerOpen = (openMode: AuthMode) => {
     if (openMode !== mode) setMode(openMode);
     onOpen();
   };

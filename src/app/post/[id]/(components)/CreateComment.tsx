@@ -8,12 +8,15 @@ import toast from 'react-hot-toast';
 import { createComment } from 'src/api/supabase';
 import { MDXEditor } from 'src/components/MDXEditor';
 import { useAuth } from 'src/context/Auth';
+import { useModalAuthContext } from 'src/context/ModalAuth';
+import { AuthMode } from 'src/enums';
 import { IPost } from 'src/interface';
 import { isNull } from 'src/utils';
 
 const CreateComment: FC<{ post: IPost }> = ({ post }) => {
   const methods = useForm();
   const { user } = useAuth();
+  const { onOpen } = useModalAuthContext();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rerendMDX, setRerendMDX] = useState<boolean>(false);
@@ -57,7 +60,10 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
     <FormProvider {...methods}>
       <form
         onClick={() => {
-          !user && toast.error('You need to log in!');
+          if (!user) {
+            toast.error('You need to log in!');
+            onOpen(AuthMode.LOGIN);
+          }
         }}
         name="createComment"
         noValidate
