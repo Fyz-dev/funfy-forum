@@ -53,7 +53,7 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
 
   return (
     <div className="flex flex-col items-start gap-4 overflow-hidden">
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap">
         {toolsButton}
         {user && (
           <Button
