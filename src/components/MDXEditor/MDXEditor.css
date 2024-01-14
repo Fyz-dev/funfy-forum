@@ -1,3 +1,33 @@
+.input {
+  border: var(--nextui-border-width-medium) solid
+    hsl(
+      var(--nextui-default-200) /
+        var(--nextui-default-200-opacity, var(--tw-border-opacity))
+    );
+  @apply bg-transparent;
+  @apply text-foreground-500;
+  @apply transition;
+  @apply duration-150;
+  @apply rounded-medium;
+  @apply border-medium;
+  @apply border-default-200;
+  @apply hover:border-default-400;
+  @apply focus:border-default-foreground;
+  @apply text-small;
+}
+
+.button {
+  @apply transition-transform;
+  @apply transition-transform-colors-opacity;
+  @apply bg-primary;
+  @apply rounded-medium;
+  @apply border-none;
+  @apply active:scale-[0.97];
+  @apply hover:opacity-hover;
+  @apply text-primary-foreground;
+  @apply rounded-full;
+}
+
 .mdx-editor {
   /* My var */
   --foreground: hsl(
@@ -61,7 +91,7 @@
   --sp-syntax-color-string: var(--tw-prose-pre-code);
 }
 
-/* --------------------Блок кода-------------------- */
+/* -------------------- Блок кода -------------------- */
 .sp-pristine {
   background-color: var(--tw-prose-pre-bg);
   border: none;
@@ -78,12 +108,12 @@
 .ͼ2 .cm-activeLine,
 .cm-activeLineGutter {
   background-color: transparent;
+  @apply text-default-foreground;
 }
 
 .ͼo .cm-gutters {
   color: var(--foreground-contrast);
 }
-/* ------------------------------------------------- */
 
 /* --------------------Выделение-------------------- */
 .ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
@@ -109,24 +139,18 @@
 .ͼ2 .cm-selectionBackground {
   background-color: var(--focus-cursor);
 }
-/* ------------------------------------------------- */
 
+/* -------------------- Всплывающие окна -------------------- */
+div[data-radix-popper-content-wrapper] {
+  --basePageBg: hsl(var(--nextui-content2) / var(--nextui-bg-opacity, 360));
+  --baseText: hsl(var(--nextui-content2) / var(--nextui-bg-opacity, 360));
+  @apply subpixel-antialiased;
+}
+
+/* -------------------- Диалоговое окно добавления ссылки -------------------- */
 input[name='url'],
 input[id='link-title'] {
-  border: var(--nextui-border-width-medium) solid
-    hsl(
-      var(--nextui-default-200) /
-        var(--nextui-default-200-opacity, var(--tw-border-opacity))
-    );
-  @apply bg-transparent;
-  @apply text-foreground-500;
-  @apply transition;
-  @apply duration-150;
-  @apply rounded-medium;
-  @apply border-medium;
-  @apply border-default-200;
-  @apply hover:border-default-400;
-  @apply focus:border-default-foreground;
+  @apply input;
 }
 
 label[for='link-url'],
@@ -134,19 +158,51 @@ label[for='link-title'] {
   @apply text-small;
 }
 
-div[data-radix-popper-content-wrapper] {
-  --basePageBg: hsl(var(--nextui-content2) / var(--nextui-bg-opacity, 360));
-  --baseText: hsl(var(--nextui-content2) / var(--nextui-bg-opacity, 360));
-  @apply shadow-medium;
-}
-
 button[aria-label='Set URL'],
 button[aria-label='Cancel change'] {
-  @apply bg-primary;
-  @apply rounded-medium;
-  @apply border-none;
+  @apply button;
 }
 
 button[aria-label='Cancel change'] {
   @apply bg-default;
+  @apply text-default-foreground;
+}
+
+/* -------------------- Диалоговое окно добавления картинки -------------------- */
+button[aria-label='Save'],
+button[aria-label='Cancel'] {
+  @apply button;
+}
+button[aria-label='Cancel'] {
+  @apply bg-default;
+  @apply text-default-foreground;
+}
+
+label[for='file'],
+input[name='file'] {
+  @apply hidden;
+}
+
+label[for='src'] {
+  visibility: hidden;
+}
+label[for='src']:after {
+  @apply absolute;
+  @apply block;
+  @apply -mt-4;
+  @apply subpixel-antialiased;
+  visibility: visible;
+  content: 'Add a link to the image';
+  @apply text-small;
+}
+
+label[for='title'],
+label[for='alt'] {
+  @apply text-small;
+}
+
+input[name='src'],
+input[name='altText'],
+input[name='title'] {
+  @apply input;
 }

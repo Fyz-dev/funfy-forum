@@ -25,6 +25,8 @@ import {
   frontmatterPlugin,
   UndoRedo,
   BoldItalicUnderlineToggles,
+  imagePlugin,
+  InsertImage,
 } from '@mdxeditor/editor';
 import { Controller, useFormContext } from 'react-hook-form';
 import '@mdxeditor/editor/style.css';
@@ -115,6 +117,7 @@ const InitializedMDXEditor = ({
                     text: 'text',
                   },
                 }),
+                imagePlugin(),
                 diffSourcePlugin({ diffMarkdown: diffMarkdown }),
                 thematicBreakPlugin(),
                 markdownShortcutPlugin(),
@@ -130,6 +133,7 @@ const InitializedMDXEditor = ({
                         <Separator />
                         <BlockTypeSelect />
                         <Separator />
+                        <InsertImage />
                         <CreateLink />
                         <InsertCodeBlock />
                         <InsertThematicBreak />
