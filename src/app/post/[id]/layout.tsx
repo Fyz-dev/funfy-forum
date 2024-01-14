@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
-import { Edit, Message } from 'src/assets/icons';
+import { Edit, Hashtag, Message } from 'src/assets/icons';
 import { MobileHeaderCard } from 'src/components/MobileHeaderCard';
 import TopicCard from 'src/components/TopicCard/TopicCard';
 import { notFound } from 'next/navigation';
@@ -49,6 +49,7 @@ export default async function Layout({
                   body: 'bg-content1',
                   wrapperSection: 'block lg:hidden',
                 }}
+                fallback={<Hashtag className="h-8 w-8 text-primary" />}
                 childrenCardHeader={
                   <ToggleEdit
                     className="ml-auto lg:hidden"

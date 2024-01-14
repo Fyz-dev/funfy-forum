@@ -71,7 +71,7 @@ const InitializedMDXEditor = ({
   return (
     <div>
       <div
-        className={`overflow-hidden rounded-medium border-2 transition-all  ${
+        className={`overflow-hidden overflow-y-auto rounded-medium border-2 transition-all  ${
           isInvalid
             ? 'border-danger'
             : 'border-default-200 focus-within:border-foreground'
