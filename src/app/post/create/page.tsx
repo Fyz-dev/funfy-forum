@@ -77,7 +77,7 @@ const CreatePage: FC = () => {
           noValidate
           className="m-0 flex justify-center max-lg:pb-28 max-sm:h-screen sm:m-5"
         >
-          <Card className="flex w-full max-w-[1364px] flex-col justify-start gap-0 overflow-visible max-sm:rounded-none max-sm:bg-transparent lg:gap-5 lg:bg-transparent lg:shadow-none">
+          <Card className="flex w-full max-w-[1364px] flex-col justify-start gap-0 overflow-visible max-sm:rounded-none max-sm:bg-transparent max-sm:shadow-none lg:gap-5 lg:bg-transparent lg:shadow-none">
             <Card className="min-h-[56px] w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
               <CardHeader>
                 <h1 className="mr-auto">Create a post</h1>
@@ -89,8 +89,8 @@ const CreatePage: FC = () => {
             <div className="flex w-full flex-col justify-center lg:flex-row lg:gap-5">
               {/* overflow-auto - нужен для работы скроллинга в MDXEditor. p-10 -m-10 box-content - для починки теней. */}
               <main className="box-content flex w-full max-w-page justify-center lg:-m-10 lg:overflow-auto lg:p-10">
-                <Card className="relative w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
-                  <CardBody className="flex gap-3">
+                <Card className="relative w-full rounded-none shadow-none max-sm:mb-44 max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
+                  <CardBody className="flex gap-3 overflow-hidden max-sm:shadow-none">
                     <Input
                       id="title"
                       name="title"

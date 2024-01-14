@@ -78,7 +78,7 @@ const Profile = () => {
               <CardHeader>
                 <h1>Setting Profile</h1>
               </CardHeader>
-              <CardBody className="gap-5 [&>*]:flex [&>*]:flex-col [&>*]:gap-1">
+              <CardBody className="gap-5 [&>*]:flex [&>*]:flex-col  [&>*]:gap-1">
                 <div>
                   <h3>Name</h3>
                   <Input
@@ -98,7 +98,7 @@ const Profile = () => {
                   <Textarea
                     name="description"
                     defaultValue={user.userDetails.description}
-                    maxRows={30}
+                    maxRows={10}
                     variant="bordered"
                     placeholder="About (optional)"
                   />
@@ -140,26 +140,32 @@ const Profile = () => {
                 </div>
               </CardBody>
               <CardFooter>
-                <div className="flex gap-2 max-sm:w-full sm:ml-auto">
-                  <Button
-                    as={Link}
-                    href={toUser(user.uid)}
-                    type="button"
-                    radius="full"
-                    className="max-sm:hidden"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    className="max-sm:w-full"
-                    radius="full"
-                    color="primary"
-                    type="submit"
-                    isLoading={isLoading}
-                  >
-                    Save
-                  </Button>
-                </div>
+                <Card className="w-full p-0 shadow-medium sm:shadow-none">
+                  <div className="fixed bottom-0 left-0 z-10 w-full sm:relative sm:flex sm:p-0">
+                    <Card className="flex w-full flex-row items-start gap-2 overflow-visible max-sm:flex-col max-sm:rounded-b-none max-sm:rounded-t-3xl max-sm:p-3 max-sm:py-8 sm:shadow-none">
+                      <div className="flex w-full gap-2">
+                        <Button
+                          as={Link}
+                          href={toUser(user.uid)}
+                          type="button"
+                          radius="full"
+                          className="ml-auto max-sm:hidden"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          className="max-sm:w-full"
+                          radius="full"
+                          color="primary"
+                          type="submit"
+                          isLoading={isLoading}
+                        >
+                          Save
+                        </Button>
+                      </div>
+                    </Card>
+                  </div>
+                </Card>
               </CardFooter>
             </Card>
           </form>

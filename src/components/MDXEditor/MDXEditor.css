@@ -45,7 +45,10 @@
       var(--nextui-foreground-200-opacity, var(--tw-text-opacity))
   );
 
-  --baseBg: transparent;
+  --baseBg: hsl(
+    var(--nextui-content1) /
+      var(--nextui-content1-opacity, var(--tw-bg-opacity))
+  );
 
   --baseBgActive: transparent;
   --baseTextContrast: var(--foreground-contrast);
@@ -89,6 +92,11 @@
   --sp-syntax-color-property: var(--tw-prose-pre-code);
   --sp-syntax-color-static: var(--tw-prose-pre-code);
   --sp-syntax-color-string: var(--tw-prose-pre-code);
+  @apply text-white;
+}
+
+.cm-lineWrapping {
+  @apply text-foreground;
 }
 
 /* -------------------- Блок кода -------------------- */
@@ -108,7 +116,7 @@
 .ͼ2 .cm-activeLine,
 .cm-activeLineGutter {
   background-color: transparent;
-  @apply text-default-foreground;
+  @apply text-inherit;
 }
 
 .ͼo .cm-gutters {

@@ -10,7 +10,7 @@ import { Hashtag, Search } from 'src/assets/icons';
 import { ITopic } from 'src/interface';
 import useAsyncList from 'src/hooks/useAsyncList';
 import { Controller, useFormContext } from 'react-hook-form';
-import { findInputError, getClassName } from 'src/utils';
+import { findInputError } from 'src/utils';
 import { getTopics, searchTopicsByName } from 'src/api/supabase';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
@@ -93,8 +93,6 @@ const SearchTopic: FC<ISearchTopic> = ({ topic, setTopic, classNames }) => {
             }}
             onInputChange={handleSearch}
             onSelectionChange={key => {
-              console.log(data.find(topic => key === topic.id));
-
               setTopic(data.find(topic => key === topic.id));
 
               onChange(key);
