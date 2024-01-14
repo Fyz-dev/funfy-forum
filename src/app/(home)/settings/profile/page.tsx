@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import { toUser } from 'src/utils/paths';
 import { getRandom } from 'src/utils';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 const Profile = () => {
   const { user, updateData } = useAuth();
@@ -139,15 +140,26 @@ const Profile = () => {
                 </div>
               </CardBody>
               <CardFooter>
-                <Button
-                  className="max-sm:w-full sm:ml-auto"
-                  radius="full"
-                  color="primary"
-                  type="submit"
-                  isLoading={isLoading}
-                >
-                  Save
-                </Button>
+                <div className="flex gap-2 max-sm:w-full sm:ml-auto">
+                  <Button
+                    as={Link}
+                    href={toUser(user.uid)}
+                    type="button"
+                    radius="full"
+                    className="max-sm:hidden"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className="max-sm:w-full"
+                    radius="full"
+                    color="primary"
+                    type="submit"
+                    isLoading={isLoading}
+                  >
+                    Save
+                  </Button>
+                </div>
               </CardFooter>
             </Card>
           </form>

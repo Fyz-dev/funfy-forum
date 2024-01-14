@@ -183,7 +183,7 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
                 <Card className="flex w-full flex-row gap-2 overflow-visible max-sm:rounded-b-none max-sm:rounded-t-3xl max-sm:p-3 max-sm:py-8 sm:shadow-none">
                   <Button
                     as={Link}
-                    href="/"
+                    href={editTopicData ? toTopic(editTopicData.id) : '/'}
                     type="button"
                     radius="full"
                     className="max-sm:hidden"

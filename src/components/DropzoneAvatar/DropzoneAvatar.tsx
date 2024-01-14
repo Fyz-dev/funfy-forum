@@ -4,11 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Delete, Upload } from 'src/assets/icons';
-import { ErrorMessage } from '../ui/ErrorMessage';
 import { Button } from '@nextui-org/button';
 import { Image } from '@nextui-org/image';
-
-// type Avatar = File & { preview: string };
+import toast from 'react-hot-toast';
+import { error } from 'console';
 
 interface DropzoneProps {
   textDragNoActive: string;
@@ -16,6 +15,19 @@ interface DropzoneProps {
   onChange?: (file: File | undefined) => void;
   className?: string;
 }
+
+const animate = {
+  initial: { opacity: 0, scale: 0 },
+  animate: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0 },
+  transition: {
+    delay: 0.1,
+    duration: 0.2,
+    type: 'spring',
+    stiffness: 400,
+    damping: 20,
+  },
+};
 
 const DropzoneAvatar: FC<DropzoneProps> = ({
   textDragNoActive,
@@ -41,22 +53,6 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
       },
     });
 
-  const error =
-    fileRejections.length !== 0 ? fileRejections[0].errors[0] : undefined;
-
-  const animate = {
-    initial: { opacity: 0, scale: 0 },
-    animate: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0 },
-    transition: {
-      delay: 0.1,
-      duration: 0.2,
-      type: 'spring',
-      stiffness: 400,
-      damping: 20,
-    },
-  };
-
   const image = url ? (
     <Image
       src={url}
@@ -67,6 +63,11 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
       }}
     />
   ) : null;
+
+  useEffect(() => {
+    if (fileRejections.length !== 0)
+      fileRejections.forEach(item => toast.error(item.errors[0].message));
+  }, [fileRejections]);
 
   useEffect(() => {
     return () => {
@@ -135,11 +136,6 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
             </>
           )}
         </div>
-        <ErrorMessage
-          message={
-            error && error.code === 'file-too-large' ? error.message : ''
-          }
-        />
       </div>
     </AnimatePresence>
   );
