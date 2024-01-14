@@ -148,8 +148,8 @@ div[data-radix-popper-content-wrapper] {
 }
 
 /* -------------------- Диалоговое окно добавления ссылки -------------------- */
-input[name='url'],
-input[id='link-title'] {
+input[name='url']:not([data-slot='input']),
+input[id='link-title']:not([data-slot='input']) {
   @apply input;
 }
 
@@ -179,7 +179,7 @@ button[aria-label='Cancel'] {
 }
 
 label[for='file'],
-input[name='file'] {
+input[name='file']:not([data-slot='input']) {
   @apply hidden;
 }
 
@@ -201,8 +201,8 @@ label[for='alt'] {
   @apply text-small;
 }
 
-input[name='src'],
-input[name='altText'],
-input[name='title'] {
+input[name='src']:not([data-slot='input']),
+input[name='altText']:not([data-slot='input']),
+input[name='title']:not([data-slot='input']) {
   @apply input;
 }
