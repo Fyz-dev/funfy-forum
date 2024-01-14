@@ -5,6 +5,24 @@ import { toStats, toTopic } from '../convertor';
 import { IStats, ITopic } from 'src/interface';
 import { CreateTopicDTO } from 'src/api/dto';
 import { UpdateTopicDTO } from 'src/api/dto/UpdateTopicDTO';
+import { TSortTopic } from 'src/types';
+
+export const getTopics = async (
+  sort: TSortTopic,
+  numberPage: number = 1,
+  sizePage: number = 5,
+) => {
+  const count = numberPage * sizePage;
+  const { data, error } = await createServerClient()
+    .from('topics')
+    .select(`*`)
+    .range(count - sizePage, count - 1)
+    .order('created_at', { ascending: !(sort === 'new') });
+
+  if (error) console.log(error);
+
+  return data ? data.map(item => toTopic(item)) : [];
+};
 
 export const getTopicById = async (id: string): Promise<ITopic> => {
   const { data } = await createServerClient()
@@ -28,7 +46,6 @@ export const searchTopicsByName = async (
     .from('topics')
     .select(`*`)
     .ilike('name', `%${text}%`)
-    .limit(8)
     .range(count - sizePage, count - 1);
 
   if (error) console.log(error);
@@ -44,7 +61,7 @@ export const createTopic = async (topic: CreateTopicDTO) => {
     user_id: topic.userID,
   });
 
-  if (error) console.log(error);
+  return error;
 };
 
 export const updateTopic = async (topic: UpdateTopicDTO) => {

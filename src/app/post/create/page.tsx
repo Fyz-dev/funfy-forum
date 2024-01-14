@@ -23,7 +23,7 @@ const ButtonPublic: FC<{ isLoading: boolean }> = ({ isLoading }) => {
   return (
     <>
       <Button
-        className="h-14 w-28 text-medium max-[350px]:w-full lg:h-unit-10 lg:w-unit-20 lg:text-small"
+        className="h-14 w-28 text-medium max-sm:h-unit-10 max-sm:w-full max-sm:text-small lg:h-unit-10 lg:w-unit-20 lg:text-small"
         type="submit"
         radius="full"
         color="primary"
@@ -124,14 +124,15 @@ const CreatePage: FC = () => {
               <section className="flex w-full shrink-0 flex-col gap-0 lg:w-96">
                 <Card className="shadow-medium">
                   <div className="fixed bottom-0 left-0 z-10 w-full sm:p-5 lg:relative lg:flex lg:p-0">
-                    <Card className="flex w-full flex-row items-start gap-2 overflow-visible p-3 max-sm:rounded-b-none max-sm:rounded-t-3xl max-sm:py-8 max-[350px]:flex-col lg:shadow-none">
+                    <Card className="flex w-full flex-row items-start gap-2 overflow-visible p-3 max-sm:flex-col max-sm:rounded-b-none max-sm:rounded-t-3xl max-sm:py-8 lg:shadow-none">
                       <SearchTopic
                         classNames={{
                           input: 'max-lg:rounded-full w-full shadow-none',
                         }}
                         setTopic={setTopic}
+                        topic={topic}
                       />
-                      <div className="flex justify-center gap-2 max-[350px]:w-full lg:hidden">
+                      <div className="flex justify-center gap-2 max-sm:w-full lg:hidden">
                         <ButtonPublic isLoading={isLoading} />
                       </div>
                     </Card>

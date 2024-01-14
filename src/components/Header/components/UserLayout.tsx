@@ -14,7 +14,7 @@ import { useAuth } from 'src/context/Auth';
 import { User } from '@nextui-org/user';
 import Link from 'next/link';
 import { toCreatTopic, toProfileSetting, toUser } from 'src/utils/paths';
-import { OpenDoor, Person, Plus, Settings } from 'src/assets/icons';
+import { OpenDoor, Plus, Settings } from 'src/assets/icons';
 import { useModalAuthContext } from 'src/context/ModalAuth';
 import { AuthMode } from 'src/enums';
 
@@ -82,17 +82,6 @@ const UserLayout: FC = () => {
                 size: 'sm',
               }}
             />
-          </DropdownItem>
-          <DropdownItem
-            href={toUser(user?.uid || '/')}
-            as={Link}
-            key="profile"
-            textValue="profile"
-          >
-            <div className="inline-flex items-center gap-1">
-              <Person />
-              Profile
-            </div>
           </DropdownItem>
           <DropdownItem
             href={toCreatTopic()}

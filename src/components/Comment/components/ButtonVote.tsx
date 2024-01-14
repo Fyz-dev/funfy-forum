@@ -24,6 +24,7 @@ const Button: FC<{
       radius="full"
       className={vote === typeVote ? voteStyleButton : defaultStyleButton}
       // h-unit-8 min-h-unit-8 w-unit-8 min-w-unit-8
+      size="sm"
       isIconOnly
       onClick={() => {
         if (vote === typeVote) {

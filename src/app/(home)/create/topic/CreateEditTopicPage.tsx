@@ -48,12 +48,14 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
       if (res) photoURL = getPublicUrl('topic-avatars', res.path);
     }
 
-    await createTopic({
+    const error = await createTopic({
       userID: userId,
       photoURL: photoURL,
       name: data.name,
       description: data.description,
     });
+
+    if (error) throw error;
   };
 
   const handlerEditTopic = async (
@@ -98,28 +100,26 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
     setIsLoading(true);
 
     const handler = editTopicData
-      ? toast.promise(
-          handlerEditTopic(editTopicData, data).then(() => {
-            router.push(toTopic(editTopicData.id));
-            router.refresh();
-          }),
-          {
+      ? toast
+          .promise(handlerEditTopic(editTopicData, data), {
             loading: 'Editing a topic...',
             success: 'Topic edited!',
             error: 'Topic not edited.',
-          },
-        )
-      : toast.promise(
-          handlerCreateTopic(user.uid, data).then(() => {
-            router.push('/');
+          })
+          .then(() => {
+            router.push(toTopic(editTopicData.id));
             router.refresh();
-          }),
-          {
+          })
+      : toast
+          .promise(handlerCreateTopic(user.uid, data), {
             loading: 'Creating a topic...',
             success: 'Topic created!',
             error: 'Topic not created.',
-          },
-        );
+          })
+          .then(() => {
+            router.push('/');
+            router.refresh();
+          });
 
     handler
       .then(() => {
@@ -183,7 +183,7 @@ const CreateEditTopicPage: FC<{ editTopicData?: ITopic }> = ({
                 <Card className="flex w-full flex-row gap-2 overflow-visible max-sm:rounded-b-none max-sm:rounded-t-3xl max-sm:p-3 max-sm:py-8 sm:shadow-none">
                   <Button
                     as={Link}
-                    href="/"
+                    href={editTopicData ? toTopic(editTopicData.id) : '/'}
                     type="button"
                     radius="full"
                     className="max-sm:hidden"

@@ -42,7 +42,7 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
             </div>
           </div>
           <ButtonVote
-            className="ml-auto"
+            className="ml-auto max-sm:hidden"
             userVote={comment.userVote}
             voteCount={comment.voteCount}
             commentId={comment.id}
@@ -60,11 +60,17 @@ const Comment: FC<CommentProps> = ({ comment, children }) => {
                 </>
               </EditContentComment>
             </div>
-            <div className="ml-8 inline-flex">
+            <div className="ml-8  inline-flex">
               <ReplySection
                 comment={comment}
                 toolsButton={
                   <>
+                    <ButtonVote
+                      className="sm:hidden"
+                      userVote={comment.userVote}
+                      voteCount={comment.voteCount}
+                      commentId={comment.id}
+                    />
                     <ToggleEdit
                       idAuthor={comment.user.uid}
                       radius="full"

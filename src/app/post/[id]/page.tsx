@@ -11,6 +11,7 @@ import { getSortCommentsParam } from 'src/utils';
 import { withTieToTop } from 'src/hoc';
 import CommentSection from './(components)/CommentSection';
 import { getCommentsByPost, getPostById } from 'src/api/supabase';
+import Loading from 'src/app/loading';
 
 const getPost = async (id: string) => {
   try {
