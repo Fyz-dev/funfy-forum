@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Avatar } from '@nextui-org/avatar';
 import { RippleContainer } from 'src/components/ui/RippleContainer';
-import { Comment, Message } from 'src/assets/icons';
+import { Comment, Hashtag, Message } from 'src/assets/icons';
 import ButtonVote from 'src/components/Comment/components/ButtonVote';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
@@ -31,6 +31,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
                   radius="full"
                   size="sm"
                   className="max-h-8 min-w-[2rem] self-start"
+                  fallback={<Hashtag className="h-5 w-5 text-primary" />}
                   src={comment.post.topic.photoURL || undefined}
                 />
                 <span className="flex text-small font-semibold leading-none">
