@@ -32,8 +32,7 @@ const TopicCard: FC<ITopicCard> = ({ topic, classNames, stats }) => {
             radius="full"
             size="md"
             src={topic.photoURL || undefined}
-            className="min-w-max"
-            classNames={{ img: 'min-w-[2.5rem]' }}
+            className="max-w-10"
             fallback={<Hashtag className="h-5 w-5 text-primary" />}
           />
           <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">
