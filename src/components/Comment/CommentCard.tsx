@@ -7,7 +7,7 @@ import ButtonVote from 'src/components/Comment/components/ButtonVote';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 import { ICommentWithPost, IUser } from 'src/interface';
-import { toCommentsPost, toPost, toTopic } from 'src/utils/paths';
+import { toCommentsPost, toPost, toTopic, toUser } from 'src/utils/paths';
 import Link from 'next/link';
 import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
@@ -53,7 +53,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
             <div className="flex items-center gap-1 text-default-400">
               <Comment />
               <span>
-                <Link href={toPost(user.uid)} className="link relative">
+                <Link href={toUser(user.uid)} className="link relative">
                   {user.name}
                 </Link>{' '}
                 commented {timePassed(comment.timestamp.createdAt)}
