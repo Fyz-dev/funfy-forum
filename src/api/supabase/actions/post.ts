@@ -1,6 +1,6 @@
 'use server';
 
-import { IPost, IPosts } from 'src/interface';
+import { IPost } from 'src/interface';
 import { TSortPost } from 'src/types';
 import { createServerClient } from 'src/utils/supabase/server';
 import { toPost } from '../convertor';
@@ -27,20 +27,16 @@ const getCountComments = async (data: TablePost[]): Promise<TablePost[]> => {
 
 export const getPosts = async (
   sort: TSortPost,
-  numberPage?: number,
-  sizePage?: number,
-): Promise<IPosts> => {
-  let query = createServerClient()
+  numberPage: number,
+  sizePage: number,
+): Promise<IPost[]> => {
+  const count = numberPage * sizePage;
+
+  const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
-    .order('created_at', { ascending: !(sort === 'new') });
-
-  if (sizePage && numberPage) {
-    const count = numberPage * sizePage;
-    query = query.range(count - sizePage, count - 1);
-  }
-
-  const { data, error } = await query;
+    .order('created_at', { ascending: !(sort === 'new') })
+    .range(count - sizePage, count - 1);
 
   if (!data) return [];
   if (error) console.log(error);
@@ -73,16 +69,17 @@ export const getPostById = async (id: string): Promise<IPost> => {
 export const getPostsByUser = async (
   id: string,
   sort: TSortPost,
-  // numberPage: number = 1,
-  // sizePage: number = 10,
-): Promise<IPosts> => {
-  // const count = numberPage * sizePage;
+  numberPage: number = 1,
+  sizePage: number = 5,
+): Promise<IPost[]> => {
+  const count = numberPage * sizePage;
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
     .eq('user_id', id)
-    .order('created_at', { ascending: !(sort === 'new') });
-  // .range(count - sizePage, count - 1);
+    .order('created_at', { ascending: !(sort === 'new') })
+    .range(count - sizePage, count - 1);
+
   if (!data) return [];
   if (error) console.log(error);
 
@@ -98,12 +95,16 @@ export const getPostsByUser = async (
 export const getPostsByTopic = async (
   id: string,
   sort: TSortPost,
-): Promise<IPosts> => {
+  numberPage: number = 1,
+  sizePage: number = 5,
+): Promise<IPost[]> => {
+  const count = numberPage * sizePage;
   const { data, error } = await createServerClient()
     .from('posts')
     .select(`*, users(*), topics(*)`)
     .eq('topic_id', id)
-    .order('created_at', { ascending: !(sort === 'new') });
+    .order('created_at', { ascending: !(sort === 'new') })
+    .range(count - sizePage, count - 1);
 
   if (!data) return [];
   if (error) console.log(error);

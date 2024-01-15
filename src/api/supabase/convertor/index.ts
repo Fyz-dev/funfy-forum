@@ -1,5 +1,6 @@
 import {
   IComment,
+  ICommentData,
   ICommentWithPost,
   IPost,
   IStats,
@@ -8,11 +9,11 @@ import {
 } from 'src/interface';
 import { Tables } from 'src/types';
 import {
+  TableComment,
   TableCommentWithPostWithoutNull,
   TablePost,
   TableTopicStats,
   TableUserStats,
-  TreeComment,
 } from './types';
 
 export const toUser = (user: Tables<'users'>): IUser => {
@@ -84,25 +85,26 @@ export const toCommentWithPost = (
   };
 };
 
-export const toComment = (comment: TreeComment): IComment => {
+export const toComment = (comment: TableComment): ICommentData => {
   return {
-    id: comment.data.id,
-    user: toUser(comment.data.users),
-    content: comment.data.content,
-    voteCount: comment.data.voteCount,
-    userVote: comment.data.userVote,
-    childComment: comment.children.map(comment => {
-      return toComment(comment);
-    }),
-    path: comment.data.path,
-    parentId: comment.data.parent_comment_id,
+    id: comment.id,
+    user: toUser(comment.users),
+    content: comment.content,
+    voteCount: comment.voteCount,
+    userVote: comment.userVote,
+    path: comment.path,
+    parentId: comment.parent_comment_id,
     timestamp: {
-      createdAt: new Date(comment.data.created_at),
+      createdAt: new Date(comment.created_at),
       updatedAt: null,
     },
-    postID: comment.data.post_id,
+    postID: comment.post_id,
   };
 };
+
+// childComment: comment.children.map(comment => {
+//   return toComment(comment);
+// }),
 
 export const toStats = (data: TableTopicStats | TableUserStats): IStats => {
   return {

@@ -6,3 +6,4 @@ export * from './types';
 export * from './isNull';
 export * from './socialLinks';
 export * from './getRandom';
+export * from './createTreeComments';

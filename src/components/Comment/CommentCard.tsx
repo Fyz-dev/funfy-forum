@@ -2,12 +2,12 @@ import { FC } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Avatar } from '@nextui-org/avatar';
 import { RippleContainer } from 'src/components/ui/RippleContainer';
-import { Comment, Message } from 'src/assets/icons';
+import { Comment, Hashtag, Message } from 'src/assets/icons';
 import ButtonVote from 'src/components/Comment/components/ButtonVote';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 import { ICommentWithPost, IUser } from 'src/interface';
-import { toCommentsPost, toPost, toTopic } from 'src/utils/paths';
+import { toCommentsPost, toPost, toTopic, toUser } from 'src/utils/paths';
 import Link from 'next/link';
 import { timePassed } from 'src/utils';
 import { VoteContextProvider } from './context/VoteContext';
@@ -31,6 +31,7 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
                   radius="full"
                   size="sm"
                   className="max-h-8 min-w-[2rem] self-start"
+                  fallback={<Hashtag className="h-5 w-5 text-primary" />}
                   src={comment.post.topic.photoURL || undefined}
                 />
                 <span className="flex text-small font-semibold leading-none">
@@ -52,21 +53,22 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
             <div className="flex items-center gap-1 text-default-400">
               <Comment />
               <span>
-                <Link href={toPost(user.uid)} className="link relative">
+                <Link href={toUser(user.uid)} className="link relative">
                   {user.name}
                 </Link>{' '}
                 commented {timePassed(comment.timestamp.createdAt)}
               </span>
             </div>
-            <Link
-              href={toCommentsPost(comment.post.id, comment.id)}
-              className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
-            >
+            <div className="relative max-h-40 overflow-hidden ">
+              <Link
+                href={toCommentsPost(comment.post.id, comment.id)}
+                className="absolute inset-0"
+              />
               <MDXRender className="text-default-500">
                 {comment.content}
               </MDXRender>
               <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
-            </Link>
+            </div>
           </CardBody>
           <CardFooter className="gap-1 pt-0">
             <div className="inline-flex">
