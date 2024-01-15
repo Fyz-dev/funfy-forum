@@ -2,18 +2,18 @@
 
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
-import { FC, Fragment, ReactNode, useEffect } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 import { Comment } from 'src/components/Comment';
-import { IComments } from 'src/interface';
+import { IComment } from 'src/interface';
 import { toCommentsPost } from 'src/utils/paths';
 
 const COUNTCOMMENTPAGE = 4;
 
-const Comments: FC<{ comments: IComments; countParents?: number }> = ({
+const Comments: FC<{ comments: IComment[]; countParents?: number }> = ({
   comments,
   countParents = 0,
 }) => {
-  const getComments = (comments: IComments, moreButtonParent: ReactNode) => {
+  const getComments = (comments: IComment[], moreButtonParent: ReactNode) => {
     let moreButton: ReactNode = moreButtonParent;
 
     return comments.map(comment =>

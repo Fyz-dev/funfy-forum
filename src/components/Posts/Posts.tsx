@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { IPosts } from 'src/interface';
+import { IPost } from 'src/interface';
 import { Post } from '../Post';
 
-const Posts: FC<{ posts: IPosts }> = ({ posts }) => {
+const Posts: FC<{ posts: IPost[] }> = ({ posts }) => {
   return (
     <>
       {posts.map(item => {

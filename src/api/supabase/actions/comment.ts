@@ -2,11 +2,11 @@
 
 import { createServerClient } from 'src/utils/supabase/server';
 import {
+  TableComment,
   TableCommentWithPost,
   TableCommentWithPostWithoutNull,
-  TreeComment,
 } from '../convertor/types';
-import { IComment, ICommentWithPost, IComments } from 'src/interface';
+import { IComment, ICommentData, ICommentWithPost } from 'src/interface';
 import { TSortComments } from 'src/types';
 import { toComment, toCommentWithPost } from '../convertor';
 import { arrayToTree } from 'performant-array-to-tree';
@@ -23,7 +23,10 @@ const sortMap: Record<TSortComments, string> = {
 export const getCommentsByUser = async (
   id: string,
   sort: TSortComments,
+  numberPage: number = 1,
+  sizePage: number = 5,
 ): Promise<ICommentWithPost[]> => {
+  const count = numberPage * sizePage;
   const sortBy = sort === 'new' || sort === 'old' ? 'created_at' : 'voteCount';
   const ascending = sort === 'old' || sort === 'controversial';
 
@@ -34,6 +37,7 @@ export const getCommentsByUser = async (
     .order(sortBy, {
       ascending: ascending,
     })
+    .range(count - sizePage, count - 1)
     .returns<TableCommentWithPost[]>();
 
   if (error) console.log(error);
@@ -56,27 +60,25 @@ export const getCommentsByUser = async (
 export const getCommentsByPost = async (
   id: string,
   sort: TSortComments,
-): Promise<IComments> => {
+  numberPage: number = 1,
+  sizePage: number = 5,
+): Promise<ICommentData[]> => {
+  const count = numberPage * sizePage;
   const { data, error } = await createServerClient()
     .from('comment_tree')
     .select(`*`)
     .eq('post_id', id)
-    .order(sortMap[sort]);
+    .order(sortMap[sort])
+    .range(count - sizePage, count - 1);
 
   if (error) console.log(error);
 
-  const comments: TreeComment[] = data
-    ? (arrayToTree(data.flat(), {
-        parentId: 'parent_comment_id',
-      }) as TreeComment[])
-    : [];
-
-  return comments.map(comment => toComment(comment));
+  return data ? data.map(comment => toComment(comment as TableComment)) : [];
 };
 
 export const getChildComments = async (
   idComment: number,
-): Promise<IComment> => {
+): Promise<ICommentData[]> => {
   try {
     const { data, error } = await createServerClient()
       .from('comment_tree')
@@ -88,13 +90,7 @@ export const getChildComments = async (
 
     if (data) data[0].parent_comment_id = null;
 
-    const comments: TreeComment[] = data
-      ? (arrayToTree(data.flat(), {
-          parentId: 'parent_comment_id',
-        }) as TreeComment[])
-      : [];
-
-    return toComment(comments[0]);
+    return data ? data.map(comment => toComment(comment as TableComment)) : [];
   } catch {
     throw new Error('Not find comment.');
   }

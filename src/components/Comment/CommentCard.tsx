@@ -59,15 +59,16 @@ const CommentCard: FC<{ comment: ICommentWithPost; user: IUser }> = ({
                 commented {timePassed(comment.timestamp.createdAt)}
               </span>
             </div>
-            <Link
-              href={toCommentsPost(comment.post.id, comment.id)}
-              className="relative max-h-40 w-full overflow-hidden py-0 text-small text-default-400"
-            >
+            <div className="relative max-h-40 overflow-hidden ">
+              <Link
+                href={toCommentsPost(comment.post.id, comment.id)}
+                className="absolute inset-0"
+              />
               <MDXRender className="text-default-500">
                 {comment.content}
               </MDXRender>
               <div className="absolute inset-x-0 top-0 mt-[7.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90% " />
-            </Link>
+            </div>
           </CardBody>
           <CardFooter className="gap-1 pt-0">
             <div className="inline-flex">

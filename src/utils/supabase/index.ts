@@ -1,6 +1,5 @@
 'use client';
 
-import { getRandom } from '..';
 import { createBrowserClient } from './client';
 
 const cacheControl = '300';

@@ -5,11 +5,12 @@ import { FC } from 'react';
 import { getChildComments } from 'src/api/supabase';
 import { Comments } from 'src/components/Comments';
 import { withTieToTop } from 'src/hoc';
+import { createTreeComment } from 'src/utils';
 import { toPost } from 'src/utils/paths';
 
 const getComments = async (idComment: number) => {
   try {
-    return [await getChildComments(idComment)];
+    return createTreeComment(await getChildComments(idComment));
   } catch (error) {
     notFound();
   }

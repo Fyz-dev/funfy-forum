@@ -1,24 +1,29 @@
 import { VoteEnum } from 'src/enums';
 import { IPost, IUser } from '.';
-import { IComments } from './IComments';
 import { ITimestamps } from './ITimestamps';
 
-interface IBase {
+interface ICommentBase {
   id: number;
   user: IUser;
   content: string;
   voteCount: number;
   userVote: VoteEnum;
-  childComment: IComments;
   timestamp: ITimestamps;
 }
 
-export interface IComment extends IBase {
+interface ICommentWithPost extends ICommentBase {
+  post: IPost;
+  childComment: IComment[];
+}
+
+interface ICommentData extends ICommentBase {
   postID: string;
   parentId: number;
   path: Array<number>;
 }
 
-export interface ICommentWithPost extends IBase {
-  post: IPost;
+interface IComment extends ICommentData {
+  childComment: IComment[];
 }
+
+export type { ICommentData, IComment, ICommentWithPost };
