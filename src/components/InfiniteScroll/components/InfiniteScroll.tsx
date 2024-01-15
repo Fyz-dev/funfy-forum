@@ -23,7 +23,7 @@ const InfiniteScroll = <T,>(props: InfiniteScrollProps<T>) => {
       {items && children(items)}
 
       {(isLoading || hasNextPage) && (
-        <div className="self-center" ref={sentryRef}>
+        <div className="flex w-full justify-center self-center" ref={sentryRef}>
           <Spinner color="primary" />
         </div>
       )}
