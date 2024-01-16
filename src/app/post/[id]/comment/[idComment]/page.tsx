@@ -7,6 +7,7 @@ import { InfiniteCommentTree } from 'src/components/InfiniteScroll';
 import DropDownSort, {
   CommentsSortConfig,
 } from 'src/components/ui/DropDownSort';
+import { CommentsTreeContextProvider } from 'src/context/CommentsTreeContext';
 import { withTieToTop } from 'src/hoc';
 import { TSearchParams, TSortComments } from 'src/types';
 import { createTreeComment, getSortCommentsParam } from 'src/utils';
@@ -30,7 +31,15 @@ const PostPageComment: FC<{
   );
 
   return (
-    <>
+    <CommentsTreeContextProvider
+      startPage={1}
+      sizePage={5}
+      sort={getSortCommentsParam(searchParams)}
+      fc={async (sort, page, sizePage) => {
+        'use server';
+        return getChildComments(Number(idComment), sort, page, sizePage);
+      }}
+    >
       {comments.length !== 0 && (
         <>
           <div className="mr-auto flex items-center gap-1">
@@ -52,18 +61,9 @@ const PostPageComment: FC<{
         <Divider />
       </div>
       <div className="h-full w-full">
-        <InfiniteCommentTree
-          startPage={1}
-          sizePage={5}
-          countParents={comments[0].path.length}
-          sort={getSortCommentsParam(searchParams)}
-          fc={async (sort, page, sizePage) => {
-            'use server';
-            return getChildComments(Number(idComment), sort, page, sizePage);
-          }}
-        />
+        <InfiniteCommentTree countParents={comments[0].path.length} />
       </div>
-    </>
+    </CommentsTreeContextProvider>
   );
 };
 

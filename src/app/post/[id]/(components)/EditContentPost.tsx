@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
+import { useRouter } from 'next/navigation';
 import { FC, ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { updatePost } from 'src/api/supabase';
@@ -18,6 +19,7 @@ const EditContentPost: FC<{
 }> = ({ children, post, defaultValues }) => {
   const { setIsEdit } = useEditContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <EditContent<PostSchemaType>
@@ -34,6 +36,7 @@ const EditContentPost: FC<{
             error: 'Post not updated.',
           },
         );
+        router.refresh();
       }}
       schemaValidate={PostSchema}
       setIsLoading={setIsLoading}
