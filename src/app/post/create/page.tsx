@@ -81,7 +81,7 @@ const CreatePage: FC = () => {
             <Card className="min-h-[56px] w-full rounded-none shadow-none max-sm:bg-transparent sm:rounded-medium lg:shadow-medium">
               <CardHeader>
                 <h1 className="mr-auto">Create a post</h1>
-                <Tooltip content="Mark as Not Safe For Work">
+                <Tooltip className="hidden" content="Mark as Not Safe For Work">
                   <TagSwitch name="isNSFW" text="NSFW" />
                 </Tooltip>
               </CardHeader>
@@ -96,6 +96,8 @@ const CreatePage: FC = () => {
                       name="title"
                       variant="bordered"
                       placeholder="Add a title..."
+                      size="lg"
+                      classNames={{ input: 'text-xl' }}
                     />
                     <MDXEditor
                       name="content"

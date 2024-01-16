@@ -4,9 +4,8 @@ import DropDownSort, {
   CommentsSortConfig,
 } from 'src/components/ui/DropDownSort';
 import { notFound } from 'next/navigation';
-import Comments from 'src/components/Comments/Comments';
 import { Divider } from '@nextui-org/divider';
-import { TSearchParams, TSortComments } from 'src/types';
+import { TSearchParams } from 'src/types';
 import { getSortCommentsParam } from 'src/utils';
 import { withTieToTop } from 'src/hoc';
 import CommentSection from './(components)/CommentSection';

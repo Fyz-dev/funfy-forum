@@ -138,7 +138,7 @@ const NavbarContentMenu: FC<{
           </ItemMenu>
           <ItemMenu
             onClick={handleClick}
-            href={toUser(user.uid)}
+            href={toProfileSetting()}
             startContent={<Settings />}
             className={cn(path === toProfileSetting() && 'text-primary')}
           >
