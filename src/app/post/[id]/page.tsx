@@ -82,3 +82,5 @@ const PostPage: FC<{
 };
 
 export default withTieToTop(PostPage);
+
+export const dynamic = 'force-dynamic';

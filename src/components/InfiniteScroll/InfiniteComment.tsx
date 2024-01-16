@@ -3,11 +3,11 @@
 import { FC, ReactNode, useEffect } from 'react';
 import { TSortComments, TSortCommentsUser } from 'src/types';
 import { ICommentWithPost, ICommentData } from 'src/interface';
-import { useLoadItems } from 'src/hooks';
-import InfiniteScroll from './components/InfiniteScroll';
 import CommentCard from 'src/components/Comment/CommentCard';
 import { Comments } from 'src/components/Comments';
 import { createTreeComment } from 'src/utils';
+import useSWRInfinite from 'swr/infinite';
+import InfiniteScroll from './components/InfiniteScroll';
 
 interface Props<T> {
   sort: TSortComments;
@@ -18,21 +18,32 @@ interface Props<T> {
 }
 
 const InfiniteComment = <T,>(props: Props<T>) => {
-  const { fc, sort, sizePage, startPage, children } = props;
+  const { sort, sizePage, startPage, fc, children } = props;
 
-  const loadItems = useLoadItems<T>({
-    fc: (numberPage, sizePage) => fc(sort, numberPage, sizePage),
-    sizePage: sizePage,
-    defaultNumberPage: startPage,
-  });
+  const swr = useSWRInfinite(
+    (pageIndex, previousPageData) => {
+      if (previousPageData && !previousPageData.length) return null;
+      return ['comments', sort, pageIndex + startPage, fc];
+    },
+    async ([_, _sort, pageIndex, _fc]) => {
+      return fc(sort, pageIndex, sizePage);
+    },
+    {
+      revalidateOnFocus: false,
+    },
+  );
 
   useEffect(() => {
-    loadItems.reset();
+    swr.mutate();
 
     //eslint-disable-next-line
   }, [sort]);
 
-  return <InfiniteScroll<T> {...loadItems}>{children}</InfiniteScroll>;
+  return (
+    <InfiniteScroll swr={swr} sizePage={sizePage}>
+      {children}
+    </InfiniteScroll>
+  );
 };
 
 interface PropsInfiniteCommentLinier {
@@ -50,15 +61,9 @@ const InfiniteCommentLinier: FC<PropsInfiniteCommentLinier> = props => {
   return (
     <InfiniteComment {...props}>
       {items =>
-        items.map(comment => {
-          return (
-            <CommentCard
-              key={comment.id}
-              user={comment.user}
-              comment={comment}
-            />
-          );
-        })
+        items.map(comment => (
+          <CommentCard key={comment.id} user={comment.user} comment={comment} />
+        ))
       }
     </InfiniteComment>
   );
@@ -77,9 +82,9 @@ interface PropsInfiniteCommentTree {
 const InfiniteCommentTree: FC<PropsInfiniteCommentTree> = props => {
   return (
     <InfiniteComment {...props}>
-      {comments => <Comments comments={createTreeComment(comments)} />}
+      {items => <Comments comments={createTreeComment(items)} />}
     </InfiniteComment>
   );
 };
 
-export { InfiniteCommentLinier, InfiniteCommentTree };
+export { InfiniteCommentTree, InfiniteCommentLinier };

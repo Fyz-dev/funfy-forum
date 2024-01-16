@@ -3,9 +3,9 @@
 import { FC, useEffect } from 'react';
 import { TSortPost } from 'src/types';
 import { IPost } from 'src/interface';
-import { useLoadItems } from 'src/hooks';
 import Posts from '../Posts';
 import InfiniteScroll from './components/InfiniteScroll';
+import useSWRInfinite from 'swr/infinite';
 
 interface Props {
   sort: TSortPost;
@@ -15,22 +15,29 @@ interface Props {
 }
 
 const InfinitePosts: FC<Props> = props => {
-  const { fc, sort, sizePage, startPage } = props;
+  const { sort, sizePage, startPage, fc } = props;
 
-  const loadItems = useLoadItems<IPost>({
-    fc: (numberPage, sizePage) => fc(sort, numberPage, sizePage),
-    sizePage: sizePage,
-    defaultNumberPage: startPage,
-  });
+  const swr = useSWRInfinite(
+    (pageIndex, previousPageData) => {
+      if (previousPageData && !previousPageData.length) return null;
+      return ['posts', pageIndex + startPage];
+    },
+    async ([_, pageIndex]) => {
+      return fc(sort, pageIndex, sizePage);
+    },
+    {
+      revalidateOnFocus: false,
+    },
+  );
 
   useEffect(() => {
-    loadItems.reset();
+    swr.mutate();
 
     //eslint-disable-next-line
   }, [sort]);
 
   return (
-    <InfiniteScroll<IPost> {...loadItems}>
+    <InfiniteScroll<IPost> sizePage={sizePage} swr={swr}>
       {items => <Posts posts={items} />}
     </InfiniteScroll>
   );
