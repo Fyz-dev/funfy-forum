@@ -65,6 +65,7 @@ const CreatePage: FC = () => {
       .then(() => {
         setIsLoading(false);
         redirect.push('/');
+        redirect.refresh();
       });
   });
 
