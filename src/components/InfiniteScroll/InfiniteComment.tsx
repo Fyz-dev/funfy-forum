@@ -78,11 +78,19 @@ interface PropsInfiniteCommentTree {
     page: number,
     sizePage: number,
   ) => Promise<ICommentData[]>;
+  countParents?: number;
 }
 const InfiniteCommentTree: FC<PropsInfiniteCommentTree> = props => {
+  const { countParents, ...rest } = props;
+
   return (
-    <InfiniteComment {...props}>
-      {items => <Comments comments={createTreeComment(items)} />}
+    <InfiniteComment {...rest}>
+      {items => (
+        <Comments
+          countParents={countParents}
+          comments={createTreeComment(items)}
+        />
+      )}
     </InfiniteComment>
   );
 };
