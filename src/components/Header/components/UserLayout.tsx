@@ -29,12 +29,12 @@ const UserLayout: FC = () => {
         content: 'p-0 border-small border-divider bg-background',
       }}
     >
-      <DropdownTrigger className="max-sm:hidden">
-        <div className="flex">
+      <div className="flex">
+        <DropdownTrigger className="max-sm:hidden">
           <Button
             color="primary"
             variant="light"
-            className="max-w-[120px] items-center overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
+            className="relative max-w-[120px] items-center overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
           >
             <User
               name={user?.name}
@@ -50,8 +50,8 @@ const UserLayout: FC = () => {
               }}
             />
           </Button>
-        </div>
-      </DropdownTrigger>
+        </DropdownTrigger>
+      </div>
       <DropdownMenu
         aria-label="Drop down user"
         className="p-3"
