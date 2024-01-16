@@ -105,9 +105,11 @@ export default async function Layout({
                     isNSFW: post.isNSFW,
                   }}
                 >
-                  <div className="flex flex-col gap-2">
+                  <div className="flex w-full flex-col gap-2 overflow-hidden">
                     {/* <---- Title ----> */}
-                    <h1 className="self-start text-2xl">{post.title}</h1>
+                    <h1 className="self-start overflow-hidden break-all text-2xl">
+                      {post.title}
+                    </h1>
 
                     {/* <---- Main content post ----> */}
                     <div className="w-full min-w-full">
