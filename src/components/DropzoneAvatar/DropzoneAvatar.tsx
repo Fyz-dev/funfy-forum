@@ -42,7 +42,7 @@ const DropzoneAvatar: FC<DropzoneProps> = ({
       accept: {
         'image/*': [],
       },
-      maxSize: 200000,
+      maxSize: 1000000,
       onDrop: acceptedFiles => {
         const file = acceptedFiles[0];
 
