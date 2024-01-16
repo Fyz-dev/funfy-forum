@@ -82,7 +82,7 @@ const CreatePage: FC = () => {
               <CardHeader>
                 <h1 className="mr-auto">Create a post</h1>
                 <Tooltip className="hidden" content="Mark as Not Safe For Work">
-                  <TagSwitch name="isNSFW" text="NSFW" />
+                  <TagSwitch className="hidden" name="isNSFW" text="NSFW" />
                 </Tooltip>
               </CardHeader>
             </Card>
