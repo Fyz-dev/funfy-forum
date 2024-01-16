@@ -30,25 +30,27 @@ const UserLayout: FC = () => {
       }}
     >
       <DropdownTrigger className="max-sm:hidden">
-        <Button
-          color="primary"
-          variant="light"
-          className="items-center overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
-        >
-          <User
-            name={user?.name}
-            avatarProps={{
-              src: user?.photoURL ?? '',
-              size: 'sm',
-              className: 'min-w-[2rem]',
-            }}
-            className="justify-start overflow-hidden"
-            classNames={{
-              name: 'truncate w-full',
-              wrapper: 'overflow-hidden max-sm:hidden w-full',
-            }}
-          />
-        </Button>
+        <div className="flex">
+          <Button
+            color="primary"
+            variant="light"
+            className="max-w-[120px] items-center overflow-hidden truncate px-[0.15rem] text-foreground max-sm:px-0 sm:flex"
+          >
+            <User
+              name={user?.name}
+              avatarProps={{
+                src: user?.photoURL ?? '',
+                size: 'sm',
+                className: 'min-w-[2rem]',
+              }}
+              className="justify-start overflow-hidden"
+              classNames={{
+                name: 'truncate w-full',
+                wrapper: 'overflow-hidden max-sm:hidden w-full',
+              }}
+            />
+          </Button>
+        </div>
       </DropdownTrigger>
       <DropdownMenu
         aria-label="Drop down user"
