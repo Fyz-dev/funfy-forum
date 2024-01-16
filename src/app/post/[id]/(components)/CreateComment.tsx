@@ -61,7 +61,7 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
         setIsLoading(false);
         setRerendMDX(true);
 
-        if (!comments) router.refresh();
+        if (comments?.flat().length === 0) router.refresh();
         mutate();
       });
   });
