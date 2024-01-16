@@ -94,7 +94,8 @@ export const getChildComments = async (
 
   if (error) console.log(error);
 
-  if (data && data.length !== 0) data[0].parent_comment_id = null;
+  if (data && data.length !== 0 && data[0].id === idComment)
+    data[0].parent_comment_id = null;
 
   return data ? data.map(comment => toComment(comment as TableComment)) : [];
 };

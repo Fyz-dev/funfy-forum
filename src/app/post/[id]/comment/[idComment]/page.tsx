@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
 import { getChildComments } from 'src/api/supabase';
-import { Comments } from 'src/components/Comments';
 import { InfiniteCommentTree } from 'src/components/InfiniteScroll';
 import DropDownSort, {
   CommentsSortConfig,
@@ -56,7 +55,7 @@ const PostPageComment: FC<{
         <InfiniteCommentTree
           startPage={1}
           sizePage={5}
-          countParents={comments[0].path.length - 1}
+          countParents={comments[0].path.length}
           sort={getSortCommentsParam(searchParams)}
           fc={async (sort, page, sizePage) => {
             'use server';

@@ -28,6 +28,7 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
 
   const handleSubmit = methods.handleSubmit(data => {
     if (!user) return;
+    if (!comment.id) return;
     setIsLoading(true);
 
     toast

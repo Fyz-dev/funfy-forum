@@ -32,15 +32,16 @@ const Comments: FC<{ comments: IComment[]; countParents?: number }> = ({
 
   const getComments = (comments: IComment[], moreButtonParent: ReactNode) => {
     let moreButton: ReactNode = moreButtonParent;
-
-    return comments.map(comment =>
-      comment.path.length - countParents <= maxlength() ? (
-        <Comment key={comment.id} comment={comment}>
-          {getComments(comment.childComment ?? [], moreButton)}
-        </Comment>
-      ) : (
+    return comments.map(comment => {
+      return (
         <Fragment key={comment.id}>
-          {!moreButton &&
+          {comment.path.length - countParents <= maxlength() ? (
+            <Comment comment={comment}>
+              {getComments(comment.childComment ?? [], moreButton)}
+            </Comment>
+          ) : (
+            !moreButton &&
+            comment.parentId &&
             (moreButton = (
               <Button
                 as={Link}
@@ -53,10 +54,11 @@ const Comments: FC<{ comments: IComment[]; countParents?: number }> = ({
               >
                 More...
               </Button>
-            ))}
+            ))
+          )}
         </Fragment>
-      ),
-    );
+      );
+    });
   };
 
   return getComments(comments, null);
