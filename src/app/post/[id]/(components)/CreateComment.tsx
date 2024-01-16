@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -25,8 +26,10 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
   const { user } = useAuth();
   const { onOpen } = useModalAuthContext();
   const {
-    swr: { mutate },
+    swr: { mutate, data: comments },
   } = useCommentsTreeContext();
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rerendMDX, setRerendMDX] = useState<boolean>(false);
 
@@ -57,6 +60,8 @@ const CreateComment: FC<{ post: IPost }> = ({ post }) => {
       .then(() => {
         setIsLoading(false);
         setRerendMDX(true);
+
+        if (!comments) router.refresh();
         mutate();
       });
   });

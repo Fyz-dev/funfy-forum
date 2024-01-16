@@ -7,7 +7,7 @@ import CreateComment from './CreateComment';
 import { useAuth } from 'src/context/Auth';
 import { IPost } from 'src/interface';
 
-const CommentSection: FC<{ post: IPost }> = ({ post }) => {
+const CommentCreateForm: FC<{ post: IPost }> = ({ post }) => {
   const { user } = useAuth();
 
   return (
@@ -23,12 +23,10 @@ const CommentSection: FC<{ post: IPost }> = ({ post }) => {
           <CreateComment post={post} />
         </>
       ) : (
-        <>
-          <CreateComment post={post} />
-        </>
+        <CreateComment post={post} />
       )}
     </div>
   );
 };
 
-export default CommentSection;
+export default CommentCreateForm;

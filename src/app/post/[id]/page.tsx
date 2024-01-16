@@ -1,17 +1,17 @@
 import { FC } from 'react';
-import { Comments as CommentsIcon } from 'src/assets/icons';
-import DropDownSort, {
-  CommentsSortConfig,
-} from 'src/components/ui/DropDownSort';
 import { notFound } from 'next/navigation';
-import { Divider } from '@nextui-org/divider';
 import { TSearchParams } from 'src/types';
 import { getSortCommentsParam } from 'src/utils';
 import { withTieToTop } from 'src/hoc';
-import CommentSection from './(components)/CommentSection';
 import { getCommentsByPost, getPostById } from 'src/api/supabase';
-import { InfiniteCommentTree } from 'src/components/InfiniteScroll';
 import { CommentsTreeContextProvider } from 'src/context/CommentsTreeContext';
+import DropDownSort, {
+  CommentsSortConfig,
+} from 'src/components/ui/DropDownSort';
+import { Divider } from '@nextui-org/react';
+import { InfiniteCommentTree } from 'src/components/InfiniteScroll';
+import { Comments } from 'src/assets/icons';
+import CommentCreateForm from './(components)/CommentCreateForm';
 
 const getPost = async (id: string) => {
   try {
@@ -43,7 +43,7 @@ const PostPage: FC<{
         return getCommentsByPost(post.id, sort, page, sizePage);
       }}
     >
-      <CommentSection post={post} />
+      <CommentCreateForm post={post} />
       {comments.length !== 0 && (
         <>
           <div className="mr-auto flex items-center gap-1">
@@ -59,6 +59,7 @@ const PostPage: FC<{
           <Divider />
         </>
       )}
+
       {/* Comments */}
       <div className="h-full w-full">
         {comments.length !== 0 ? (
@@ -67,7 +68,7 @@ const PostPage: FC<{
           </>
         ) : (
           <div className="m-10 flex h-full flex-col items-center justify-center gap-3 text-default-500">
-            <CommentsIcon className="h-16 w-16" />
+            <Comments className="h-16 w-16" />
             <div className="flex flex-col items-center gap-1">
               <span className="text-medium">Nothing Here</span>
               <span className="text-center text-medium">

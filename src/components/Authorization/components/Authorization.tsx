@@ -91,6 +91,7 @@ const Authorization: FC<AuthProps> = ({
     }
 
     setMode(AuthMode.LOGIN);
+    location.reload();
   };
 
   const handlerUserWithEmail = methods.handleSubmit(async data => {
