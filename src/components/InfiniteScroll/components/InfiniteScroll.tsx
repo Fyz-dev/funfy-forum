@@ -2,27 +2,38 @@
 
 import { ReactNode } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
-import { useLoadItems } from 'src/hooks';
 import { Spinner } from '@nextui-org/spinner';
+import { SWRInfiniteResponse } from 'swr/infinite';
 
-type InfiniteScrollProps<T> = ReturnType<typeof useLoadItems<T>> & {
+type InfiniteScrollProps<T> = {
+  swr: SWRInfiniteResponse<T[]>;
   children: (items: T[]) => ReactNode;
+  sizePage: number;
 };
 
 const InfiniteScroll = <T,>(props: InfiniteScrollProps<T>) => {
-  const { isLoading, items, hasNextPage, children, onLoadMore } = props;
+  const {
+    swr: { data, size, setSize, isLoading, isValidating },
+    children,
+    sizePage,
+  } = props;
+
+  const flattenData = data ? data.flat() : [];
+  const shouldShowSpinner =
+    isValidating || (data ? data[data.length - 1]?.length === sizePage : false);
 
   const [sentryRef] = useInfiniteScroll({
-    loading: isLoading,
-    hasNextPage,
-    onLoadMore,
+    loading: isValidating,
+    hasNextPage:
+      flattenData.length !== 0 &&
+      (data ? data[data.length - 1]?.length === sizePage : false),
+    onLoadMore: () => setSize(size + 1),
   });
 
   return (
     <>
-      {items && children(items)}
-
-      {(isLoading || hasNextPage) && (
+      {data && children(data.flat())}
+      {shouldShowSpinner && (
         <div className="flex w-full justify-center self-center" ref={sentryRef}>
           <Spinner color="primary" />
         </div>

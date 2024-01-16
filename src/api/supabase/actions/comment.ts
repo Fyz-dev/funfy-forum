@@ -6,10 +6,9 @@ import {
   TableCommentWithPost,
   TableCommentWithPostWithoutNull,
 } from '../convertor/types';
-import { IComment, ICommentData, ICommentWithPost } from 'src/interface';
+import { ICommentData, ICommentWithPost } from 'src/interface';
 import { TSortComments } from 'src/types';
 import { toComment, toCommentWithPost } from '../convertor';
-import { arrayToTree } from 'performant-array-to-tree';
 import { AddVoteDTO, UpdateCommentDTO } from 'src/api/dto';
 import { CreateCommentDTO } from 'src/api/dto/CreateCommentDTO';
 
@@ -35,6 +34,9 @@ export const getCommentsByUser = async (
     .select(`*`)
     .eq('user_id', id)
     .order(sortBy, {
+      ascending: ascending,
+    })
+    .order('id', {
       ascending: ascending,
     })
     .range(count - sizePage, count - 1)
