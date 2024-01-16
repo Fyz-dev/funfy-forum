@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import {
   DefaultValues,
@@ -32,12 +31,10 @@ const EditContent = <T extends FieldValues>({
     resolver: zodResolver(schemaValidate),
     defaultValues: defaultValues,
   });
-  const router = useRouter();
 
   const handleSubmit = methods.handleSubmit(async data => {
     setIsLoading(true);
     onSubmit(data).then(() => {
-      router.refresh();
       setIsEdit(false);
       setIsLoading(false);
     });

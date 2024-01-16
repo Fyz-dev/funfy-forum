@@ -80,22 +80,24 @@ export const getCommentsByPost = async (
 
 export const getChildComments = async (
   idComment: number,
+  sort: TSortComments,
+  numberPage: number = 1,
+  sizePage: number = 5,
 ): Promise<ICommentData[]> => {
-  try {
-    const { data, error } = await createServerClient()
-      .from('comment_tree')
-      .select(`*`)
-      .contains('path', [idComment])
-      .order('pathSortNew');
+  const count = numberPage * sizePage;
+  const { data, error } = await createServerClient()
+    .from('comment_tree')
+    .select(`*`)
+    .contains('path', [idComment])
+    .order(sortMap[sort])
+    .range(count - sizePage, count - 1);
 
-    if (error) console.log(error);
+  if (error) console.log(error);
 
-    if (data) data[0].parent_comment_id = null;
+  if (data && data.length !== 0 && data[0].id === idComment)
+    data[0].parent_comment_id = null;
 
-    return data ? data.map(comment => toComment(comment as TableComment)) : [];
-  } catch {
-    throw new Error('Not find comment.');
-  }
+  return data ? data.map(comment => toComment(comment as TableComment)) : [];
 };
 
 export const addVoteToComment = async (data: AddVoteDTO): Promise<void> => {

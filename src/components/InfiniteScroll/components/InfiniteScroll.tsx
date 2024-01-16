@@ -13,7 +13,7 @@ type InfiniteScrollProps<T> = {
 
 const InfiniteScroll = <T,>(props: InfiniteScrollProps<T>) => {
   const {
-    swr: { data, size, setSize, isLoading, isValidating },
+    swr: { data, size, setSize, isValidating },
     children,
     sizePage,
   } = props;

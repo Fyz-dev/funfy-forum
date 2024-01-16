@@ -4,14 +4,14 @@ import DropDownSort, {
   CommentsSortConfig,
 } from 'src/components/ui/DropDownSort';
 import { notFound } from 'next/navigation';
-import Comments from 'src/components/Comments/Comments';
 import { Divider } from '@nextui-org/divider';
-import { TSearchParams, TSortComments } from 'src/types';
+import { TSearchParams } from 'src/types';
 import { getSortCommentsParam } from 'src/utils';
 import { withTieToTop } from 'src/hoc';
 import CommentSection from './(components)/CommentSection';
 import { getCommentsByPost, getPostById } from 'src/api/supabase';
 import { InfiniteCommentTree } from 'src/components/InfiniteScroll';
+import { CommentsTreeContextProvider } from 'src/context/CommentsTreeContext';
 
 const getPost = async (id: string) => {
   try {
@@ -34,7 +34,15 @@ const PostPage: FC<{
   );
 
   return (
-    <>
+    <CommentsTreeContextProvider
+      sort={getSortCommentsParam(searchParams)}
+      startPage={1}
+      sizePage={5}
+      fc={async (sort, page, sizePage) => {
+        'use server';
+        return getCommentsByPost(post.id, sort, page, sizePage);
+      }}
+    >
       <CommentSection post={post} />
       {comments.length !== 0 && (
         <>
@@ -55,15 +63,7 @@ const PostPage: FC<{
       <div className="h-full w-full">
         {comments.length !== 0 ? (
           <>
-            <InfiniteCommentTree
-              sort={getSortCommentsParam(searchParams)}
-              startPage={1}
-              sizePage={5}
-              fc={async (sort, page, sizePage) => {
-                'use server';
-                return getCommentsByPost(post.id, sort, page, sizePage);
-              }}
-            />
+            <InfiniteCommentTree />
           </>
         ) : (
           <div className="m-10 flex h-full flex-col items-center justify-center gap-3 text-default-500">
@@ -77,7 +77,7 @@ const PostPage: FC<{
           </div>
         )}
       </div>
-    </>
+    </CommentsTreeContextProvider>
   );
 };
 

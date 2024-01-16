@@ -63,7 +63,9 @@ const Post: FC<{
               />
             </div>
           </div>
-          <h1 className="mr-auto text-left">{post.title}</h1>
+          <h1 className="mr-auto line-clamp-2 overflow-hidden break-all text-left">
+            {post.title}
+          </h1>
         </CardHeader>
         {!hideDescription && (
           <CardBody

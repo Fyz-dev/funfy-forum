@@ -8,11 +8,11 @@ import { MDXEditor } from 'src/components/MDXEditor';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from 'src/context/Auth';
 import { IComment } from 'src/interface';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createComment } from 'src/api/supabase';
 import toast from 'react-hot-toast';
 import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
+import { useCommentsTreeContext } from 'src/context/CommentsTreeContext';
 
 const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
   comment,
@@ -22,12 +22,15 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
     resolver: zodResolver(CommentSchema),
   });
   const { user } = useAuth();
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {
+    swr: { mutate },
+  } = useCommentsTreeContext();
 
   const handleSubmit = methods.handleSubmit(data => {
     if (!user) return;
+    if (!comment.id) return;
     setIsLoading(true);
 
     toast
@@ -47,7 +50,7 @@ const ReplySection: FC<{ comment: IComment; toolsButton?: ReactNode }> = ({
       .then(() => {
         setIsLoading(false);
         setIsOpen(false);
-        router.refresh();
+        mutate();
       });
   });
 

@@ -8,6 +8,7 @@ import { useEditContext } from 'src/context/Edit';
 import { updateComment } from 'src/api/supabase';
 import toast from 'react-hot-toast';
 import { CommentSchema, CommentSchemaType } from 'src/validations/schemas';
+import { useCommentsTreeContext } from 'src/context/CommentsTreeContext';
 
 const EditContentComment: FC<{ children: ReactNode; comment: IComment }> = ({
   children,
@@ -15,6 +16,9 @@ const EditContentComment: FC<{ children: ReactNode; comment: IComment }> = ({
 }) => {
   const { setIsEdit } = useEditContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {
+    swr: { mutate },
+  } = useCommentsTreeContext();
 
   return (
     <EditContent<CommentSchemaType>
@@ -29,6 +33,7 @@ const EditContentComment: FC<{ children: ReactNode; comment: IComment }> = ({
             error: 'Changes not saved.',
           },
         );
+        mutate();
       }}
       forEdit={
         <MDXEditor
