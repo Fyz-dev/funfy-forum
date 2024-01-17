@@ -17,5 +17,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/post/create', '/create/topic', '/settings/profile'],
+  matcher: [
+    '/post/create',
+    '/create/topic',
+    '/settings/profile',
+    '/topic/:id/edit',
+  ],
 };
