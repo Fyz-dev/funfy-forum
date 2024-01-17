@@ -75,7 +75,7 @@ const Post: FC<{
           >
             <Link href={toPost(post.id)} className="absolute inset-0" />
             <MDXRender className="text-default-500">{post.content}</MDXRender>
-            <div className="absolute inset-x-0 top-0 mt-[15.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90%" />
+            <Link href={toPost(post.id)} className="absolute inset-x-0 top-0 mt-[15.5rem] h-10 min-h-[2.5rem] bg-gradient-to-b from-transparent to-content1 to-90%" />
           </CardBody>
         )}
 
