@@ -12,7 +12,7 @@ const NavbarContentBrand: FC = () => {
       >
         <Avatar
           size="md"
-          src="/funfy256.png"
+          src="/icon.svg"
           className="rounded-none bg-transparent"
         />
         <span>Funfy</span>
