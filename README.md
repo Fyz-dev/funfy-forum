@@ -35,8 +35,6 @@ git clone https://github.com/Fyz-dev/funfy-forum.git
 
 2. Install dependencies
 
-You need to create an env file and define the following variables
-
 ```bash
 yarn install
 ```
