@@ -19,6 +19,8 @@ export const timePassed = (date: Date): string => {
     return `${days} day ago`;
   } else if (days < 29) {
     return `${days} days ago`;
+  } else if (months === 0) {
+    return '1 mo. ago';
   } else if (months < 12) {
     return `${months} mo. ago`;
   } else if (years === 1) {
