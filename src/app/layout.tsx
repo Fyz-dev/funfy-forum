@@ -11,7 +11,7 @@ import { ModalAuthContextProvider } from 'src/context/ModalAuth';
 // const font = Inter({ subsets: ['latin'] });
 
 const font = Roboto_Flex({
-  weight: '500',
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
 });
 
